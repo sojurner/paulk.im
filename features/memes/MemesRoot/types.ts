@@ -1,5 +1,5 @@
-import { FlexProps } from "@chakra-ui/layout";
+import { FlexProps } from '@chakra-ui/layout';
 
-export namespace µMemesRoot {
-  export interface Props extends FlexProps {}
+export interface Props extends FlexProps {
+  memes: Models.Meme[];
 }

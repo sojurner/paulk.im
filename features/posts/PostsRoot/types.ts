@@ -1,5 +1,4 @@
 import { FlexProps } from '@chakra-ui/layout';
-
-export namespace µPostsRoot {
-  export interface Props extends FlexProps {}
+export interface Props extends FlexProps {
+  posts: Models.Post[];
 }

@@ -3,8 +3,8 @@ import { Flex, HStack } from '@chakra-ui/react';
 import { RegularText } from '../Typography';
 import { µDirectory } from './types';
 
-import CaretDown from '@/assets/images/CaretDown.svg';
-import CaretRight from '@/assets/images/CaretRight.svg';
+import CaretDown from '@/assets/icons/CaretDown.svg';
+import CaretRight from '@/assets/icons/CaretRight.svg';
 
 export const Directory: React.FC<µDirectory.Props> = ({
   children,

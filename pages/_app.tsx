@@ -2,19 +2,25 @@ import '@fontsource/karla';
 import '@fontsource/noto-serif-display';
 import '@/styles/globals.scss';
 import { useRouter } from 'next/router';
-import { theme } from '@/config/chakra/theme';
+import { theme, Fonts } from '@/config/chakra';
 import type { AppProps } from 'next/app';
 import { ChakraProvider } from '@chakra-ui/react';
+
 import { DesktopLayout } from '@/components/Layout';
+import { SettingsProvider } from '@/features/settings';
+import { FavoritesProvider } from '@/features/favorites';
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const router =  useRouter()
-
   return (
     <ChakraProvider theme={theme}>
-      <DesktopLayout showBg={router.route.split('/')[1] === 'posts'}>
-        <Component {...pageProps} />
-      </DesktopLayout>
+      <Fonts />
+      <SettingsProvider>
+        <FavoritesProvider>
+          <DesktopLayout>
+            <Component {...pageProps} />
+          </DesktopLayout>
+        </FavoritesProvider>
+      </SettingsProvider>
     </ChakraProvider>
   );
 }

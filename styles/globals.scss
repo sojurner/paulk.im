@@ -17,6 +17,9 @@ a {
 
 $color-list: (#4f9cfd, #a54afd, #fc4d91, #4de2ae, #ffbf55);
 
+$fill-colors: #a54afd, #4f9cfd, #ffbf55, #fc4d91, #4de2ae, rgb(113, 222, 241),
+  rgb(140, 148, 255), rgb(172, 88, 172), rgb(243, 150, 150);
+
 @mixin pulse($i) {
   @keyframes x {
     0% {

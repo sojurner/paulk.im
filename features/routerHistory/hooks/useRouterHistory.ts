@@ -9,6 +9,12 @@ export const useRouterHistory = (
 ): µUseRouterHistory.Return => {
   const router = useRouter();
 
+  const [_, rootPath, slug_query] = router.asPath.split('/');
+  let slug = '';
+  if (slug_query) slug = slug_query?.split('?')[0];
+
+  const currentPath = `/${rootPath}${slug ? `/${slug}` : ''}`;
+
   const [routeHistory, setRouteHistory] = useState<
     ƒRouteSessionHistory.Models.RouteHistory[]
   >([]);
@@ -28,14 +34,15 @@ export const useRouterHistory = (
   };
 
   useEffect(() => {
-    const [_, rootPath, slug] = router.asPath.split('/');
-
     const addResult = ƒRouteSessionHistory.Utils.addRoute(
       ƒRouteSessionHistory.Enums.RouteHistoryCategory.POSTS,
-      { path: router.asPath, name: slug || `${rootPath}.pk` }
+      {
+        path: `/${rootPath}${slug ? `/${slug}` : ''}`,
+        name: slug || `${rootPath}.pk`,
+      }
     );
     setRouteHistory(addResult);
-  }, [router.asPath]);
+  }, [rootPath, slug]);
 
   useEffect(() => {
     setRouteHistory(
@@ -48,7 +55,7 @@ export const useRouterHistory = (
   return {
     state: {
       routeHistory,
-      currentPath: router.asPath,
+      currentPath,
     },
     methods: { onRemoveRoute },
   };

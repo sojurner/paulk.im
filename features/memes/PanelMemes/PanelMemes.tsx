@@ -5,7 +5,7 @@ import { Flex, Grid, GridItem } from '@chakra-ui/react';
 
 import { µPanelMemes } from './types';
 import { usePanelMemes } from '@/features/memes/hooks';
-import { Panel } from '@/components/Panel/Panel';
+import { Panel } from '@/components/Panel';
 import { RegularText } from '@/components/Typography';
 import { useRouter } from 'next/router';
 
@@ -18,11 +18,11 @@ export const PanelMemes: React.FC<µPanelMemes.Props> = ({ memes }) => {
       <Flex flexDir="column">
         {memes.map(MEME => {
           return (
-            <NextLink href={`/memes/${MEME.id}`} key={MEME.id}>
+            <NextLink href={`/memes/${MEME.slug}`} key={MEME.slug}>
               <Grid
                 p="4"
                 cursor="pointer"
-                onClick={() => panelMemes.methods.setActiveMeme(MEME.id)}
+                onClick={() => panelMemes.methods.setActiveMeme(MEME.slug)}
                 gridTemplateAreas={`
                   "img title"
                   "img date"
@@ -30,12 +30,19 @@ export const PanelMemes: React.FC<µPanelMemes.Props> = ({ memes }) => {
                 gridTemplateColumns={'70px 1fr'}
                 gridTemplateRows={'30px 30px'}
                 bg={
-                  panelMemes.state.activeMeme === MEME.id
+                  panelMemes.state.activeMeme === MEME.slug
                     ? 'gray.200'
                     : 'initial'
                 }
               >
-                <GridItem gridArea="img">
+                <GridItem
+                  gridArea="img"
+                  filter={
+                    panelMemes.state.activeMeme === MEME.slug
+                      ? 'initial'
+                      : 'grayscale(1) blur(1px)'
+                  }
+                >
                   <NextImage
                     src={MEME.image.url}
                     alt="yo"

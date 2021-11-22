@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { Box, Flex, Grid, GridItem } from '@chakra-ui/react';
-import { useRouter } from 'next/router';
+import { Box, Grid, GridItem } from '@chakra-ui/react';
 import { Sidebar } from '../Sidebar';
 import { Footerbar } from '../Footerbar';
 
@@ -12,12 +11,12 @@ export const DesktopLayout: React.FC = props => {
       minW="100vw"
       flexDir="row"
       position="relative"
-      backgroundColor="whitesmoke"
+      backgroundColor="whiteAlpha.100"
       gridTemplateAreas={`
         "sidebar content content"
         "footer footer footer"
       `}
-      gridTemplateColumns={'80px auto auto'}
+      gridTemplateColumns={'60px auto auto'}
       gridTemplateRows={'auto 30px'}
     >
       <GridItem gridArea="sidebar">
@@ -30,22 +29,13 @@ export const DesktopLayout: React.FC = props => {
             "panel appbar appbar"
             "panel body body"
           `}
-          gridTemplateColumns="320px auto auto"
+          gridTemplateColumns={'320px auto auto'}
           gridTemplateRows="35px calc(100vh - 65px)"
         >
           {props.children}
         </Grid>
       </GridItem>
-      {/* <Box width="100vw" position="fixed" left="0" bottom="0">
-        <iframe
-          id={'sc-iframe'}
-          width="100%"
-          height="100px"
-          scrolling="no"
-          frameBorder="no"
-          src={`https://w.soundcloud.com/player?url=https://soundcloud.com/paul-kim-590010884/sets/orchestra&sharing=false&buying=false&share=false&show_user=false&auto_play=true&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&show_artwork=false`}
-        ></iframe>
-      </Box> */}
+
       <GridItem gridArea="footer">
         <Footerbar />
       </GridItem>

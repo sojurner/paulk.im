@@ -2,17 +2,30 @@ import Head from 'next/head';
 import Image from 'next/image';
 import styles from '../styles/Home.module.css';
 
-import { request } from '@/lib/graphcms';
-import { Flex } from '@chakra-ui/layout';
-import { PanelContent } from '@/components/PanelContent/PanelContent';
+import { request, articles_query, memes_query } from '@/lib/graphcms';
 
-const Home = ({ data }) => {
+import { Appbar } from '@/components/Appbar';
+import { HomeRoot, PanelHome } from '@/features/home';
+
+const HomePage = ({ memes, posts }) => {
   return (
-    <div className={styles.container}>
-      {/* <PanelContent /> */}
-      <Flex></Flex>
-    </div>
+    <>
+      <PanelHome gridArea="panel" />
+      <Appbar gridArea="appbar" />
+      <HomeRoot gridArea="body" />
+    </>
   );
 };
 
-export default Home;
+export async function getStaticProps() {
+  const { articles, memes } = await request({
+    query: `{
+      ${articles_query}
+      ${memes_query}
+    }`,
+  });
+
+  return { props: { posts: articles, memes } };
+}
+
+export default HomePage;

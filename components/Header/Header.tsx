@@ -1,14 +1,55 @@
 import React from 'react';
 
 import NextLink from 'next/link';
-import { Box, Flex, Link, HStack } from '@chakra-ui/react';
-import Logo from '@/assets/images/Logo.svg';
-import BrushStroke from '@/assets/images/BrushStroke.svg';
+import { Box, Flex, Link, HStack, CSSObject } from '@chakra-ui/react';
+import Logo from '@/assets/icons/Logo.svg';
+import BrushStroke from '@/assets/icons/BrushStroke.svg';
 
-import { çHeader } from './constants';
-import { µHeader } from './types';
+export interface Props {}
 
-export const Header: React.FC<µHeader.Props> = ({ activeLink }) => {
+export class Styles {
+  static _linkHover: CSSObject = {
+    textShadow:
+      '0 0 15px #fff, 0 0 15px #fff, 0 0 25px #fff, 0 0 25px #fff, 0 0 25px #fff, 0 0 25px #fff, 0 0 25px #fff',
+    a: {
+      textDecoration: 'none',
+    },
+  };
+}
+
+export class Constants {
+  static LINKS_LEFT = [
+    {
+      key: '/posts',
+      path: '/posts',
+      label: 'Blog',
+      color: 'teal.500',
+    },
+    {
+      key: '/memes',
+      path: '/memes',
+      label: 'Memes',
+      color: 'blue.500',
+    },
+  ];
+
+  static LINKS_RIGHT = [
+    {
+      key: '/search',
+      path: '/search',
+      label: 'Search',
+      color: 'purple.500',
+    },
+    {
+      key: '/settings',
+      path: '/settings',
+      label: 'Settings',
+      color: 'pink.500',
+    },
+  ];
+}
+
+export const Header: React.FC<Props> = () => {
   return (
     <HStack
       position="relative"
@@ -27,14 +68,13 @@ export const Header: React.FC<µHeader.Props> = ({ activeLink }) => {
       >
         <BrushStroke />
       </Box>
-      {çHeader.headerLinksLeft.map(LINK => {
+      {Constants.LINKS_LEFT.map(LINK => {
         return (
           <Box
             minWidth="70px"
             zIndex="1"
             key={LINK.path}
-            sx={activeLink === LINK.key ? çHeader._linkHover : undefined}
-            _hover={çHeader._linkHover}
+            _hover={Styles._linkHover}
           >
             <NextLink href={LINK.path}>
               <Link
@@ -50,29 +90,24 @@ export const Header: React.FC<µHeader.Props> = ({ activeLink }) => {
           </Box>
         );
       })}
-      <Box zIndex="1">
-        <NextLink href="/">
-          <Flex
-            cursor="pointer"
-            filter="drop-shadow(0px 0px 5px var(--chakra-colors-white))"
-            zIndex="10"
-            justifyContent="center"
-            minWidth={['100px', '140px', '120px', '140px']}
-            fontSize={['3.5rem', '4rem']}
-          >
-            <Logo />
-          </Flex>
-        </NextLink>
-      </Box>
+      <Flex
+        cursor="pointer"
+        filter="drop-shadow(0px 0px 5px var(--chakra-colors-white))"
+        zIndex="10"
+        justifyContent="center"
+        minWidth={['100px', '140px', '120px', '140px']}
+        fontSize={['3.5rem', '4rem']}
+      >
+        <Logo />
+      </Flex>
 
-      {çHeader.headerLinksRight.map(LINK => {
+      {Constants.LINKS_RIGHT.map(LINK => {
         return (
           <Box
             minWidth="70px"
             zIndex="1"
             key={LINK.path}
-            sx={activeLink === LINK.key ? çHeader._linkHover : undefined}
-            _hover={çHeader._linkHover}
+            _hover={Styles._linkHover}
             fontSize={['1em', '1.2rem']}
           >
             <NextLink key={LINK.path} href={LINK.path}>

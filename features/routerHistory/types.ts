@@ -10,7 +10,7 @@ export namespace ƒRouteSessionHistory {
     public static getRouteHistory = (
       key: Enums.RouteHistoryCategory
     ): Models.RouteHistory[] => {
-      const routerHistory = sessionStorage.getItem(key);
+      const routerHistory = localStorage.getItem(key);
 
       if (!routerHistory) {
         Utils.initializeRouteHistory(key);
@@ -31,7 +31,7 @@ export namespace ƒRouteSessionHistory {
         routeHistory = [route, ...routeHistory];
       }
 
-      sessionStorage.setItem(key, JSON.stringify(routeHistory));
+      localStorage.setItem(key, JSON.stringify(routeHistory));
       return routeHistory;
     };
 
@@ -43,7 +43,7 @@ export namespace ƒRouteSessionHistory {
 
       const removeRouteHistory = routeHistory.filter(RH => RH.path !== path);
 
-      sessionStorage.setItem(key, JSON.stringify(removeRouteHistory));
+      localStorage.setItem(key, JSON.stringify(removeRouteHistory));
 
       return removeRouteHistory;
     };
@@ -51,7 +51,7 @@ export namespace ƒRouteSessionHistory {
     public static initializeRouteHistory = (
       key: Enums.RouteHistoryCategory
     ) => {
-      sessionStorage.setItem(key, JSON.stringify([]));
+      localStorage.setItem(key, JSON.stringify([]));
     };
   }
 

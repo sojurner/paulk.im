@@ -1,10 +1,9 @@
 import React from 'react';
-import NextLink from 'next/link';
-import { Box, Flex, List, ListItem } from '@chakra-ui/react';
+import { Box, Flex } from '@chakra-ui/react';
 
 import { µFile, µFileList } from './types';
 import { RegularText } from '../Typography';
-import { Logo } from '@/assets/images/Logo';
+import { LogoIcon } from '@/components/Icon';
 
 export const File: React.FC<µFile.Props> = ({
   content,
@@ -34,7 +33,7 @@ export const File: React.FC<µFile.Props> = ({
       {...props}
     >
       <Box zIndex="10" bg={isActive ? 'blue.50' : 'gray.100'}>
-        <Logo animate={isCurrent} />
+        <LogoIcon isActive={isActive || isCurrent} />
       </Box>
       <RegularText
         py="4px"

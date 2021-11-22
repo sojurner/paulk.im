@@ -1,39 +1,72 @@
 import React from 'react';
-import { Flex } from '@chakra-ui/layout';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
+import { Flex } from '@chakra-ui/layout';
 
-import { SidebarTab } from '../Tab';
+import { SidebarTab } from '@/components/Tab';
+import {
+  LogoIcon,
+  BlogIcon,
+  MemeIcon,
+  SettingsIcon,
+  SearchIcon,
+} from '@/components/Icon';
+
 import { µSidebar } from './types';
 
 export const Sidebar: React.FC<µSidebar.Props> = props => {
   const router = useRouter();
-  const [_, root, slug] = router.asPath.split('/');
+
+  const [_, root] = router.asPath.split('/');
+
   return (
     <Flex
       flexDir="column"
-      width="80px"
-      pos="fixed"
-      left="0"
-      bg="gray.200"
-      top="0"
+      bg="whiteAlpha.800"
+      borderRight="1px solid"
+      borderColor="blackAlpha.100"
       height="calc(100vh - 30px)"
       justifyContent="space-between"
       {...props}
     >
-      <Flex flexDir="column">
+      <Flex flexDir="column" className="category-tabs">
+        <NextLink href="/">
+          <div>
+            <SidebarTab fontSize="2em" isActive={!root}>
+              <LogoIcon isActive={!root} />
+            </SidebarTab>
+          </div>
+        </NextLink>
         <NextLink href="/posts">
-          <SidebarTab isActive={root === 'posts'}>Blog</SidebarTab>
+          <div>
+            <SidebarTab fontSize="2em" isActive={root === 'posts'}>
+              <BlogIcon isActive={root === 'posts'} />
+            </SidebarTab>
+          </div>
         </NextLink>
         <NextLink href="/memes">
-          <SidebarTab isActive={root === 'memes'}>Memes</SidebarTab>
-        </NextLink>
-        <NextLink href="/about">
-          <SidebarTab isActive={root === 'about'}>about</SidebarTab>
+          <div>
+            <SidebarTab fontSize="2em" isActive={root === 'memes'}>
+              <MemeIcon isActive={root === 'memes'} />
+            </SidebarTab>
+          </div>
         </NextLink>
       </Flex>
-      <Flex flexDir="column">
-        <SidebarTab>settings</SidebarTab>
+      <Flex flexDir="column" className="tools-tabs">
+        <NextLink href="/search">
+          <div>
+            <SidebarTab isActive={root === 'search'} fontSize="2em">
+              <SearchIcon isActive={root === 'search'} />
+            </SidebarTab>
+          </div>
+        </NextLink>
+        <NextLink href="/settings">
+          <div>
+            <SidebarTab isActive={root === 'settings'} fontSize="2em">
+              <SettingsIcon isActive={root === 'settings'} />
+            </SidebarTab>
+          </div>
+        </NextLink>
       </Flex>
     </Flex>
   );
