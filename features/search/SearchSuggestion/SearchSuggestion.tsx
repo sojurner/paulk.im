@@ -1,16 +1,18 @@
 import React from 'react';
 import { Grid, GridItem, Flex } from '@chakra-ui/layout';
-import { µSearchSuggestion, ƒSearch } from './types';
 import { MidText, RegularText } from '@/components/Typography';
 import { BlogIcon, MemeIcon } from '@/components/Icon';
 
+import { µSearchSuggestion } from '.';
+import { µSearch } from '..';
+
 export const getSuggestionCategoryIcon = (
-  category: ƒSearch.Enums.SuggestionCategory
+  category: µSearch.Enums.SuggestionCategory
 ) => {
   switch (category) {
-    case ƒSearch.Enums.SuggestionCategory.MEME:
+    case µSearch.Enums.SuggestionCategory.MEME:
       return MemeIcon;
-    case ƒSearch.Enums.SuggestionCategory.POST:
+    case µSearch.Enums.SuggestionCategory.POST:
       return BlogIcon;
     default:
       throw new Error('Youre officially a noob');

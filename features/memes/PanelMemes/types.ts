@@ -1,8 +1,9 @@
+import { FlexProps } from '@chakra-ui/layout';
+
 export namespace µPanelMemes {
-  export interface Props {
-    memes: Models.Meme[]
+  export interface Props extends FlexProps {
+    memes: Models.Meme[];
   }
 
   export interface Methods {}
-  
 }

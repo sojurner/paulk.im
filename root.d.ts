@@ -8,12 +8,23 @@ declare namespace Models {
     author: string;
     date: string;
     content: string;
+    viewCount: number;
+    upvotes: number;
+    coverImage: {
+      url: string;
+    };
   }
 
   declare interface Meme {
     title: string;
     slug: string;
-    date: string;
+    tags: string[];
+    date: {
+      timeFromNow: string;
+      label: string;
+    };
+    viewCount: number;
+    upvotes: number;
     image: {
       url: string;
     };

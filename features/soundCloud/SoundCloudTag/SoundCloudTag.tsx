@@ -1,8 +1,8 @@
 import React from 'react';
 import { Tag, TagLabel } from '@chakra-ui/react';
-import { çSoundCloudTag } from './types';
+import { µSoundCloudTag } from '.';
 
-export const SoundCloudTag: React.FC<çSoundCloudTag.Props> = ({
+export const SoundCloudTag: React.FC<µSoundCloudTag.Props> = ({
   isActive,
   onClick,
   children,

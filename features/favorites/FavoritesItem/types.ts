@@ -1,9 +1,9 @@
 import { GridProps } from '@chakra-ui/layout';
-import { çFavoritesProvider } from '@/features/favorites';
+import { µFavoritesProvider } from '@/features/favorites';
 
 export namespace çFavoritesItem {
   export interface Props extends GridProps {
-    favorite: çFavoritesProvider.Models.Favorite;
+    favorite: µFavoritesProvider.Models.Favorite;
   }
 
   export interface Methods {}

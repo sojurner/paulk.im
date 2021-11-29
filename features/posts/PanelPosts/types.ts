@@ -1,7 +1,7 @@
-export namespace µPanelPosts {
-  export interface Props {
-    posts: Models.Post[];
-  }
+import { FlexProps } from '@chakra-ui/layout';
 
-  export interface Methods {}
+export interface Props extends FlexProps {
+  posts: Models.Post[];
 }
+
+export interface Methods {}

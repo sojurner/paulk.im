@@ -1,3 +1,3 @@
 export * from './PostTemplate';
 export * from './styles';
-export * from './types';
+export * as µPostTemplate from './types';

@@ -1,2 +1,2 @@
 export * from './PostsRoot'
-export * from './types'
+export * as µPostsRoot from './types'

@@ -1,9 +1,10 @@
 import React from 'react';
 import { Box, Flex } from '@chakra-ui/react';
 
-import { µFile, µFileList } from './types';
 import { RegularText } from '../Typography';
 import { LogoIcon } from '@/components/Icon';
+
+import { µFile } from '.';
 
 export const File: React.FC<µFile.Props> = ({
   content,
@@ -48,6 +49,6 @@ export const File: React.FC<µFile.Props> = ({
   );
 };
 
-export const FileList: React.FC<µFileList.Props> = props => (
+export const FileList: React.FC<µFile.FlexProps> = props => (
   <Flex flexDir="column" {...props} />
 );

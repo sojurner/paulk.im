@@ -1,9 +1,9 @@
 import React from 'react';
 import { Box } from '@chakra-ui/react';
 
-import { çSoundCloudWidget } from './types';
+import { µSoundCloudWidget } from '.';
 
-export const SoundCloudWidget: React.FC<çSoundCloudWidget.Props> = ({
+export const SoundCloudWidget: React.FC<µSoundCloudWidget.Props> = ({
   playlistUrl,
 }) => {
   return (

@@ -1,6 +1,5 @@
-export * from './types';
+export * as µSearch from './types';
 export * from './hooks';
-export * from './PanelSearch';
 export * from './SearchSuggestion';
-export * from './SearchProvider'
-export * from './SearchRoot'
+export * from './SearchProvider';
+export * from './SearchRoot';

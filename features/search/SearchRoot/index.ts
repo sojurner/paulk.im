@@ -1,2 +1,2 @@
-export * from './SearchRoot'
-export * from './types'
+export * from './SearchRoot';
+export * as µSearchRoot from './types';

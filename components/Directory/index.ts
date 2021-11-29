@@ -1,2 +1,2 @@
 export * from './Directory';
-export * from './types';
+export * as µDirectory from './types';

@@ -34,7 +34,9 @@ export const FavoritesItem: React.FC<çFavoritesItem.Props> = ({
           justifyContent="center"
           fontSize="2em"
         >
-          <NextImage height="50px" width="50px" src={favorite.value.url} />
+          {favorite?.value?.url && (
+            <NextImage height="50px" width="50px" src={favorite.value.url} />
+          )}
         </Flex>
       </GridItem>
       <GridItem ml="3" width="100%" justifySelf="start" gridArea="title">

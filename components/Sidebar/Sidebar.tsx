@@ -12,11 +12,10 @@ import {
   SearchIcon,
 } from '@/components/Icon';
 
-import { µSidebar } from './types';
+import { µSidebar } from '.';
 
 export const Sidebar: React.FC<µSidebar.Props> = props => {
   const router = useRouter();
-
   const [_, root] = router.asPath.split('/');
 
   return (
@@ -25,44 +24,50 @@ export const Sidebar: React.FC<µSidebar.Props> = props => {
       bg="whiteAlpha.800"
       borderRight="1px solid"
       borderColor="blackAlpha.100"
-      height="calc(100vh - 30px)"
       justifyContent="space-between"
+      height="100%"
       {...props}
     >
-      <Flex flexDir="column" className="category-tabs">
+      <Flex flexDir={{ sm: 'row', md: 'column' }} className="category-tabs">
         <NextLink href="/">
           <div>
-            <SidebarTab fontSize="2em" isActive={!root}>
+            <SidebarTab fontSize={['1.4em', '2em']} isActive={!root}>
               <LogoIcon isActive={!root} />
             </SidebarTab>
           </div>
         </NextLink>
         <NextLink href="/posts">
           <div>
-            <SidebarTab fontSize="2em" isActive={root === 'posts'}>
+            <SidebarTab fontSize={['1.4em', '2em']} isActive={root === 'posts'}>
               <BlogIcon isActive={root === 'posts'} />
             </SidebarTab>
           </div>
         </NextLink>
         <NextLink href="/memes">
           <div>
-            <SidebarTab fontSize="2em" isActive={root === 'memes'}>
+            <SidebarTab fontSize={['1.4em', '2em']} isActive={root === 'memes'}>
               <MemeIcon isActive={root === 'memes'} />
             </SidebarTab>
           </div>
         </NextLink>
       </Flex>
-      <Flex flexDir="column" className="tools-tabs">
+      <Flex flexDir={{ sm: 'row', md: 'column' }} className="tools-tabs">
         <NextLink href="/search">
           <div>
-            <SidebarTab isActive={root === 'search'} fontSize="2em">
+            <SidebarTab
+              isActive={root === 'search'}
+              fontSize={['1.4em', '2em']}
+            >
               <SearchIcon isActive={root === 'search'} />
             </SidebarTab>
           </div>
         </NextLink>
         <NextLink href="/settings">
           <div>
-            <SidebarTab isActive={root === 'settings'} fontSize="2em">
+            <SidebarTab
+              isActive={root === 'settings'}
+              fontSize={['1.4em', '2em']}
+            >
               <SettingsIcon isActive={root === 'settings'} />
             </SidebarTab>
           </div>

@@ -1,27 +1,27 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/router';
 
-import { ƒRouteSessionHistory } from '../types';
-import { µUseRouterHistory } from './types';
+import { µUseRouterHistory } from '.';
+import { µRouterHistory } from '..';
 
 export const useRouterHistory = (
   params: µUseRouterHistory.Params
 ): µUseRouterHistory.Return => {
   const router = useRouter();
 
-  const [_, rootPath, slug_query] = router.asPath.split('/');
-  let slug = '';
-  if (slug_query) slug = slug_query?.split('?')[0];
-
-  const currentPath = `/${rootPath}${slug ? `/${slug}` : ''}`;
+  const [_, rootPath, slug] = router.asPath.split('/');
 
   const [routeHistory, setRouteHistory] = useState<
-    ƒRouteSessionHistory.Models.RouteHistory[]
+    µRouterHistory.RouteHistory[]
   >([]);
 
+  const currentPath = useMemo(() => {
+    return `/${rootPath}${slug ? `/${slug?.split('?')[0]}` : ''}`;
+  }, [router.asPath]);
+
   const onRemoveRoute = (path: string) => {
-    const removeResult = ƒRouteSessionHistory.Utils.removeRoute(
-      ƒRouteSessionHistory.Enums.RouteHistoryCategory.POSTS,
+    const removeResult = µRouterHistory.Utils.removeRoute(
+      µRouterHistory.Enums.RouteHistoryCategory.POSTS,
       path
     );
 
@@ -33,9 +33,10 @@ export const useRouterHistory = (
     setRouteHistory(removeResult);
   };
 
+  // add route to route history
   useEffect(() => {
-    const addResult = ƒRouteSessionHistory.Utils.addRoute(
-      ƒRouteSessionHistory.Enums.RouteHistoryCategory.POSTS,
+    const addResult = µRouterHistory.Utils.addRoute(
+      µRouterHistory.Enums.RouteHistoryCategory.POSTS,
       {
         path: `/${rootPath}${slug ? `/${slug}` : ''}`,
         name: slug || `${rootPath}.pk`,
@@ -44,12 +45,18 @@ export const useRouterHistory = (
     setRouteHistory(addResult);
   }, [rootPath, slug]);
 
+  // initialize route history
   useEffect(() => {
-    setRouteHistory(
-      ƒRouteSessionHistory.Utils.getRouteHistory(
-        ƒRouteSessionHistory.Enums.RouteHistoryCategory.POSTS
-      )
-    );
+    const initialHistory = µRouterHistory.Utils.getRouteHistory(
+      µRouterHistory.Enums.RouteHistoryCategory.POSTS
+    ).reduce((ACC, ROUTE) => {
+      if (ROUTE.path === currentPath) {
+        return [ROUTE, ...ACC];
+      }
+      return [...ACC, ROUTE];
+    }, [] as µRouterHistory.RouteHistory[]);
+
+    setRouteHistory(initialHistory);
   }, []);
 
   return {

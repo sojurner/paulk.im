@@ -1,8 +1,10 @@
 import React from 'react';
 import { useRouter } from 'next/router';
-import { createContextProvider } from '@/lib/createContextProvider';
-import { µSearchProvider } from './types';
 import { Document } from 'flexsearch';
+
+import { createContextProvider } from '@/lib/createContextProvider';
+
+import { µSearchProvider } from '.';
 
 export const [SearchContextProvider, useSearchContext] =
   createContextProvider<µSearchProvider.Return>({
@@ -60,11 +62,13 @@ export const SearchProvider: React.FC<µSearchProvider.Props> = props => {
   }, []);
 
   const state = {
-    ...(typeof query?.search === 'string' && { initialQuery: query.search }),
+    ...(typeof query?.search === 'string' && {
+      initialQuery: query.search || '',
+    }),
     memeDocument,
     postDocument,
   };
-  
+
   const methods = {
     onAddMemes,
     onAddPosts,

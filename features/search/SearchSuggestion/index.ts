@@ -1,2 +1,2 @@
 export * from './SearchSuggestion';
-export * from './types';
+export * as µSearchSuggestion from './types';

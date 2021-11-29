@@ -1,2 +1,2 @@
 export * from './MemeTemplate'
-export * from './types'
+export * as µMemeTemplate from './types'

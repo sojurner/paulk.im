@@ -1,2 +1,2 @@
-export * from './SoundCloudWidget'
-export * from './types'
+export * from './SoundCloudWidget';
+export * as µSoundCloudWidget from './types';

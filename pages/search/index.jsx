@@ -7,9 +7,8 @@ import { Appbar } from '@/components/Appbar';
 export default function SearchPage({ memes, posts }) {
   return (
     <SearchProvider memes={memes} posts={posts}>
-      <PanelSearch gridArea="panel" />
-      <Appbar gridArea="appbar" />
-      <SearchRoot gridArea="body" />
+      <Appbar gridArea="panel / panel / appbar / appbar" />
+      <SearchRoot gridArea="body / panel / body / body" />
     </SearchProvider>
   );
 }

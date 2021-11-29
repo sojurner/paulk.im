@@ -1,3 +1,4 @@
-export * from './graphcms'
-export * from './queries'
-export * from './types'
+export * from './graphcms';
+export * from './queries';
+export * from './mutations';
+export * as µGraphCMS from './types';

@@ -16,7 +16,7 @@ import { useSettingsContext, µSettingsProvider } from '@/features/settings';
 import { µSoundCloudControl } from './types';
 import { SoundCloudWidget, SoundCloudTag } from '@/features/soundCloud';
 
-export const SoundCloudControl: React.FC<µSoundCloudControl.Props> = (props) => {
+export const SoundCloudControl: React.FC<µSoundCloudControl.Props> = props => {
   const { state, methods } = useSettingsContext();
 
   return (
@@ -33,7 +33,7 @@ export const SoundCloudControl: React.FC<µSoundCloudControl.Props> = (props) =>
           <SoundCloudIcon isActive={true} />
         </Box>
       </PopoverTrigger>
-      <PopoverContent height="450px" width="650px" pos="relative">
+      <PopoverContent height="450px" width={['100vw', '650px']} pos="relative">
         <PopoverArrow />
         <PopoverCloseButton />
         <PopoverHeader>

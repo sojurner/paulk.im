@@ -1,25 +1,12 @@
-import {
-  Box,
-  Flex,
-  HStack,
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  PopoverHeader,
-  PopoverBody,
-  PopoverFooter,
-  PopoverArrow,
-  PopoverCloseButton,
-  Tag,
-  TagLabel,
-} from '@chakra-ui/react';
+import { Flex, HStack } from '@chakra-ui/react';
 import React from 'react';
 import { useSettingsContext } from '@/features/settings';
-import { SmallText } from '../Typography';
+// import { SmallText } from '@/components/Typography';
 
 import { SoundCloudControl } from '@/features/soundCloud';
 import { FavoritesControl } from '@/features/favorites';
-import { µFooterbar } from './types';
+
+import { µFooterbar } from '.';
 
 export const Footerbar: React.FC<µFooterbar.Props> = props => {
   const { state } = useSettingsContext();
@@ -37,7 +24,7 @@ export const Footerbar: React.FC<µFooterbar.Props> = props => {
   );
 
   return (
-    <Flex bg="gray.300" px="10" width="100vw" height="100%" {...props}>
+    <Flex bg="gray.300" px="10" width="100%" height="100%" {...props}>
       <HStack spacing="3">
         {state.soundCloud.enabled && (
           <SoundCloudControl

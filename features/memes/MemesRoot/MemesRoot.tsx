@@ -5,8 +5,8 @@ import NextImage from 'next/image';
 import {
   Box,
   Flex,
-  Grid,
-  GridItem,
+  Divider,
+  Tooltip,
   HStack,
   VStack,
   Tag,
@@ -14,11 +14,26 @@ import {
 import { RegularText, SubTitle, Title } from '@/components/Typography';
 
 import { µMemesRoot } from '.';
-import { FavoritesCartIcon } from '@/components/Icon';
-import { useFavoritesContext } from '@/features/favorites';
+import { BookmarkIcon } from '@/components/Icon';
+import { useFavoritesContext, µFavoritesProvider } from '@/features/favorites';
+import { useSettingsContext } from '@/features/settings';
 
 export const MemesRoot: React.FC<µMemesRoot.Props> = ({ memes, ...props }) => {
   const favoritesContext = useFavoritesContext();
+  const settingsContext = useSettingsContext();
+
+  const handleFavoriteClick: µMemesRoot.Methods['handleFavorite'] =
+    React.useCallback(
+      meme => () => {
+        favoritesContext.methods.onFavoritesUpdate({
+          slug: meme.slug,
+          title: meme.title,
+          type: µFavoritesProvider.Enums.FavoriteType.MEME,
+          value: meme.image,
+        });
+      },
+      [favoritesContext.methods.onFavoritesUpdate]
+    );
 
   return (
     <Flex
@@ -34,39 +49,75 @@ export const MemesRoot: React.FC<µMemesRoot.Props> = ({ memes, ...props }) => {
         {memes.map(MEME => {
           return (
             <Box maxW="450px" width="450px" key={MEME.slug}>
-              <NextLink href={`/memes/${MEME.slug}`}>
-                <div>
-                  <SubTitle cursor="pointer" className="post__title">
-                    {MEME.title}
-                  </SubTitle>
-                </div>
-              </NextLink>
-
-              <HStack my="2">
+              <HStack alignItems="center">
+                <HStack>
+                  {MEME.tags.map(TAG => {
+                    return (
+                      <Tag size="lg" key={`${MEME.slug}-${TAG}`}>
+                        {TAG}
+                      </Tag>
+                    );
+                  })}
+                </HStack>
+                <RegularText
+                  fontSize="16px"
+                  fontWeight="bold"
+                  color="blackAlpha.600"
+                >
+                  ·
+                </RegularText>
                 <RegularText
                   color="blackAlpha.600"
                   letterSpacing="-.5px"
-                  fontSize="14px"
+                  fontSize="16px"
                 >
-                  {MEME.date}
+                  {MEME.date.timeFromNow}
                 </RegularText>
-                <RegularText color="blackAlpha.600">·</RegularText>
+                <Tooltip
+                  openDelay={500}
+                  isDisabled={settingsContext.state.favorites.enabled}
+                  label={'Enable Bookmarks to save!!'}
+                  hasArrow
+                  placement="top"
+                  bg="gray.500"
+                >
+                  <Box
+                    marginLeft="auto !important"
+                    fontSize="1.4em"
+                    {...((!settingsContext.state.favorites.enabled ||
+                      !favoritesContext.state.favorites?.meme?.[MEME.slug]
+                        ?.saved) && { filter: 'grayscale(1)' })}
+                    {...(settingsContext.state.favorites.enabled && {
+                      onClick: handleFavoriteClick(MEME),
+                      cursor: 'pointer',
+                    })}
+                    {...(!settingsContext.state.favorites.enabled && {
+                      opacity: 0.6,
+                    })}
+                  >
+                    <BookmarkIcon />
+                  </Box>
+                </Tooltip>
               </HStack>
-              <Flex cursor="pointer" pos="relative">
-                <Box fontSize="2em" pos="absolute" zIndex="2" top="2" right="2">
-                  <FavoritesCartIcon
-                    isActive={
-                      favoritesContext.state.favorites?.meme?.[MEME.slug]?.saved
-                    }
-                  />
-                </Box>
-                <NextLink href={`/meme/${MEME.slug}`}>
+              <Box cursor="pointer" my="3">
+                <NextLink href={`/memes/${MEME.slug}`}>
                   <div>
-                    <NextImage src={MEME.image.url} height={500} width={450} />
+                    <SubTitle className="post__title">{MEME.title}</SubTitle>
                   </div>
                 </NextLink>
-              </Flex>
-              <Flex justifyContent="space-between"></Flex>
+              </Box>
+
+              <NextLink href={`/memes/${MEME.slug}`}>
+                <div style={{ cursor: 'pointer' }}>
+                  <NextImage
+                    src={MEME?.image?.url}
+                    layout="responsive"
+                    height="390"
+                    width="420"
+                  />
+                </div>
+              </NextLink>
+              <Divider mt="10" />
             </Box>
           );
         })}

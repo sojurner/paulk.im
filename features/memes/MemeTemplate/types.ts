@@ -1,9 +1,10 @@
-import { FlexProps } from "@chakra-ui/layout";
+import { FlexProps } from '@chakra-ui/layout';
 
-export namespace µMemeTemplate {
-  export interface Props extends FlexProps {
-    meme: Models.Meme
-  }
+export interface Props extends FlexProps {
+  meme: Models.Meme;
+}
 
-  export interface Methods {}
+export interface Methods {
+  handleFavorite: () => void;
+  handleUpvote: (slug: string) => () => Promise<void>;
 }

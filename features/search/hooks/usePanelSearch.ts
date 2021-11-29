@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import { useSearchContext } from '@/features/search';
 
-import { µUseSearch } from './types';
-import { ƒSearch } from '@/features/search';
+import { useSearchContext, µSearch } from '@/features/search';
+
+import { µUseSearch } from '.';
 
 export const useSearch = (params: µUseSearch.Params): µUseSearch.Return => {
   const SearchContext = useSearchContext();
@@ -11,7 +11,7 @@ export const useSearch = (params: µUseSearch.Params): µUseSearch.Return => {
     SearchContext.state.initialQuery || ''
   );
   const [category, setCategory] = useState(
-    ƒSearch.Enums.SuggestionCategory.POST
+    µSearch.Enums.SuggestionCategory.POST
   );
   const [postSuggestions, setPostSuggestions] = useState<
     µUseSearch.State['postSuggestions']
@@ -21,7 +21,7 @@ export const useSearch = (params: µUseSearch.Params): µUseSearch.Return => {
   >([]);
 
   const onQueryChange: µUseSearch.Methods['onQueryChange'] = query => {
-    if (category === ƒSearch.Enums.SuggestionCategory.POST) {
+    if (category === µSearch.Enums.SuggestionCategory.POST) {
       const [postsResult] = SearchContext.state.postDocument.search(query, {
         enrich: true,
       });
@@ -29,7 +29,7 @@ export const useSearch = (params: µUseSearch.Params): µUseSearch.Return => {
         (postsResult?.result as unknown as µUseSearch.State['postSuggestions']) ||
           []
       );
-    } else if (category === ƒSearch.Enums.SuggestionCategory.MEME) {
+    } else if (category === µSearch.Enums.SuggestionCategory.MEME) {
       const [memesResult] = SearchContext.state.memeDocument.search(query, {
         enrich: true,
       });

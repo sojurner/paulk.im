@@ -2,54 +2,12 @@ import React from 'react';
 
 import NextLink from 'next/link';
 import { Box, Flex, Link, HStack, CSSObject } from '@chakra-ui/react';
-import Logo from '@/assets/icons/Logo.svg';
+import { LogoIcon } from '@/components/Icon';
 import BrushStroke from '@/assets/icons/BrushStroke.svg';
 
-export interface Props {}
+import { µHeader } from '.';
 
-export class Styles {
-  static _linkHover: CSSObject = {
-    textShadow:
-      '0 0 15px #fff, 0 0 15px #fff, 0 0 25px #fff, 0 0 25px #fff, 0 0 25px #fff, 0 0 25px #fff, 0 0 25px #fff',
-    a: {
-      textDecoration: 'none',
-    },
-  };
-}
-
-export class Constants {
-  static LINKS_LEFT = [
-    {
-      key: '/posts',
-      path: '/posts',
-      label: 'Blog',
-      color: 'teal.500',
-    },
-    {
-      key: '/memes',
-      path: '/memes',
-      label: 'Memes',
-      color: 'blue.500',
-    },
-  ];
-
-  static LINKS_RIGHT = [
-    {
-      key: '/search',
-      path: '/search',
-      label: 'Search',
-      color: 'purple.500',
-    },
-    {
-      key: '/settings',
-      path: '/settings',
-      label: 'Settings',
-      color: 'pink.500',
-    },
-  ];
-}
-
-export const Header: React.FC<Props> = () => {
+export const Header: React.FC<µHeader.Props> = () => {
   return (
     <HStack
       position="relative"
@@ -68,13 +26,13 @@ export const Header: React.FC<Props> = () => {
       >
         <BrushStroke />
       </Box>
-      {Constants.LINKS_LEFT.map(LINK => {
+      {µHeader.Constants.LINKS_LEFT.map(LINK => {
         return (
           <Box
             minWidth="70px"
             zIndex="1"
             key={LINK.path}
-            _hover={Styles._linkHover}
+            _hover={µHeader.Styles._linkHover}
           >
             <NextLink href={LINK.path}>
               <Link
@@ -93,21 +51,21 @@ export const Header: React.FC<Props> = () => {
       <Flex
         cursor="pointer"
         filter="drop-shadow(0px 0px 5px var(--chakra-colors-white))"
-        zIndex="10"
+        zIndex="1"
         justifyContent="center"
         minWidth={['100px', '140px', '120px', '140px']}
         fontSize={['3.5rem', '4rem']}
       >
-        <Logo />
+        <LogoIcon isActive />
       </Flex>
 
-      {Constants.LINKS_RIGHT.map(LINK => {
+      {µHeader.Constants.LINKS_RIGHT.map(LINK => {
         return (
           <Box
             minWidth="70px"
             zIndex="1"
             key={LINK.path}
-            _hover={Styles._linkHover}
+            _hover={µHeader.Styles._linkHover}
             fontSize={['1em', '1.2rem']}
           >
             <NextLink key={LINK.path} href={LINK.path}>

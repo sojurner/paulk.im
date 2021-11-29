@@ -1,11 +1,11 @@
 import React from 'react';
 import { useToast } from '@chakra-ui/react';
 import { createContextProvider } from '@/lib/createContextProvider';
-import { çFavoritesProvider } from './types';
+import { µFavoritesProvider } from '.';
 import { useSettingsContext } from '@/features/settings';
 
 export const [FavoritesContextProvider, useFavoritesContext] =
-  createContextProvider<çFavoritesProvider.Return>({
+  createContextProvider<µFavoritesProvider.Return>({
     name: 'FavoritesContext',
     errorMessage: 'context must be wrapped in Favorites Provider',
   });
@@ -15,10 +15,10 @@ export const FavoritesProvider: React.FC = props => {
   const toast = useToast();
 
   const [favorites, setFavorites] = React.useState<
-    çFavoritesProvider.State['favorites']
-  >(çFavoritesProvider.Constants.LS_FAVORITES_INIT_VAL);
+    µFavoritesProvider.State['favorites']
+  >(µFavoritesProvider.Constants.LS_FAVORITES_INIT_VAL);
 
-  const onFavoritesUpdate: çFavoritesProvider.Methods['onFavoritesUpdate'] =
+  const onFavoritesUpdate: µFavoritesProvider.Methods['onFavoritesUpdate'] =
     params => {
       if (!settingsContext.state.favorites.enabled) return;
 
@@ -47,17 +47,17 @@ export const FavoritesProvider: React.FC = props => {
         };
       });
 
-      çFavoritesProvider.Utils.updateFavoritesStorage(updateFavorite);
+      µFavoritesProvider.Utils.updateFavoritesStorage(updateFavorite);
     };
 
-  const onStorageValidate: çFavoritesProvider.Methods['onStorageValidate'] =
+  const onStorageValidate: µFavoritesProvider.Methods['onStorageValidate'] =
     () => {
       const favoritesStorage =
-        çFavoritesProvider.Utils.getFavoritesStorage() as çFavoritesProvider.Models.FavoritesStore;
+        µFavoritesProvider.Utils.getFavoritesStorage() as µFavoritesProvider.Models.FavoritesStore;
 
       const favoriteEntries = Object.entries(favoritesStorage);
       const favoriteTypes = Object.values(
-        çFavoritesProvider.Enums.FavoriteType
+        µFavoritesProvider.Enums.FavoriteType
       );
 
       const isValid = favoriteEntries.every(([KEY, _VALUE]) => {
@@ -70,7 +70,7 @@ export const FavoritesProvider: React.FC = props => {
     };
 
   const onStorageError = () => {
-    çFavoritesProvider.Utils.initializeFavoritesStorage();
+    µFavoritesProvider.Utils.initializeFavoritesStorage();
 
     toast({
       title: 'Corrupted Data',

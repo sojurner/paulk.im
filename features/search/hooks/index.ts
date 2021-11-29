@@ -1,2 +1,2 @@
-export * from './types'
 export * from './usePanelSearch'
+export * as µUseSearch from './types'

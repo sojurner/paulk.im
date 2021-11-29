@@ -1,10 +1,8 @@
-import { TagProps } from "@chakra-ui/tag";
+import { TagProps } from '@chakra-ui/tag';
 
-export namespace çSoundCloudTag {
-  export interface Props extends TagProps {
-    isActive: boolean;
-    onClick: () => void;
-  }
-
-  export interface Methods {}
+export interface Props extends TagProps {
+  isActive: boolean;
+  onClick: () => void;
 }
+
+export interface Methods {}

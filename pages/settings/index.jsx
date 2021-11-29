@@ -5,9 +5,8 @@ import { Appbar } from '@/components/Appbar';
 export default function SettingsPage() {
   return (
     <>
-      <PanelSettings gridArea="panel" />
-      <Appbar gridArea="appbar" />
-      <SettingsRoot gridArea="body" />
+      <Appbar gridArea="panel / panel / appbar / appbar" />
+      <SettingsRoot gridArea="body / panel / body / body" />
     </>
   );
 }

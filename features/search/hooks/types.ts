@@ -1,27 +1,25 @@
 import { Dispatch, SetStateAction } from 'react';
-import { ƒSearch } from '../types';
+import { µSearch } from '@/features/search';
 
-export namespace µUseSearch {
-  export interface State {
-    inputValue: string;
-    initialQuery: string;
-    category: ƒSearch.Enums.SuggestionCategory;
-    postSuggestions: ƒSearch.Suggestion[];
-    memeSuggestions: ƒSearch.Suggestion[];
-  }
+export interface State {
+  inputValue: string;
+  initialQuery: string;
+  category: µSearch.Enums.SuggestionCategory;
+  postSuggestions: µSearch.Suggestion[];
+  memeSuggestions: µSearch.Suggestion[];
+}
 
-  export interface Methods {
-    setPostSuggestions: Dispatch<SetStateAction<State['postSuggestions']>>;
-    setMemeSuggestions: Dispatch<SetStateAction<State['memeSuggestions']>>;
-    setCategory: Dispatch<SetStateAction<State['category']>>;
-    setInputValue: Dispatch<SetStateAction<State['inputValue']>>;
-    onQueryChange: (query: string) => void;
-  }
+export interface Methods {
+  setPostSuggestions: Dispatch<SetStateAction<State['postSuggestions']>>;
+  setMemeSuggestions: Dispatch<SetStateAction<State['memeSuggestions']>>;
+  setCategory: Dispatch<SetStateAction<State['category']>>;
+  setInputValue: Dispatch<SetStateAction<State['inputValue']>>;
+  onQueryChange: (query: string) => void;
+}
 
-  export interface Params {}
+export interface Params {}
 
-  export interface Return {
-    state: State;
-    methods: Methods;
-  }
+export interface Return {
+  state: State;
+  methods: Methods;
 }

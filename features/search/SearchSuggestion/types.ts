@@ -1,13 +1,9 @@
 import { FlexProps } from '@chakra-ui/layout';
-import { ƒSearch } from '../types';
+import { µSearch } from '@/features/search';
 
-export namespace µSearchSuggestion {
-  export interface Props extends FlexProps {
-    suggestion: ƒSearch.Suggestion;
-    category: ƒSearch.Enums.SuggestionCategory;
-  }
-
-  export interface Methods {}
+export interface Props extends FlexProps {
+  suggestion: µSearch.Suggestion;
+  category: µSearch.Enums.SuggestionCategory;
 }
 
-export { ƒSearch };
+export interface Methods {}

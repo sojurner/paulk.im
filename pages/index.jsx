@@ -10,9 +10,8 @@ import { HomeRoot, PanelHome } from '@/features/home';
 const HomePage = ({ memes, posts }) => {
   return (
     <>
-      <PanelHome gridArea="panel" />
-      <Appbar gridArea="appbar" />
-      <HomeRoot gridArea="body" />
+      <Appbar gridArea="panel / panel / appbar / appbar" />
+      <HomeRoot gridArea="body / panel / body / body" />
     </>
   );
 };

@@ -1,5 +1,5 @@
-export namespace çSoundCloudWidget {
-  export interface Props {
-    playlistUrl: string;
-  }
+export interface Props {
+  playlistUrl: string;
 }
+
+export interface Methods {}

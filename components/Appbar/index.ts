@@ -1,2 +1,2 @@
 export * from './Appbar'
-export * from './types'
+export * as µAppbar from './types'

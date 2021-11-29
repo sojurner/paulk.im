@@ -1,6 +1,6 @@
-export * from './PanelPosts'
-export * from './PostTemplate'
-export * from './PostsRoot'
+export * from './PanelPosts';
+export * from './PostTemplate';
+export * from './PostsRoot';
 
-export * from './hooks'
-export * from './types'
+export * from './hooks';
+export * as µPosts from './types';

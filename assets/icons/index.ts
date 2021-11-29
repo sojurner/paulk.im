@@ -2,6 +2,12 @@ import BrushStroke from './BrushStroke.svg';
 import DripGrunge from './DripGrunge.svg';
 import Logo from './Logo.svg';
 import Wings from './Wings.svg';
+import EyeIcon from './eye.svg';
+import UpvoteIcon from './upvote.svg';
+import CaretRight from './CaretRight.svg';
+import CaretDown from './CaretDown.svg';
+import CaretLeft from './CaretLeft.svg';
+import BookmarkIcon from './bookmark.svg';
 
 export const logoSvgString = `
 <svg
@@ -1342,4 +1348,15 @@ export const svgToBase64 = ({ icon }: { icon: string }): string => {
   return `data:image/svg+xml;charset=UTF-8;base64,${btoa(`${icon}`)}`;
 };
 
-export { BrushStroke, DripGrunge, Logo, Wings };
+export {
+  BrushStroke,
+  DripGrunge,
+  Logo,
+  Wings,
+  EyeIcon,
+  UpvoteIcon,
+  CaretDown,
+  CaretRight,
+  CaretLeft,
+  BookmarkIcon,
+};

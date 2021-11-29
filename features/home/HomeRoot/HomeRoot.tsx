@@ -2,12 +2,13 @@ import React from 'react';
 import NextImage from 'next/image';
 import { Box, Flex, Grid, GridItem, VStack } from '@chakra-ui/layout';
 
-import { µHomeRoot } from './types';
 import { LandingImage } from '@/assets/images';
-import { LandingCurvedText, LandingName } from '@/features/home';
+import { LandingCurvedSvg, LandingName } from '@/features/home';
 import { SubTitle, LargeHeading, Title } from '@/components/Typography';
 import { Wings } from '@/assets/icons';
 import { Header } from '@/components/Header';
+
+import { µHomeRoot } from '.';
 
 export const HomeRoot: React.FC<µHomeRoot.Props> = props => {
   return (
@@ -16,7 +17,9 @@ export const HomeRoot: React.FC<µHomeRoot.Props> = props => {
       width="100%"
       flexDir="column"
       overflow="auto"
-      background="linear-gradient(180deg, var(--chakra-colors-blue-50) 0%, var(--chakra-colors-purple-50) 20%, var(--chakra-colors-pink-50) 40%, var(--chakra-colors-red-50) 60%, var(--chakra-colors-green-50) 80%, var(--chakra-colors-cyan-50) 100%)"
+      py="1.5em"
+      // background="linear-gradient(180deg, var(--chakra-colors-blue-50) 0%, var(--chakra-colors-purple-50) 20%, var(--chakra-colors-pink-50) 40%, var(--chakra-colors-red-50) 60%, var(--chakra-colors-green-50) 80%, var(--chakra-colors-cyan-50) 100%)"
+      // py="4em"
       {...props}
     >
       <Header />
@@ -39,6 +42,7 @@ export const HomeRoot: React.FC<µHomeRoot.Props> = props => {
         borderBottom="1px solid"
         borderColor="gray.100"
         borderRadius="0 10px 10px 0"
+        boxShadow="0 0 5px rgba(0,0,0,0.1)"
       >
         <GridItem gridArea="intro" alignSelf="center" justifySelf="center">
           <Box p="3" height="100%" mt="-20%">
@@ -59,11 +63,35 @@ export const HomeRoot: React.FC<µHomeRoot.Props> = props => {
           position="relative"
         >
           <NextImage src={LandingImage} height="400px" width="300px" />
-          <LandingCurvedText.Component />
-          <LandingName.Component />
+          <LandingCurvedSvg />
+          <LandingName />
         </GridItem>
       </Grid>
-
+      <Box
+        pos="relative"
+        _after={{
+          position: 'absolute',
+          content: "''",
+          width: '30vw',
+          borderBottom: '2px solid',
+          borderColor: 'var(--chakra-colors-blackAlpha-100)',
+          top: '50%',
+          right: '-30vw',
+        }}
+        _before={{
+          position: 'absolute',
+          content: "''",
+          width: '30vw',
+          borderBottom: '2px solid',
+          borderColor: 'var(--chakra-colors-blackAlpha-100)',
+          top: '50%',
+          left: '-30vw',
+        }}
+        alignSelf="center"
+        fontSize="10em"
+      >
+        <Wings />
+      </Box>
       <Grid
         my="5%"
         width="75%"
@@ -116,8 +144,8 @@ export const HomeRoot: React.FC<µHomeRoot.Props> = props => {
           position="relative"
         >
           <NextImage src={LandingImage} height="400px" width="300px" />
-          <LandingCurvedText.Component />
-          <LandingName.Component />
+          <LandingCurvedSvg />
+          <LandingName />
         </GridItem>
       </Grid>
       {/* <Box
@@ -151,31 +179,6 @@ export const HomeRoot: React.FC<µHomeRoot.Props> = props => {
       >
         <Wings />
       </Box> */}
-      <Box
-        pos="relative"
-        _after={{
-          position: 'absolute',
-          content: "''",
-          width: '30vw',
-          borderBottom: '2px solid',
-          borderColor: 'var(--chakra-colors-gray-300)',
-          top: '50%',
-          right: '-30vw',
-        }}
-        _before={{
-          position: 'absolute',
-          content: "''",
-          width: '30vw',
-          borderBottom: '2px solid',
-          borderColor: 'var(--chakra-colors-gray-300)',
-          top: '50%',
-          left: '-30vw',
-        }}
-        alignSelf="center"
-        fontSize="10em"
-      >
-        <Wings />
-      </Box>
     </Flex>
   );
 };

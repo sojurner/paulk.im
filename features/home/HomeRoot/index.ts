@@ -1,2 +1,2 @@
 export * from './HomeRoot'
-export * from './types'
+export * as µHomeRoot from './types'

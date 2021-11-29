@@ -17,7 +17,7 @@ import {
   TabPanel,
 } from '@chakra-ui/react';
 
-import { ConfusedTravolta, FavoritesCartIcon } from '@/components/Icon';
+import { ConfusedTravolta, BookmarkIcon } from '@/components/Icon';
 import { useFavoritesContext } from '@/features/favorites';
 import { FavoritesItem } from '@/features/favorites';
 
@@ -44,7 +44,7 @@ export const FavoritesControl: React.FC<çFavoritesControl.Props> = props => {
             background: 'blackAlpha.100',
           }}
         >
-          <FavoritesCartIcon isActive={true} />
+          <BookmarkIcon />
         </Box>
       </PopoverTrigger>
       <PopoverContent height="400px" width="450px" pos="relative">

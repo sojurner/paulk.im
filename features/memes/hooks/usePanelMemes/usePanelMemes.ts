@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { µUsePanelMemes } from './types';
+import { useState } from 'react';
+import { µUsePanelMemes } from '.';
 
 export const usePanelMemes = (
   params: µUsePanelMemes.Params

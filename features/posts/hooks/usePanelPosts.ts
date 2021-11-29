@@ -1,6 +1,6 @@
 import React from 'react';
-import { ƒPosts } from '../types';
-import { µUsePanelPosts } from './types';
+import { µPosts } from '@/features/posts';
+import { µUsePanelPosts } from '.';
 
 export const usePanelPosts = (
   params: µUsePanelPosts.Params
@@ -8,7 +8,7 @@ export const usePanelPosts = (
   const [activeDirectory, setActiveDirectory] = React.useState('');
 
   const categories = React.useMemo(
-    () => ƒPosts.Utils.mapPostsToDirectory(params.posts),
+    () => µPosts.Utils.mapPostsToDirectory(params.posts),
     [params.posts.length]
   );
 
