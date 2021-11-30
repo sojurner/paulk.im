@@ -1,2 +1,2 @@
 export * from './SoundCloudControl'
-export * from './types'
+export * as µSoundCloudControl from './types'

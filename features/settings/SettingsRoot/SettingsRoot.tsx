@@ -14,7 +14,7 @@ import {
   OpenWeatherIcon,
 } from '@/components/Icon';
 
-import { µSettingsRoot } from './types';
+import { µSettingsRoot } from '.';
 
 export const SettingsRoot: React.FC<µSettingsRoot.Props> = props => {
   const settingsContext = useSettingsContext();

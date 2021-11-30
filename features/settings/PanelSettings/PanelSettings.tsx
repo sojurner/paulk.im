@@ -1,10 +1,10 @@
-import { Flex, Grid, GridItem, Box } from '@chakra-ui/layout';
+import { Grid, GridItem } from '@chakra-ui/layout';
 import React from 'react';
 
 import { useSettingsContext, µSettingsProvider } from '@/features/settings';
 import { Panel } from '@/components/Panel';
-import { SoundCloudIcon, OpenWeatherIcon } from '@/components/Icon';
-import { µPanelSettings } from './types';
+import { SoundCloudIcon } from '@/components/Icon';
+import { µPanelSettings } from '.';
 import { RegularText } from '@/components/Typography';
 import { Switch } from '@chakra-ui/switch';
 
@@ -24,7 +24,10 @@ export const PanelSettings: React.FC<µPanelSettings.Props> = props => {
         py="15px"
       >
         <GridItem gridArea="icon" height="50px" width="50px">
-          <SoundCloudIcon fontSize="3em" isActive={featureContext.state.soundCloud.enabled} />
+          <SoundCloudIcon
+            fontSize="3em"
+            isActive={featureContext.state.soundCloud.enabled}
+          />
         </GridItem>
         <GridItem
           gridArea="title"

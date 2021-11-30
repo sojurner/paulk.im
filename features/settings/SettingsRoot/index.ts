@@ -1,2 +1,2 @@
 export * from './SettingsRoot';
-export * from './types';
+export * as µSettingsRoot from './types';

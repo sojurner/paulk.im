@@ -1,2 +1,2 @@
 export * from './PanelSettings'
-export * from './types'
+export * as µPanelSettings from './types'

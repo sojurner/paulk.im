@@ -1,2 +1,2 @@
 export * from './SettingsProvider'
-export * from './types'
+export * as µSettingsProvider from './types'

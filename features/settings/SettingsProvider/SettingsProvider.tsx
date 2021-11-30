@@ -1,7 +1,7 @@
 import React from 'react';
 import { useToast } from '@chakra-ui/react';
 import { createContextProvider } from '@/lib/createContextProvider';
-import { µSettingsProvider } from './types';
+import { µSettingsProvider } from '.';
 
 export const [SettingsContextProvider, useSettingsContext] =
   createContextProvider<µSettingsProvider.Return>({

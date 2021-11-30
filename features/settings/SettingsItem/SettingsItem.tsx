@@ -1,8 +1,8 @@
 import React from 'react';
-import { Flex, Grid, GridItem, Switch } from '@chakra-ui/react';
-import { MidText, RegularText, SubHeading } from '@/components/Typography';
+import { Grid, GridItem, Switch } from '@chakra-ui/react';
+import { MidText, RegularText } from '@/components/Typography';
 
-import { µSettingsItem } from './types';
+import { µSettingsItem } from '.';
 
 export const SettingsItem: React.FC<µSettingsItem.Props> = ({
   isEnabled,

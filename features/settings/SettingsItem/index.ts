@@ -1,2 +1,2 @@
 export * from './SettingsItem'
-export * from './types'
+export * as µSettingsItem from './types'

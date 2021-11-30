@@ -12,9 +12,9 @@ import {
 } from '@chakra-ui/react';
 import { SoundCloudIcon } from '@/components/Icon';
 import { useSettingsContext, µSettingsProvider } from '@/features/settings';
-
-import { µSoundCloudControl } from './types';
 import { SoundCloudWidget, SoundCloudTag } from '@/features/soundCloud';
+
+import { µSoundCloudControl } from '.';
 
 export const SoundCloudControl: React.FC<µSoundCloudControl.Props> = props => {
   const { state, methods } = useSettingsContext();
