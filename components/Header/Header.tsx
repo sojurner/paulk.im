@@ -1,13 +1,13 @@
 import React from 'react';
 
 import NextLink from 'next/link';
-import { Box, Flex, Link, HStack, CSSObject } from '@chakra-ui/react';
-import { LogoIcon } from '@/components/Icon';
+import { Box, Flex, Link, HStack } from '@chakra-ui/react';
+import { Logo } from '@/components/Icon';
 import BrushStroke from '@/assets/icons/BrushStroke.svg';
 
 import { µHeader } from '.';
 
-export const Header: React.FC<µHeader.Props> = () => {
+export const Header: React.FC<µHeader.Types.Props> = () => {
   return (
     <HStack
       position="relative"
@@ -26,7 +26,7 @@ export const Header: React.FC<µHeader.Props> = () => {
       >
         <BrushStroke />
       </Box>
-      {µHeader.Constants.LINKS_LEFT.map(LINK => {
+      {µHeader.Consts.LINKS_LEFT.map(LINK => {
         return (
           <Box
             minWidth="70px"
@@ -56,10 +56,10 @@ export const Header: React.FC<µHeader.Props> = () => {
         minWidth={['100px', '140px', '120px', '140px']}
         fontSize={['3.5rem', '4rem']}
       >
-        <LogoIcon isActive />
+        <Logo />
       </Flex>
 
-      {µHeader.Constants.LINKS_RIGHT.map(LINK => {
+      {µHeader.Consts.LINKS_RIGHT.map(LINK => {
         return (
           <Box
             minWidth="70px"

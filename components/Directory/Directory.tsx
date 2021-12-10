@@ -2,12 +2,11 @@ import React from 'react';
 import { Flex, HStack } from '@chakra-ui/react';
 import { RegularText } from '../Typography';
 
-import CaretDown from '@/assets/icons/CaretDown.svg';
-import CaretRight from '@/assets/icons/CaretRight.svg';
+import { CaretDown, CaretRight } from '@/components/Icon';
 
 import { µDirectory } from '.';
 
-export const Directory: React.FC<µDirectory.Props> = ({
+export const Directory: React.FC<µDirectory.Types.Props> = ({
   children,
   isActive,
   initialExpanded,
@@ -23,7 +22,8 @@ export const Directory: React.FC<µDirectory.Props> = ({
   return (
     <Flex flexDir="column" borderBottom="1px solid" borderColor="gray.200">
       <HStack
-        bg={isActive ? 'blue.50' : 'gray.50'}
+        bg="gray.50"
+        pos="relative"
         pl="10px"
         cursor="pointer"
         onClick={e => {

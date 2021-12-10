@@ -1,2 +1,2 @@
-export * as µUseCollapsible from './types';
+export * as µUseCollapsible from './µUseCollapsible';
 export * from './useCollapsible';

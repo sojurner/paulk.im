@@ -2,84 +2,111 @@ import React from 'react';
 import NextLink from 'next/link';
 import { Flex, Box } from '@chakra-ui/react';
 
+import { useRouterHistory } from '@/features/routerHistory';
+
 import { AppbarTab } from '@/components/Tab';
-import { useRouterHistory } from '@/features/routerHistory/hooks/useRouterHistory';
-import { BlogIcon, MemeIcon, LogoIcon } from '@/components/Icon';
-import { XIcon } from '@/components/Icon';
+import {
+  IdeaIcon,
+  MemeIcon,
+  Logo,
+  X,
+  CaretLeft,
+  CaretRight,
+  IconWrapper,
+} from '@/components/Icon';
 
 import { µAppbar } from '.';
+import { useResponsiveContext } from '@/features/responsive';
 
-export const Appbar: React.FC<µAppbar.Props> = props => {
+export const Appbar: React.FC<µAppbar.Types.Props> = props => {
   const routerHistory = useRouterHistory({});
+  const { collapsible } = useResponsiveContext();
 
   return (
     <Flex
-      overflow="scroll"
-      bg="gray.200"
+      bg="gray.100"
       flexDir="row"
       justifyContent="flex-start"
       h={'100%'}
+      width="100%"
       zIndex="docked"
+      pos="relative"
+      overflow="hidden"
       {...props}
     >
-      {routerHistory.state.routeHistory.map(ROUTE => {
-        const [_, type, file] = ROUTE.path.split('/');
+      <Flex
+        width="40px"
+        onClick={collapsible.methods.toggleCollapsed}
+        alignItems="center"
+        justifyContent="center"
+        cursor="pointer"
+        _hover={{
+          background: 'blackAlpha.50',
+        }}
+      >
+        {collapsible.state.collapsed ? <CaretRight /> : <CaretLeft />}
+      </Flex>
+      <Flex maxWidth="calc(100% - 40px)" overflowX="auto">
+        {routerHistory.state.routeHistory.map(ROUTE => {
+          const [_, type, file] = ROUTE.path.split('/');
 
-        let Icon;
+          let Icon;
 
-        if (!file) {
-          Icon = LogoIcon;
-        } else if (type === 'memes') {
-          Icon = MemeIcon;
-        } else {
-          Icon = BlogIcon;
-        }
+          if (!file) {
+            Icon = Logo;
+          } else if (type === 'memes') {
+            Icon = MemeIcon;
+          } else {
+            Icon = IdeaIcon;
+          }
 
-        return (
-          <Flex pos="relative" key={ROUTE.path}>
-            <Box
-              fontSize="20px"
-              position="absolute"
-              left="10px"
-              top="50%"
-              transform="translate(0,-50%)"
-            >
-              <Icon isActive={ROUTE.path === routerHistory.state.currentPath} />
-            </Box>
-            <NextLink href={ROUTE.path}>
-              <div style={{ display: 'flex' }}>
-                <AppbarTab
-                  isActive={ROUTE.path === routerHistory.state.currentPath}
-                >
-                  {ROUTE.name}
-                </AppbarTab>
-              </div>
-            </NextLink>
-            <Box
-              color="gray.400"
-              fontSize="20px"
-              position="absolute"
-              right="10px"
-              top="50%"
-              transform="translate(0,-50%)"
-              cursor="pointer"
-              pointerEvents={
-                routerHistory.state.routeHistory.length === 1
-                  ? 'none'
-                  : 'initial'
-              }
-              _hover={{
-                color: 'gray.500',
-              }}
-              onClick={() => {
-                routerHistory.methods.onRemoveRoute(ROUTE.path);
-              }}
-            >
-              <XIcon />
-            </Box>
-          </Flex>
-        );
-      })}
+          return (
+            <Flex pos="relative" key={ROUTE.path}>
+              <IconWrapper
+                fontSize="20px"
+                position="absolute"
+                left="10px"
+                top="50%"
+                transform="translate(0,-50%)"
+                isActive={ROUTE.path === routerHistory.state.currentPath}
+              >
+                <Icon />
+              </IconWrapper>
+              <NextLink href={ROUTE.path}>
+                <div style={{ display: 'flex' }}>
+                  <AppbarTab
+                    isActive={ROUTE.path === routerHistory.state.currentPath}
+                  >
+                    {ROUTE.name}
+                  </AppbarTab>
+                </div>
+              </NextLink>
+              <Box
+                color="gray.400"
+                fontSize="20px"
+                position="absolute"
+                right="10px"
+                top="50%"
+                transform="translate(0,-50%)"
+                cursor="pointer"
+                pointerEvents={
+                  routerHistory.state.routeHistory.length === 1
+                    ? 'none'
+                    : 'initial'
+                }
+                _hover={{
+                  color: 'gray.500',
+                }}
+                onClick={() => {
+                  routerHistory.methods.onRemoveRoute(ROUTE.path);
+                }}
+              >
+                <X />
+              </Box>
+            </Flex>
+          );
+        })}
+      </Flex>
     </Flex>
   );
 };

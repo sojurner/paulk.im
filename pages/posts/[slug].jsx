@@ -1,33 +1,24 @@
-import { useRouter } from 'next/router';
-import ErrorPage from 'next/error';
-import Head from 'next/head';
-
+// import { useRouter } from 'next/router';
+// import ErrorPage from 'next/error';
+// import Head from 'next/head';
+import { serialize } from 'next-mdx-remote/serialize';
+import matter from 'gray-matter';
 import {
   request,
   articles_query,
   article_queryable,
   article_viewcount_mutation,
 } from '@/lib/graphcms';
-import { markdown2Html } from '@/lib/markdown2Html';
 
-import { PanelPosts, PostTemplate } from '@/features/posts';
+import { PostTemplate } from '@/features/posts';
 
-import { Appbar } from '@/components/Appbar';
-
-export default function Post({ post, posts }) {
-  return (
-    <>
-      <PanelPosts posts={posts} gridArea="panel" />
-      <Appbar gridArea="appbar" />
-      <PostTemplate post={post} />
-    </>
-  );
+export default function Post({ post }) {
+  return <PostTemplate gridArea="body" post={post} />;
 }
 
 export async function getStaticProps({ params }) {
-  const { article, articles } = await request({
+  const { article } = await request({
     query: `query {
-      ${articles_query}
       ${article_queryable(params)}
     }`,
   });
@@ -39,8 +30,9 @@ export async function getStaticProps({ params }) {
       })}
     }`,
   });
+  const gray = matter(article.body);
 
-  const content = (await markdown2Html(article.body || '')) || null;
+  const content = await serialize(gray.content);
   return {
     props: {
       post: {
@@ -48,7 +40,6 @@ export async function getStaticProps({ params }) {
         viewCount: article.viewCount + 1,
         content,
       },
-      posts: articles,
     },
   };
 }

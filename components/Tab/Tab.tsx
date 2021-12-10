@@ -5,7 +5,7 @@ import { RegularText } from '@/components/Typography';
 
 import { µTab } from '.';
 
-export const AppbarTab: React.FC<µTab.Props> = ({
+export const AppbarTab: React.FC<µTab.Types.Props> = ({
   isActive,
   children,
   ...props
@@ -35,7 +35,10 @@ export const AppbarTab: React.FC<µTab.Props> = ({
   );
 };
 
-export const SidebarTab: React.FC<µTab.Props> = ({ isActive, ...props }) => {
+export const SidebarTab: React.FC<µTab.Types.Props> = ({
+  isActive,
+  ...props
+}) => {
   return (
     <Center
       cursor="pointer"

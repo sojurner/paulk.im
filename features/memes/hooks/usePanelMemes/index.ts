@@ -1,2 +1,2 @@
 export * from './usePanelMemes';
-export * as µUsePanelMemes from './types';
+export * as µUsePanelMemes from './µUsePanelMemes';

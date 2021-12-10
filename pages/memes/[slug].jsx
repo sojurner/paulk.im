@@ -2,31 +2,20 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { request, memes_query, meme_queryable } from '@/lib/graphcms';
 
-import { PanelMemes } from '@/features/memes';
 import { MemeTemplate } from '@/features/memes';
-
-import { Appbar } from '@/components/Appbar';
 
 dayjs.extend(relativeTime);
 
-export default function MemePage({ memes, meme }) {
-  return (
-    <>
-      <PanelMemes memes={memes} gridArea="panel" />
-      <Appbar gridArea="appbar" />
-      <MemeTemplate gridArea="body" meme={meme} />
-    </>
-  );
+export default function MemePage({ meme }) {
+  return <MemeTemplate gridArea="body" meme={meme} />;
 }
 
 export async function getStaticProps({ params }) {
-  const { meme, memes } = await request({
+  const { meme } = await request({
     query: `{
-      ${memes_query}
       ${meme_queryable(params)}
     }`,
   });
-
 
   await request({
     query: `mutation {
@@ -52,13 +41,6 @@ export async function getStaticProps({ params }) {
           label: dayjs(meme.date).format('MMM D, YYYY'),
         },
       },
-      memes: memes.map(MEME => ({
-        ...MEME,
-        date: {
-          label: dayjs(MEME.date).format('MMM D, YYYY'),
-          timeFromNow: dayjs(MEME.date).fromNow(),
-        },
-      })),
     },
   };
 }

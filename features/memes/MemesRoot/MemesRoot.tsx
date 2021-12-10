@@ -1,7 +1,6 @@
 import React from 'react';
 import NextLink from 'next/link';
 import NextImage from 'next/image';
-
 import {
   Box,
   Flex,
@@ -11,28 +10,36 @@ import {
   VStack,
   Tag,
 } from '@chakra-ui/react';
-import { RegularText, SubTitle, Title } from '@/components/Typography';
 
-import { µMemesRoot } from '.';
-import { BookmarkIcon } from '@/components/Icon';
-import { useFavoritesContext, µFavoritesProvider } from '@/features/favorites';
 import { useSettingsContext } from '@/features/settings';
 
-export const MemesRoot: React.FC<µMemesRoot.Props> = ({ memes, ...props }) => {
-  const favoritesContext = useFavoritesContext();
+import { RegularText, SubTitle, Title } from '@/components/Typography';
+import { BookmarkIcon, IconWrapper } from '@/components/Icon';
+import {
+  useFavoritesContext,
+  µUseFavoritesStorage,
+} from '@/features/favorites';
+
+import { µMemesRoot } from '.';
+
+export const MemesRoot: React.FC<µMemesRoot.Types.Props> = ({
+  memes,
+  ...props
+}) => {
+  const { favoritesStorage } = useFavoritesContext();
   const settingsContext = useSettingsContext();
 
-  const handleFavoriteClick: µMemesRoot.Methods['handleFavorite'] =
+  const handleFavoriteClick: µMemesRoot.Types.Methods['handleFavorite'] =
     React.useCallback(
       meme => () => {
-        favoritesContext.methods.onFavoritesUpdate({
+        favoritesStorage.methods.onFavoritesUpdate({
           slug: meme.slug,
           title: meme.title,
-          type: µFavoritesProvider.Enums.FavoriteType.MEME,
+          type: µUseFavoritesStorage.Enums.FavoriteType.MEME,
           value: meme.image,
         });
       },
-      [favoritesContext.methods.onFavoritesUpdate]
+      [favoritesStorage.methods.onFavoritesUpdate]
     );
 
   return (
@@ -81,12 +88,13 @@ export const MemesRoot: React.FC<µMemesRoot.Props> = ({ memes, ...props }) => {
                   placement="top"
                   bg="gray.500"
                 >
-                  <Box
+                  <IconWrapper
                     marginLeft="auto !important"
                     fontSize="1.4em"
-                    {...((!settingsContext.state.favorites.enabled ||
-                      !favoritesContext.state.favorites?.meme?.[MEME.slug]
-                        ?.saved) && { filter: 'grayscale(1)' })}
+                    isActive={
+                      settingsContext.state.favorites.enabled &&
+                      favoritesStorage.state.favorites?.meme?.[MEME.slug]?.saved
+                    }
                     {...(settingsContext.state.favorites.enabled && {
                       onClick: handleFavoriteClick(MEME),
                       cursor: 'pointer',
@@ -96,7 +104,7 @@ export const MemesRoot: React.FC<µMemesRoot.Props> = ({ memes, ...props }) => {
                     })}
                   >
                     <BookmarkIcon />
-                  </Box>
+                  </IconWrapper>
                 </Tooltip>
               </HStack>
               <Box cursor="pointer" my="3">

@@ -2,20 +2,21 @@ import React from 'react';
 import { Box, Flex } from '@chakra-ui/react';
 
 import { RegularText } from '../Typography';
-import { LogoIcon } from '@/components/Icon';
 
 import { µFile } from '.';
+import { IconWrapper } from '../Icon';
 
-export const File: React.FC<µFile.Props> = ({
+export const File: React.FC<µFile.Types.Props> = ({
   content,
   isActive,
   isCurrent,
+  children,
   ...props
 }) => {
   const [filename] = content;
+
   return (
     <Flex
-      paddingLeft="36px"
       bg={isActive ? 'blue.50' : 'initial'}
       display="flex"
       alignItems="center"
@@ -29,13 +30,13 @@ export const File: React.FC<µFile.Props> = ({
         borderLeft: '1px dashed',
         borderColor: 'gray.300',
         zIndex: 0,
-        left: '42px',
+        left: `calc(-9px + ${props.pl})`,
       }}
       {...props}
     >
-      <Box zIndex="10" bg={isActive ? 'blue.50' : 'gray.100'}>
-        <LogoIcon isActive={isActive || isCurrent} />
-      </Box>
+      <IconWrapper zIndex="10" fontSize="1.1em" isActive={isActive}>
+        {children}
+      </IconWrapper>
       <RegularText
         py="4px"
         marginLeft="5px"
@@ -49,6 +50,6 @@ export const File: React.FC<µFile.Props> = ({
   );
 };
 
-export const FileList: React.FC<µFile.FlexProps> = props => (
+export const FileList: React.FC<µFile.Types.FlexProps> = props => (
   <Flex flexDir="column" {...props} />
 );

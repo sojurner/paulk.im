@@ -1,30 +1,41 @@
 import '@fontsource/karla';
 import '@fontsource/noto-serif-display';
 import '@/styles/globals.scss';
+
 import { theme, Fonts } from '@/config/chakra';
 import type { AppProps } from 'next/app';
 import { ChakraProvider } from '@chakra-ui/react';
 
-import { DesktopLayout } from '@/components/Layout';
 import { SettingsProvider } from '@/features/settings';
 import { FavoritesProvider } from '@/features/favorites';
 import { ResponsiveProvider } from '@/features/responsive';
+import { SearchProvider } from '@/features/search';
+import { DataProvider } from '@/features/data';
 
-function MyApp({ Component, pageProps }: AppProps) {
+import { DesktopLayout } from '@/components/Layout';
+import { ExplorerProvider } from '@/features/explorer';
+
+function App({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider theme={theme}>
       <Fonts />
-      <SettingsProvider>
-        <FavoritesProvider>
-          <ResponsiveProvider>
-            <DesktopLayout>
-              <Component {...pageProps} />
-            </DesktopLayout>
-          </ResponsiveProvider>
-        </FavoritesProvider>
-      </SettingsProvider>
+      <DataProvider>
+        <SettingsProvider>
+          <FavoritesProvider>
+            <ResponsiveProvider>
+              <SearchProvider>
+                <ExplorerProvider>
+                  <DesktopLayout>
+                    <Component {...pageProps} />
+                  </DesktopLayout>
+                </ExplorerProvider>
+              </SearchProvider>
+            </ResponsiveProvider>
+          </FavoritesProvider>
+        </SettingsProvider>
+      </DataProvider>
     </ChakraProvider>
   );
 }
 
-export default MyApp;
+export default App;

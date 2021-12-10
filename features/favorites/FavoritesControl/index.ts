@@ -1,2 +1,2 @@
 export * from './FavoritesControl'
-export * from './types'
+export * as µFavoritesControl from './µFavoritesControl'

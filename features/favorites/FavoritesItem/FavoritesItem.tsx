@@ -1,19 +1,16 @@
 import React from 'react';
 import { Grid, GridItem, Flex } from '@chakra-ui/layout';
-import { MidText, RegularText } from '@/components/Typography';
+import { RegularText } from '@/components/Typography';
 import NextImage from 'next/image';
 
-import { çFavoritesItem } from './types';
+import { µFavoritesItem } from '.';
 
-export const FavoritesItem: React.FC<çFavoritesItem.Props> = ({
+export const FavoritesItem: React.FC<µFavoritesItem.Types.Props> = ({
   favorite,
   ...props
 }) => {
   return (
     <Grid
-      gridTemplateAreas={`
-      "img title" 
-    `}
       justifyItems="center"
       alignItems="center"
       gridTemplateColumns="60px calc(100% - 60px)"
@@ -22,6 +19,9 @@ export const FavoritesItem: React.FC<çFavoritesItem.Props> = ({
       pr="2"
       py="2"
       cursor="pointer"
+      gridTemplateAreas={`
+        "img title" 
+      `}
       _hover={{
         background: 'gray.50',
       }}
@@ -40,13 +40,7 @@ export const FavoritesItem: React.FC<çFavoritesItem.Props> = ({
         </Flex>
       </GridItem>
       <GridItem ml="3" width="100%" justifySelf="start" gridArea="title">
-        <RegularText
-          textOverflow="ellipsis"
-          fontSize="18px"
-          // whiteSpace="nowrap"
-          // overflow="hidden"
-          // width="100%"
-        >
+        <RegularText textOverflow="ellipsis" fontSize="18px">
           {favorite.title}
         </RegularText>
       </GridItem>

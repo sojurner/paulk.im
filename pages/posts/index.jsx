@@ -17,13 +17,7 @@ export default function Posts({ posts }) {
     collapsible.methods.toggleCollapsed();
   }, []);
 
-  return (
-    <>
-      <PanelPosts posts={posts} gridArea="panel" />
-      <Appbar gridArea="appbar" />
-      <PostsRoot posts={posts} gridArea="body" />
-    </>
-  );
+  return <PostsRoot posts={posts} gridArea="body" />;
 }
 
 export async function getStaticProps() {

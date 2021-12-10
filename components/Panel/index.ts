@@ -1,2 +1,2 @@
-export * from './Panel'
-export * as µPanel from './types'
+export * from './Panel';
+export * as µPanel from './µPanel';

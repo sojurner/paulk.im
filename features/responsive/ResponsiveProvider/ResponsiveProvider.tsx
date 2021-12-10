@@ -1,10 +1,11 @@
 import React from 'react';
 import { createContextProvider } from '@/lib/createContextProvider';
-import { µResponsiveProvider } from '.';
 import { useCollapsible, useMediaQueries } from '@/features/responsive/hooks';
 
+import { µResponsiveProvider } from '.';
+
 export const [ResponsiveContextProvider, useResponsiveContext] =
-  createContextProvider<µResponsiveProvider.Return>({
+  createContextProvider<µResponsiveProvider.Types.Value>({
     name: 'ResponsiveContext',
     errorMessage: 'context must be wrapped in Favorites Provider',
   });

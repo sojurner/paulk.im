@@ -1,30 +1,63 @@
 import Head from 'next/head';
 import Image from 'next/image';
 import styles from '../styles/Home.module.css';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
 
-import { request, articles_query, memes_query } from '@/lib/graphcms';
+import React from 'react';
+import {
+  request,
+  latest_articles_query,
+  latest_memes_query,
+} from '@/lib/graphcms';
 
-import { Appbar } from '@/components/Appbar';
-import { HomeRoot, PanelHome } from '@/features/home';
+import { HomeRoot } from '@/features/home';
 
-const HomePage = ({ memes, posts }) => {
-  return (
-    <>
-      <Appbar gridArea="panel / panel / appbar / appbar" />
-      <HomeRoot gridArea="body / panel / body / body" />
-    </>
-  );
+dayjs.extend(relativeTime);
+
+const HomePage = ({ latestItems }) => {
+  return <HomeRoot gridArea="body" latestItems={latestItems} />;
 };
 
 export async function getStaticProps() {
-  const { articles, memes } = await request({
+  const response = await request({
     query: `{
-      ${articles_query}
-      ${memes_query}
+      ${latest_articles_query}
+      ${latest_memes_query}
     }`,
   });
 
-  return { props: { posts: articles, memes } };
+  const posts = response.articles.map(ART => ({
+    type: 'POST',
+    data: ART,
+  }));
+
+  const memes = response.memes.map(MEME => ({
+    type: 'MEME',
+    data: {
+      ...MEME,
+      date: {
+        label: dayjs(MEME.date).format('MMM D, YYYY'),
+        timeFromNow: dayjs(MEME.date).fromNow(),
+      },
+    },
+  }));
+
+  const latestItems = [
+    posts[0],
+    memes[0],
+    posts[1],
+    //---
+    memes[1],
+    posts[2],
+    memes[2],
+    //---
+    memes[3],
+    posts[3],
+    posts[4],
+  ];
+
+  return { props: { latestItems } };
 }
 
 export default HomePage;

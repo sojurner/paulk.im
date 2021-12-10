@@ -13,7 +13,7 @@ export function createContextProvider<T>(
 
   Context.displayName = name;
 
-  function useContext(): T | undefined {
+  const useContext = (): T | undefined => {
     const context = React.useContext(Context);
 
     if (!context) {
@@ -24,7 +24,7 @@ export function createContextProvider<T>(
     }
 
     return context;
-  }
+  };
 
   return [
     Context.Provider,

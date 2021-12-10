@@ -1,2 +1,2 @@
 export * from './Footerbar';
-export * as µFooterbar from './types';
+export * as µFooterbar from './µFooterbar';

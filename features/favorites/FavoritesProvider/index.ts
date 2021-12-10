@@ -1,2 +1,2 @@
 export * from './FavoritesProvider'
-export * as µFavoritesProvider from './types'
+export * as µFavoritesProvider from './µFavoritesProvider'

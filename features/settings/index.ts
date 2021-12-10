@@ -1,5 +1,5 @@
-export * from './PanelSettings'
-export * from './SettingsProvider'
-export * from './SettingsRoot'
-export * from './PanelSettings'
-export * from './SettingsItem'
+export * from './SettingsProvider';
+export * from './SettingsControl';
+export * from './SettingsItem';
+
+export * from './hooks';

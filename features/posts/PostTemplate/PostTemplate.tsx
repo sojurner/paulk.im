@@ -1,14 +1,20 @@
 import React from 'react';
 import { Flex } from '@chakra-ui/react';
 import { SubHeading } from '@/components/Typography';
+import { MDXRemote } from 'next-mdx-remote';
 
-import { Article } from './styles';
-import { µPostTemplate } from '.';
 import { useComments } from '@/features/comments';
 import { useResponsiveContext } from '@/features/responsive';
 import { useRouter } from 'next/router';
+import { ReactLiveEditor } from '@/components/ReactLiveEditor';
 
-export const PostTemplate: React.FC<µPostTemplate.Props> = ({ post }) => {
+import { µPostTemplate } from '.';
+
+const components = {
+  ReactLiveEditor,
+};
+
+export const PostTemplate: React.FC<µPostTemplate.Types.Props> = ({ post }) => {
   const ref = React.useRef(null);
   const { asPath } = useRouter();
   const { collapsible } = useResponsiveContext();
@@ -27,10 +33,19 @@ export const PostTemplate: React.FC<µPostTemplate.Props> = ({ post }) => {
   }, [asPath]);
 
   return (
-    <Flex gridArea="body" overflow="auto">
-      <Flex flexDir="column" px="50px" py="40px" className="mb-32">
+    <Flex gridArea="body" overflow="auto" justifyContent="center">
+      <Flex
+        flexDir="column"
+        maxW={['100%', '650px']}
+        minW={'375px'}
+        py="40px"
+        px="20px"
+        className="mb-32"
+      >
         <SubHeading>{post.title}</SubHeading>
-        <Article dangerouslySetInnerHTML={{ __html: post.content }} />
+        <µPostTemplate.Styles.Article>
+          <MDXRemote {...post.content} components={components} />
+        </µPostTemplate.Styles.Article>
       </Flex>
       <div ref={ref} />
     </Flex>

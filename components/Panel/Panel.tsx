@@ -3,7 +3,7 @@ import { Flex } from '@chakra-ui/react';
 
 import { µPanel } from '.';
 
-export const Panel: React.FC<µPanel.Props> = props => {
+export const Panel: React.FC<µPanel.Types.Props> = props => {
   return (
     <Flex
       height="calc(100vh - 30px)"

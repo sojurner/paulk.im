@@ -1,2 +1,2 @@
 export * from './File';
-export * as µFile from './types';
+export * as µFile from './µFile';

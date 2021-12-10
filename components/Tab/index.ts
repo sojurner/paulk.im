@@ -1,2 +1,2 @@
 export * from './Tab'
-export * as µTab from './types'
+export * as µTab from './µTab'

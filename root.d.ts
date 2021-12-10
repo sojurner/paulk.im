@@ -7,7 +7,7 @@ declare namespace Models {
     tags: string[];
     author: string;
     date: string;
-    content: string;
+    content: import('next-mdx-remote').MDXRemoteSerializeResult;
     viewCount: number;
     upvotes: number;
     coverImage: {
@@ -39,7 +39,7 @@ declare namespace Models {
 
 declare namespace Components {
   declare interface ContentProps {
-    content: (string | number | undefined)[];
+    content: (string | number | undefined | React.FC)[];
   }
 }
 

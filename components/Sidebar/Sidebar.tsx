@@ -5,18 +5,23 @@ import { Flex } from '@chakra-ui/layout';
 
 import { SidebarTab } from '@/components/Tab';
 import {
-  LogoIcon,
-  BlogIcon,
+  Logo,
+  IdeaIcon,
   MemeIcon,
   SettingsIcon,
   SearchIcon,
+  IconWrapper,
 } from '@/components/Icon';
 
 import { µSidebar } from '.';
+import { useSearchContext } from '@/features/search';
+import { SettingsControl } from '@/features/settings';
 
-export const Sidebar: React.FC<µSidebar.Props> = props => {
+export const Sidebar: React.FC<µSidebar.Types.Props> = props => {
   const router = useRouter();
   const [_, root] = router.asPath.split('/');
+
+  const { searchToggle } = useSearchContext();
 
   return (
     <Flex
@@ -32,46 +37,45 @@ export const Sidebar: React.FC<µSidebar.Props> = props => {
         <NextLink href="/">
           <div>
             <SidebarTab fontSize={['1.4em', '2em']} isActive={!root}>
-              <LogoIcon isActive={!root} />
+              <IconWrapper isActive={!root}>
+                <Logo />
+              </IconWrapper>
             </SidebarTab>
           </div>
         </NextLink>
         <NextLink href="/posts">
           <div>
             <SidebarTab fontSize={['1.4em', '2em']} isActive={root === 'posts'}>
-              <BlogIcon isActive={root === 'posts'} />
+              <IconWrapper isActive={root === 'posts'}>
+                <IdeaIcon />
+              </IconWrapper>
             </SidebarTab>
           </div>
         </NextLink>
         <NextLink href="/memes">
           <div>
             <SidebarTab fontSize={['1.4em', '2em']} isActive={root === 'memes'}>
-              <MemeIcon isActive={root === 'memes'} />
+              <IconWrapper isActive={root === 'memes'}>
+                <MemeIcon />
+              </IconWrapper>
             </SidebarTab>
           </div>
         </NextLink>
       </Flex>
       <Flex flexDir={{ sm: 'row', md: 'column' }} className="tools-tabs">
-        <NextLink href="/search">
-          <div>
-            <SidebarTab
-              isActive={root === 'search'}
-              fontSize={['1.4em', '2em']}
-            >
-              <SearchIcon isActive={root === 'search'} />
+        <SidebarTab
+          onClick={searchToggle.methods.toggleSearch}
+          fontSize={['1.4em', '2em']}
+        >
+          <SearchIcon isActive />
+        </SidebarTab>
+        <Flex pos="relative">
+          <SettingsControl>
+            <SidebarTab pos="relative" fontSize={['1.4em', '2em']}>
+              <SettingsIcon />
             </SidebarTab>
-          </div>
-        </NextLink>
-        <NextLink href="/settings">
-          <div>
-            <SidebarTab
-              isActive={root === 'settings'}
-              fontSize={['1.4em', '2em']}
-            >
-              <SettingsIcon isActive={root === 'settings'} />
-            </SidebarTab>
-          </div>
-        </NextLink>
+          </SettingsControl>
+        </Flex>
       </Flex>
     </Flex>
   );

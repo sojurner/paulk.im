@@ -10,8 +10,8 @@ import {
   PopoverCloseButton,
   HStack,
 } from '@chakra-ui/react';
-import { SoundCloudIcon } from '@/components/Icon';
-import { useSettingsContext, µSettingsProvider } from '@/features/settings';
+import { IconWrapper, SoundCloudIcon } from '@/components/Icon';
+import { useSettingsContext, µUseSettings } from '@/features/settings';
 import { SoundCloudWidget, SoundCloudTag } from '@/features/soundCloud';
 
 import { µSoundCloudControl } from '.';
@@ -22,7 +22,7 @@ export const SoundCloudControl: React.FC<µSoundCloudControl.Props> = props => {
   return (
     <Popover matchWidth closeOnBlur={false} {...props}>
       <PopoverTrigger>
-        <Box
+        <IconWrapper
           px="1"
           cursor="pointer"
           fontSize="1.7em"
@@ -30,8 +30,8 @@ export const SoundCloudControl: React.FC<µSoundCloudControl.Props> = props => {
             background: 'blackAlpha.100',
           }}
         >
-          <SoundCloudIcon isActive={true} />
-        </Box>
+          <SoundCloudIcon />
+        </IconWrapper>
       </PopoverTrigger>
       <PopoverContent height="450px" width={['100vw', '650px']} pos="relative">
         <PopoverArrow />
@@ -50,7 +50,7 @@ export const SoundCloudControl: React.FC<µSoundCloudControl.Props> = props => {
                     }
                     onClick={() => {
                       methods.onSettingsUpdate(
-                        µSettingsProvider.Enums.SettingsStorageKey.SOUND_CLOUD,
+                        µUseSettings.Enums.SettingsStorageKey.SOUND_CLOUD,
                         {
                           ...state.soundCloud,
                           value: GENRE,

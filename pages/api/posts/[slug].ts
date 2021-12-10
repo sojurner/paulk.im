@@ -1,13 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { request } from '@/lib/graphcms';
 
-const updatePostHandler = async (
-  req: NextApiRequest,
-  res: NextApiResponse
-) => {
+const updatePostHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { slug } = req.query;
-
-  console.log(req.body);
 
   const query = `mutation {
     updateArticle(
@@ -15,15 +10,16 @@ const updatePostHandler = async (
       data: ${JSON.stringify(req.body)}
     ) {
       title
+      upvotes
     }
     publishArticle(where: {slug: "${slug}"}) {
       id
     }
   }`;
 
-  await request({ query });
+  const response = await request({ query });
 
-  res.status(200).json({ success: true });
+  res.status(200).json({ success: true, response });
 };
 
 export default updatePostHandler;

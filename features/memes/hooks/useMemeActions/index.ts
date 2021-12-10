@@ -1,2 +1,2 @@
 export * from './useMemeActions'
-export * as µUseMemeActions from './types'
+export * as µUseMemeActions from './µUseMemeActions'

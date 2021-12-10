@@ -1,93 +1,94 @@
 import React from 'react';
-
+import NextLink from 'next/link';
 import {
-  VStack,
   Flex,
   Input,
-  Tabs,
-  TabList,
-  TabPanels,
-  Tab,
-  TabPanel,
   InputGroup,
   InputLeftElement,
+  useOutsideClick,
 } from '@chakra-ui/react';
 
-import NextLink from 'next/link';
+import { RegularText } from '@/components/Typography';
 
-import { SearchSuggestion, useSearch, µSearch } from '@/features/search';
+import {
+  SearchSuggestion,
+  useSearchContext,
+  useSearchQuery,
+} from '@/features/search';
+
 import { SearchIcon } from '@/components/Icon';
 
 import { µSearchRoot } from '.';
 
-export const SearchRoot: React.FC<µSearchRoot.Props> = props => {
-  const { state, methods } = useSearch({});
+export const SearchRoot: React.FC<µSearchRoot.Types.Props> = props => {
+  const searchQuery = useSearchQuery();
+  const { searchToggle } = useSearchContext();
+
+  const ref = React.useRef<HTMLDivElement>(null);
+
+  useOutsideClick({
+    ref,
+    handler: searchToggle.methods.toggleSearch,
+  });
 
   return (
     <Flex
-      py="2em"
+      ref={ref}
       flexDir="column"
       alignItems="center"
       justifyContent="flex-start"
+      overflow="auto"
+      backgroundColor="gray.200"
+      minH="300px"
+      pos="fixed"
+      zIndex="1000"
+      top={['40px', '0']}
+      maxW="600px"
+      width={['100vw', '75vw']}
+      minW="400px"
+      right="50%"
+      transform="translate(50%, 0)"
+      boxShadow="0 4px 5px rgba(0,0,0,0.2)"
       {...props}
     >
-      <Tabs
-        variant="soft-rounded"
-        colorScheme="messenger"
-        onChange={methods.setCategory}
-      >
-        <TabList mb="6" py="4" justifyContent="center">
-          <Tab>Posts</Tab>
-          <Tab>Memes</Tab>
-        </TabList>
-        <InputGroup>
-          <InputLeftElement pointerEvents="none">
-            <SearchIcon isActive />
-          </InputLeftElement>
-          <Input
-            variant="filled"
-            defaultValue={state.initialQuery}
-            value={state.inputValue}
-            placeholder="search"
-            width="400px"
-            onChange={e => methods.onQueryChange(e.currentTarget.value)}
-          />
-        </InputGroup>
-        <TabPanels alignItems="flex-start" maxW="400px">
-          <TabPanel>
-            {!!state.postSuggestions.length &&
-              state.postSuggestions.map(SUGG => {
-                return (
-                  <NextLink key={SUGG.id} href={`/posts/${SUGG.id}`}>
-                    <div>
-                      <SearchSuggestion
-                        key={SUGG.id}
-                        suggestion={SUGG}
-                        category={µSearch.Enums.SuggestionCategory.POST}
-                      />
-                    </div>
-                  </NextLink>
-                );
-              })}
-          </TabPanel>
-          <TabPanel>
-            {!!state.memeSuggestions.length &&
-              state.memeSuggestions.map(SUGG => {
-                return (
-                  <NextLink key={SUGG.id} href={`/memes/${SUGG.id}`}>
-                    <div>
-                      <SearchSuggestion
-                        key={SUGG.id}
-                        suggestion={SUGG}
-                        category={µSearch.Enums.SuggestionCategory.MEME}
-                      />
-                    </div>
-                  </NextLink>
-                );
-              })}
-          </TabPanel>
-        </TabPanels>
-      </Tabs>
+      <InputGroup my="2" width="98%">
+        <InputLeftElement pointerEvents="none">
+          <SearchIcon />
+        </InputLeftElement>
+        <Input
+          variant="filled"
+          autoFocus
+          defaultValue={''}
+          value={searchQuery.state.inputValue}
+          placeholder="search"
+          onChange={e =>
+            searchQuery.methods.onQueryChange(e.currentTarget.value)
+          }
+        />
+      </InputGroup>
+      <Flex width="100%" flexDir="column" maxH="350px" overflow="auto">
+        {!!!searchQuery.state.shuffledSuggestions.length &&
+          searchQuery.state.inputValue && (
+            <RegularText p="3">No Matching Results</RegularText>
+          )}
+        {!!searchQuery.state.shuffledSuggestions.length &&
+          searchQuery.state.shuffledSuggestions.map(SUGG => {
+            return (
+              <NextLink key={SUGG.id} href={`/${SUGG.type}/${SUGG.id}`}>
+                <div
+                  onClick={searchToggle.methods.toggleSearch}
+                  style={{ width: '100%' }}
+                >
+                  <SearchSuggestion
+                    key={SUGG.id}
+                    suggestion={SUGG}
+                    category={SUGG.type}
+                  />
+                </div>
+              </NextLink>
+            );
+          })}
+      </Flex>
     </Flex>
   );
 };

@@ -1,17 +1,21 @@
 import React from 'react';
 import NextLink from 'next/link';
 import NextImage from 'next/image';
-
 import { Flex, HStack, VStack, Tag } from '@chakra-ui/react';
+
+import { useResponsiveContext } from '@/features/responsive';
+
 import { RegularText, SubTitle, Title } from '@/components/Typography';
+import { EyeIcon, UpvoteIcon } from '@/components/Icon';
 
 import { AvatarPkImage } from '@/assets/images';
 
 import { µPostsRoot } from '.';
-import { EyeIcon, UpvoteIcon } from '@/assets/icons';
-import { useResponsiveContext } from '@/features/responsive';
 
-export const PostsRoot: React.FC<µPostsRoot.Props> = ({ posts, ...props }) => {
+export const PostsRoot: React.FC<µPostsRoot.Types.Props> = ({
+  posts,
+  ...props
+}) => {
   const { collapsible, mediaQueries } = useResponsiveContext();
 
   return (

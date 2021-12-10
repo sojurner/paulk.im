@@ -3,13 +3,17 @@ import NextImage from 'next/image';
 import { Flex, Box, HStack, Tooltip, Tag } from '@chakra-ui/react';
 
 import { RegularText, SubTitle } from '@/components/Typography';
-import { BookmarkIcon, MemeIcon } from '@/components/Icon';
-import { EyeIcon } from '@/assets/icons';
+import {
+  BookmarkIcon,
+  MemeIcon,
+  EyeIcon,
+  IconWrapper,
+} from '@/components/Icon';
 import { useMemeActions } from '@/features/memes';
 
 import { µMemeTemplate } from '.';
 
-export const MemeTemplate: React.FC<µMemeTemplate.Props> = ({
+export const MemeTemplate: React.FC<µMemeTemplate.Types.Props> = ({
   meme,
   ...props
 }) => {
@@ -89,7 +93,7 @@ export const MemeTemplate: React.FC<µMemeTemplate.Props> = ({
               opacity: 1,
             }}
           >
-            <MemeIcon isActive={memeActions.state.upvoted} />
+            <MemeIcon />
             <RegularText
               ml="2"
               fontSize="20px"
@@ -109,17 +113,15 @@ export const MemeTemplate: React.FC<µMemeTemplate.Props> = ({
             placement="top"
             bg="gray.500"
           >
-            <Box
+            <IconWrapper
               cursor={memeActions.state.canFavorite ? 'pointer' : 'initial'}
               fontSize="2em"
               opacity={memeActions.state.canFavorite ? 1 : 0.5}
               onClick={memeActions.methods.handleFavorite}
-              {...(memeActions.state.notFavorited && {
-                filter: 'grayscale(1)',
-              })}
+              isActive={!memeActions.state.notFavorited}
             >
               <BookmarkIcon />
-            </Box>
+            </IconWrapper>
           </Tooltip>
         </Flex>
       </Flex>

@@ -68,3 +68,41 @@ export const articles_query = `
     }
   }
 `;
+
+export const latest_articles_query = `
+  articles(orderBy: createdAt_ASC, first: 5) {
+    title
+    excerpt
+    slug
+  	date
+    tags
+    category
+    viewCount
+    upvotes
+    coverImage {
+      url(
+        transformation: {
+          image: { resize: { width: 420, fit: clip } }
+        }
+      )
+    }
+  }
+`;
+
+export const latest_memes_query = `
+  memes(orderBy: createdAt_ASC, first: 5) {
+    title
+    slug
+    date
+    tags
+    viewCount
+    upvotes
+    image {
+      url(
+        transformation: {
+          image: { resize: { width: 420, fit: clip } }
+        }
+      )
+    }
+  }
+`;

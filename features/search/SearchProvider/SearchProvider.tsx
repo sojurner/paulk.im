@@ -1,78 +1,35 @@
 import React from 'react';
-import { useRouter } from 'next/router';
-import { Document } from 'flexsearch';
 
 import { createContextProvider } from '@/lib/createContextProvider';
+
+import { useSearchToggle, useFlexSearch } from '@/features/search';
+import { useDataContext } from '@/features/data';
 
 import { µSearchProvider } from '.';
 
 export const [SearchContextProvider, useSearchContext] =
-  createContextProvider<µSearchProvider.Return>({
+  createContextProvider<µSearchProvider.Types.Value>({
     name: 'SearchContext',
     errorMessage: 'context must be wrapped in Search Provider',
   });
 
-export const SearchProvider: React.FC<µSearchProvider.Props> = props => {
-  const { query } = useRouter();
+export const SearchProvider: React.FC<µSearchProvider.Types.Props> = props => {
+  const searchToggle = useSearchToggle();
+  const { data } = useDataContext();
 
-  const [memeDocument] = React.useState(
-    new Document({
-      document: {
-        id: 'slug',
-        index: ['title'],
-        store: true,
-      },
-      tokenize: 'full',
-    })
-  );
-  const [postDocument] = React.useState(
-    new Document({
-      document: {
-        id: 'slug',
-        index: ['title'],
-        store: true,
-      },
-      tokenize: 'full',
-    })
-  );
-
-  const onAddMemes: µSearchProvider.Methods['onAddMemes'] = memes => {
-    memes.forEach(MEME => {
-      memeDocument.add({
-        title: MEME.title,
-        date: MEME.date,
-        slug: MEME.slug,
-      });
-    });
-  };
-
-  const onAddPosts: µSearchProvider.Methods['onAddPosts'] = posts => {
-    posts.forEach(POST => {
-      postDocument.add({
-        title: POST.title,
-        date: POST.date,
-        slug: POST.slug,
-      });
-    });
-  };
+  const flexSearch = useFlexSearch({
+    memes: data.state.memes,
+    posts: data.state.posts,
+  });
 
   React.useEffect(() => {
-    onAddMemes(props.memes);
-    onAddPosts(props.posts);
-  }, []);
+    if (data.state.initialized) return;
+    if (!searchToggle.state.showSearch) return;
 
-  const state = {
-    ...(typeof query?.search === 'string' && {
-      initialQuery: query.search || '',
-    }),
-    memeDocument,
-    postDocument,
-  };
+    data.methods.fetchData();
+  }, [searchToggle.state.showSearch]);
 
-  const methods = {
-    onAddMemes,
-    onAddPosts,
-  };
-
-  return <SearchContextProvider value={{ state, methods }} {...props} />;
+  return (
+    <SearchContextProvider value={{ flexSearch, searchToggle }} {...props} />
+  );
 };

@@ -8,13 +8,13 @@ import { FavoritesControl } from '@/features/favorites';
 
 import { µFooterbar } from '.';
 
-export const Footerbar: React.FC<µFooterbar.Props> = props => {
+export const Footerbar: React.FC<µFooterbar.Types.Props> = props => {
   const { state } = useSettingsContext();
   const [activeControl, setActiveControl] = React.useState<
-    µFooterbar.State['activeControl']
+    µFooterbar.Types.State['activeControl']
   >(µFooterbar.Enums.FeatureControl.NONE);
 
-  const forwardOnSetActiveControl: µFooterbar.Methods['forwardOnSetActiveControl'] =
+  const forwardOnSetActiveControl: µFooterbar.Types.Methods['forwardOnSetActiveControl'] =
     control => () => {
       setActiveControl(control);
     };
@@ -24,7 +24,7 @@ export const Footerbar: React.FC<µFooterbar.Props> = props => {
   );
 
   return (
-    <Flex bg="gray.300" px="10" width="100%" height="100%" {...props}>
+    <Flex bg="gray.50" borderTop="1px solid" borderColor="gray.200" px="10" width="100%" height="100%" {...props}>
       <HStack spacing="3">
         {state.soundCloud.enabled && (
           <SoundCloudControl

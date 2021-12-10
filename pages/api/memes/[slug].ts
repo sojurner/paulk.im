@@ -13,15 +13,16 @@ const updateMemeHandler = async (
       data: {upvotes: ${req.body.upvotes}}
     ) {
       title
+      upvotes
     }
     publishMeme(where: {slug: "${slug}"}) {
       id
     }
   }`;
 
-  await request({ query });
+  const response = await request({ query });
 
-  res.status(200).json({ success: true });
+  res.status(200).json({ success: true, response });
 };
 
 export default updateMemeHandler;

@@ -1,2 +1,2 @@
 export * from './SearchProvider';
-export * as µSearchProvider from './types';
+export * as µSearchProvider from './µSearchProvider';
