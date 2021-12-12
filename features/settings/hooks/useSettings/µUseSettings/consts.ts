@@ -1,5 +1,4 @@
-import * as Enums from './enums';
-import * as Types from './types';
+import { Enums, Types } from '.';
 
 export const LS_SETTINGS_KEY = 'pk-settings';
 
@@ -16,6 +15,10 @@ export const LS_SETTINGS_INIT_VAL: Record<
     value: '',
   },
   [Enums.SettingsStorageKey.FAVORITES]: {
+    enabled: false,
+    value: '',
+  },
+  [Enums.SettingsStorageKey.DARK_MODE]: {
     enabled: false,
     value: '',
   },

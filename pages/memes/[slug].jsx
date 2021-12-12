@@ -1,13 +1,14 @@
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
+
 import { request, memes_query, meme_queryable } from '@/lib/graphcms';
 
 import { MemeTemplate } from '@/features/memes';
 
 dayjs.extend(relativeTime);
 
-export default function MemePage({ meme }) {
-  return <MemeTemplate gridArea="body" meme={meme} />;
+export default function MemePage({ meme, ...props }) {
+  return <MemeTemplate gridArea="body" meme={meme} {...props} />;
 }
 
 export async function getStaticProps({ params }) {

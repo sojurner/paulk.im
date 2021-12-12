@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  Box,
   Popover,
   PopoverTrigger,
   PopoverContent,
@@ -8,8 +7,9 @@ import {
   PopoverBody,
   PopoverArrow,
   PopoverCloseButton,
-  HStack,
+  Flex,
 } from '@chakra-ui/react';
+
 import { IconWrapper, SoundCloudIcon } from '@/components/Icon';
 import { useSettingsContext, µUseSettings } from '@/features/settings';
 import { SoundCloudWidget, SoundCloudTag } from '@/features/soundCloud';
@@ -20,24 +20,26 @@ export const SoundCloudControl: React.FC<µSoundCloudControl.Props> = props => {
   const { state, methods } = useSettingsContext();
 
   return (
-    <Popover matchWidth closeOnBlur={false} {...props}>
+    <Popover matchWidth placement="top" closeOnBlur={false} {...props}>
       <PopoverTrigger>
-        <IconWrapper
-          px="1"
-          cursor="pointer"
-          fontSize="1.7em"
-          _hover={{
-            background: 'blackAlpha.100',
-          }}
-        >
-          <SoundCloudIcon />
-        </IconWrapper>
+        <div>
+          <IconWrapper
+            px="1"
+            cursor="pointer"
+            fontSize="1.7em"
+            _hover={{
+              background: 'blackAlpha.100',
+            }}
+          >
+            <SoundCloudIcon />
+          </IconWrapper>
+        </div>
       </PopoverTrigger>
       <PopoverContent height="450px" width={['100vw', '650px']} pos="relative">
         <PopoverArrow />
         <PopoverCloseButton />
-        <PopoverHeader>
-          <HStack>
+        <PopoverHeader width="95%">
+          <Flex flexWrap="wrap">
             {Object.entries(µSoundCloudControl.Enums.ScGenre).map(
               ([KEY, GENRE]) => {
                 return (
@@ -57,13 +59,14 @@ export const SoundCloudControl: React.FC<µSoundCloudControl.Props> = props => {
                         }
                       );
                     }}
+                    margin="1"
                   >
                     {KEY}
                   </SoundCloudTag>
                 );
               }
             )}
-          </HStack>
+          </Flex>
         </PopoverHeader>
         <PopoverBody>
           <SoundCloudWidget

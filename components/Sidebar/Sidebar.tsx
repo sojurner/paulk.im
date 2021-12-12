@@ -1,21 +1,21 @@
 import React from 'react';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
-import { Flex } from '@chakra-ui/layout';
+import { Flex, useColorModeValue } from '@chakra-ui/react';
+
+import { useSearchContext } from '@/features/search';
+import { SettingsControl } from '@/features/settings';
 
 import { SidebarTab } from '@/components/Tab';
 import {
   Logo,
   IdeaIcon,
   MemeIcon,
-  SettingsIcon,
   SearchIcon,
   IconWrapper,
 } from '@/components/Icon';
 
 import { µSidebar } from '.';
-import { useSearchContext } from '@/features/search';
-import { SettingsControl } from '@/features/settings';
 
 export const Sidebar: React.FC<µSidebar.Types.Props> = props => {
   const router = useRouter();
@@ -23,12 +23,15 @@ export const Sidebar: React.FC<µSidebar.Types.Props> = props => {
 
   const { searchToggle } = useSearchContext();
 
+  const bg = useColorModeValue('gray.100', 'gray.700');
+  const borderColor = useColorModeValue('gray.300', 'gray.600');
+
   return (
     <Flex
       flexDir="column"
-      bg="whiteAlpha.800"
+      bg={bg}
       borderRight="1px solid"
-      borderColor="blackAlpha.100"
+      borderColor={borderColor}
       justifyContent="space-between"
       height="100%"
       {...props}
@@ -67,14 +70,10 @@ export const Sidebar: React.FC<µSidebar.Types.Props> = props => {
           onClick={searchToggle.methods.toggleSearch}
           fontSize={['1.4em', '2em']}
         >
-          <SearchIcon isActive />
+          <SearchIcon />
         </SidebarTab>
         <Flex pos="relative">
-          <SettingsControl>
-            <SidebarTab pos="relative" fontSize={['1.4em', '2em']}>
-              <SettingsIcon />
-            </SidebarTab>
-          </SettingsControl>
+          <SettingsControl />
         </Flex>
       </Flex>
     </Flex>

@@ -54,3 +54,80 @@ $fill-colors: #a54afd, #4f9cfd, #ffbf55, #fc4d91, #4de2ae, rgb(113, 222, 241),
     }
   }
 }
+
+.theme-toggle {
+  height: 25px;
+  width: 25px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+
+  .sun {
+    background: var(--chakra-colors-orange-300);
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    border: 4px solid var(--chakra-colors-orange-50);
+  }
+
+  .sun__ray {
+    width: 2px;
+    background: var(--chakra-colors-orange-300);
+    display: block;
+    height: 121%;
+    position: absolute;
+    z-index: -1;
+    transition: 0.4s all, height 0.3s ease-in-out;
+
+    $columns: 12;
+    @for $i from 1 through $columns {
+      &:nth-child(#{$i}) {
+        transform: rotate(calc(#{$i} * calc(360deg / #{$columns})));
+      }
+    }
+  }
+  .moon {
+    height: 18px;
+    width: 18px;
+    position: absolute;
+    background: var(--color-primary);
+    border-radius: 50%;
+    top: 0;
+    right: 0;
+    transform: scale(0) translate(25%, -25%);
+    z-index: 9;
+    transition: 0.4s transform;
+    transform-origin: right;
+  }
+}
+
+.theme--night {
+  .theme-toggle {
+    background-color: var(--chakra-colors-gray-700);
+  }
+  .sun {
+    background-color: var(--chakra-colors-pink-400);
+    border-color: var(--chakra-colors-gray-700);
+  }
+
+  .moon {
+    transform: scale(1) translate(10%, -10%);
+    background-color: var(--chakra-colors-gray-700);
+  }
+
+  .theme-toggle .sun__ray {
+    height: 0;
+    transition: 0.4s, transform 0.4s, height 0.2s 0.1s;
+
+    $columns: 12;
+    @for $i from 1 through $columns {
+      &:nth-child(#{$i}) {
+        transform: rotate(
+          calc(calc(#{$i} * calc(360deg / #{$columns})) - 45deg)
+        );
+      }
+    }
+  }
+}

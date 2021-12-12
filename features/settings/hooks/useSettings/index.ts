@@ -1,2 +1,2 @@
-export * as µUseSettings from './module';
+export * as µUseSettings from './µUseSettings';
 export * from './useSettings';

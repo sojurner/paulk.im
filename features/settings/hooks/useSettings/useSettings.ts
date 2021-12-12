@@ -1,10 +1,10 @@
 import React from 'react';
-import { useToast } from '@chakra-ui/react';
-
+import { useToast, useColorMode } from '@chakra-ui/react';
 import { µUseSettings } from '.';
 
 export const useSettings = (): µUseSettings.Types.Return => {
   const toast = useToast();
+  const { colorMode, toggleColorMode } = useColorMode();
 
   const [settings, setSettings] = React.useState(
     µUseSettings.Consts.LS_SETTINGS_INIT_VAL
@@ -25,6 +25,10 @@ export const useSettings = (): µUseSettings.Types.Return => {
       };
     });
 
+    if (key === µUseSettings.Enums.SettingsStorageKey.DARK_MODE) {
+      toggleColorMode();
+    }
+    
     µUseSettings.Utils.updateSettingsStorage(key, updateVal);
   };
 
@@ -57,7 +61,7 @@ export const useSettings = (): µUseSettings.Types.Return => {
 
     toast({
       title: 'Corrupted Data',
-      description: 'Your settings have been reinitialized',
+      description: 'Your settings have been reset',
       status: 'error',
       duration: 4000,
       isClosable: true,
@@ -68,6 +72,9 @@ export const useSettings = (): µUseSettings.Types.Return => {
     const validatedStorage = validateSettingsStorage();
 
     if (!validatedStorage) return onError();
+    if (validatedStorage.darkMode && colorMode === 'light') {
+      toggleColorMode();
+    }
 
     setSettings(validatedStorage);
   }, []);

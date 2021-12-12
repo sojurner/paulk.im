@@ -1,5 +1,4 @@
 import { Dispatch, SetStateAction } from 'react';
-import { µFavoritesProvider } from '@/features/favorites';
 
 export interface Args {
   meme: Models.Meme;
@@ -21,5 +20,3 @@ export interface Return {
   state: State;
   methods: Methods;
 }
-
-export { µFavoritesProvider };

@@ -14,13 +14,15 @@ import { µExplorerPanel } from '.';
 import { MidText } from '@/components/Typography';
 
 export const ExplorerPanel: React.FC<µExplorerPanel.Props> = props => {
-  const {data} = useDataContext();
+  const { data } = useDataContext();
   const { explorer } = useExplorerContext();
 
   return (
     <Panel overflow="hidden" pos="relative" {...props}>
       <Flex flexDir="column" width="100%" position="relative">
-        <MidText fontFamily="heading" fontWeight="bold" p="2">Explorer</MidText>
+        <MidText fontFamily="heading" fontWeight="bold" p="2">
+          Explorer
+        </MidText>
         <Directory
           onClick={() => explorer.methods.toggleRootDirectory('posts')}
           initialExpanded={explorer.state.explorer.posts}
@@ -40,13 +42,15 @@ export const ExplorerPanel: React.FC<µExplorerPanel.Props> = props => {
                     {POSTS.files.map(POST => {
                       return (
                         <NextLink key={POST.slug} href={`/posts/${POST.slug}`}>
-                          <File
-                            pl="36px"
-                            content={[POST.title]}
-                            isActive={explorer.state.activeFile === POST.slug}
-                          >
-                            <IdeaIcon />
-                          </File>
+                          <div>
+                            <File
+                              pl="36px"
+                              content={[POST.title]}
+                              isActive={explorer.state.activeFile === POST.slug}
+                            >
+                              <IdeaIcon />
+                            </File>
+                          </div>
                         </NextLink>
                       );
                     })}
@@ -65,13 +69,15 @@ export const ExplorerPanel: React.FC<µExplorerPanel.Props> = props => {
             {data.state.memes.map(MEME => {
               return (
                 <NextLink key={MEME.slug} href={`/memes/${MEME.slug}`}>
-                  <File
-                    pl="27px"
-                    isActive={explorer.state.activeFile === MEME.slug}
-                    content={[MEME.title]}
-                  >
-                    <MemeIcon />
-                  </File>
+                  <div>
+                    <File
+                      pl="27px"
+                      isActive={explorer.state.activeFile === MEME.slug}
+                      content={[MEME.title]}
+                    >
+                      <MemeIcon />
+                    </File>
+                  </div>
                 </NextLink>
               );
             })}

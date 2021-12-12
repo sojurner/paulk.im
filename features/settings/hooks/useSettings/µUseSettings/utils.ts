@@ -1,6 +1,4 @@
-import * as Enums from './enums';
-import * as Consts from './consts';
-import * as Types from './types';
+import { Enums, Consts, Types } from '.';
 
 export const initializeSettingsStorage = () => {
   localStorage.setItem(

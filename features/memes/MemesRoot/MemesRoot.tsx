@@ -88,23 +88,26 @@ export const MemesRoot: React.FC<µMemesRoot.Types.Props> = ({
                   placement="top"
                   bg="gray.500"
                 >
-                  <IconWrapper
-                    marginLeft="auto !important"
-                    fontSize="1.4em"
-                    isActive={
-                      settingsContext.state.favorites.enabled &&
-                      favoritesStorage.state.favorites?.meme?.[MEME.slug]?.saved
-                    }
-                    {...(settingsContext.state.favorites.enabled && {
-                      onClick: handleFavoriteClick(MEME),
-                      cursor: 'pointer',
-                    })}
-                    {...(!settingsContext.state.favorites.enabled && {
-                      opacity: 0.6,
-                    })}
-                  >
-                    <BookmarkIcon />
-                  </IconWrapper>
+                  <div>
+                    <IconWrapper
+                      marginLeft="auto !important"
+                      fontSize="1.4em"
+                      isActive={
+                        settingsContext.state.favorites.enabled &&
+                        favoritesStorage.state.favorites?.meme?.[MEME.slug]
+                          ?.saved
+                      }
+                      {...(settingsContext.state.favorites.enabled && {
+                        onClick: handleFavoriteClick(MEME),
+                        cursor: 'pointer',
+                      })}
+                      {...(!settingsContext.state.favorites.enabled && {
+                        opacity: 0.6,
+                      })}
+                    >
+                      <BookmarkIcon />
+                    </IconWrapper>
+                  </div>
                 </Tooltip>
               </HStack>
               <Box cursor="pointer" my="3">

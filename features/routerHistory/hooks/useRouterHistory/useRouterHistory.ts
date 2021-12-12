@@ -2,11 +2,21 @@ import { useState, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/router';
 
 import { µUseRouterHistory } from '.';
+import { useDataContext } from '@/features/data';
 
 export const useRouterHistory = (
   params: µUseRouterHistory.Types.Params
 ): µUseRouterHistory.Types.Return => {
   const router = useRouter();
+  const dataContext = useDataContext();
+
+  const validRoutes = [
+    ...µUseRouterHistory.Consts.VALID_ROUTES,
+    ...µUseRouterHistory.Utils.mapToValidRoutes(
+      dataContext.data.state.memes,
+      dataContext.data.state.posts
+    ),
+  ];
 
   const [_, rootPath, slug] = router.asPath.split('/');
 
@@ -34,11 +44,16 @@ export const useRouterHistory = (
 
   // add route to route history
   useEffect(() => {
+    const validPath = validRoutes.find(RTE => RTE === router.asPath);
+    if (!validPath) {
+      return;
+    }
+
     const addResult = µUseRouterHistory.Utils.addRoute(
       µUseRouterHistory.Enums.RouteHistoryCategory.POSTS,
       {
-        path: `/${rootPath}${slug ? `/${slug}` : ''}`,
-        name: slug || `${rootPath}.pk`,
+        path: validPath,
+        name: slug || `${rootPath || 'home'}.pk`,
       }
     );
     setRouteHistory(addResult);

@@ -6,8 +6,8 @@ import { MemesRoot } from '@/features/memes';
 
 dayjs.extend(relativeTime);
 
-export default function MemesPage({ memes }) {
-  return <MemesRoot memes={memes} gridArea="body" />;
+export default function MemesPage({ memes, ...props }) {
+  return <MemesRoot memes={memes} gridArea="body" {...props} />;
 }
 
 export async function getStaticProps() {

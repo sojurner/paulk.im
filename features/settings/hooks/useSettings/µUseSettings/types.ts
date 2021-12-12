@@ -1,9 +1,11 @@
-import * as Enums from './enums';
+import { Enums } from '.';
+import { ColorMode } from '@chakra-ui/react';
 
 export interface State {
   soundCloud: SettingsLS;
   openWeather: SettingsLS;
   favorites: SettingsLS;
+  darkMode: SettingsLS;
 }
 
 export interface Methods {
@@ -19,3 +21,5 @@ export interface SettingsLS {
   enabled: boolean;
   value?: string;
 }
+
+export type { ColorMode };

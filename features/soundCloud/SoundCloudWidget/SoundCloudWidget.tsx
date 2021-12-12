@@ -1,15 +1,17 @@
 import React from 'react';
-import { Box } from '@chakra-ui/react';
+import { Box, useColorMode } from '@chakra-ui/react';
 
 import { µSoundCloudWidget } from '.';
 
 export const SoundCloudWidget: React.FC<µSoundCloudWidget.Props> = ({
   playlistUrl,
 }) => {
+  const { colorMode } = useColorMode();
   return (
     <Box height="auto" width="auto">
       <iframe
         id={'sc-iframe'}
+        {...(colorMode === 'dark' && { style: { filter: 'invert(.85)' } })}
         width="100%"
         height="380px"
         scrolling="no"

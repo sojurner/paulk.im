@@ -10,6 +10,7 @@ export const SoundCloudTag: React.FC<µSoundCloudTag.Props> = ({
 }) => {
   return (
     <Tag
+      minWidth="max-content"
       cursor="pointer"
       variant={isActive ? 'solid' : 'outline'}
       onClick={onClick}

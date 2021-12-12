@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Flex } from '@chakra-ui/react';
+import { Flex, useColorModeValue } from '@chakra-ui/react';
 
 import { RegularText } from '../Typography';
 
@@ -14,10 +14,11 @@ export const File: React.FC<µFile.Types.Props> = ({
   ...props
 }) => {
   const [filename] = content;
+  const bg = useColorModeValue('blue.50', 'blue.900');
 
   return (
     <Flex
-      bg={isActive ? 'blue.50' : 'initial'}
+      bg={isActive ? bg : 'initial'}
       display="flex"
       alignItems="center"
       position="relative"

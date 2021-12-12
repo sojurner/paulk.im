@@ -1,8 +1,7 @@
-import { Flex, HStack } from '@chakra-ui/react';
 import React from 'react';
-import { useSettingsContext } from '@/features/settings';
-// import { SmallText } from '@/components/Typography';
+import { Flex, HStack, useColorModeValue } from '@chakra-ui/react';
 
+import { useSettingsContext } from '@/features/settings';
 import { SoundCloudControl } from '@/features/soundCloud';
 import { FavoritesControl } from '@/features/favorites';
 
@@ -10,6 +9,9 @@ import { µFooterbar } from '.';
 
 export const Footerbar: React.FC<µFooterbar.Types.Props> = props => {
   const { state } = useSettingsContext();
+  const bg = useColorModeValue('gray.50', 'gray.700');
+  const borderColor = useColorModeValue('gray.200', 'gray.600');
+
   const [activeControl, setActiveControl] = React.useState<
     µFooterbar.Types.State['activeControl']
   >(µFooterbar.Enums.FeatureControl.NONE);
@@ -24,7 +26,15 @@ export const Footerbar: React.FC<µFooterbar.Types.Props> = props => {
   );
 
   return (
-    <Flex bg="gray.50" borderTop="1px solid" borderColor="gray.200" px="10" width="100%" height="100%" {...props}>
+    <Flex
+      bg={bg}
+      borderTop="1px solid"
+      borderColor={borderColor}
+      px="10"
+      width="100%"
+      height="100%"
+      {...props}
+    >
       <HStack spacing="3">
         {state.soundCloud.enabled && (
           <SoundCloudControl
@@ -47,8 +57,6 @@ export const Footerbar: React.FC<µFooterbar.Types.Props> = props => {
           />
         )}
       </HStack>
-
-      <HStack spacing="6"></HStack>
     </Flex>
   );
 };

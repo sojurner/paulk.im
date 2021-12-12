@@ -44,3 +44,13 @@ export const removeRoute = (
 export const initializeRouteHistory = (key: Enums.RouteHistoryCategory) => {
   localStorage.setItem(key, JSON.stringify([]));
 };
+
+export const mapToValidRoutes = (
+  memes: Models.Meme[],
+  posts: Models.Post[]
+) => {
+  return [
+    ...memes.map(meme => `/memes/${meme.slug}`),
+    ...posts.map(posts => `/posts/${posts.slug}`),
+  ];
+};

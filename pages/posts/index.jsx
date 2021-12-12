@@ -1,10 +1,7 @@
 import React from 'react';
 import { request, articles_query } from '@/lib/graphcms';
 
-import { PanelPosts } from '@/features/posts';
 import { PostsRoot } from '@/features/posts';
-
-import { Appbar } from '@/components/Appbar';
 import { useResponsiveContext } from '@/features/responsive';
 
 export default function Posts({ posts }) {

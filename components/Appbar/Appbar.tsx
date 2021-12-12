@@ -1,6 +1,6 @@
 import React from 'react';
 import NextLink from 'next/link';
-import { Flex, Box } from '@chakra-ui/react';
+import { Flex, Box, useColorModeValue } from '@chakra-ui/react';
 
 import { useRouterHistory } from '@/features/routerHistory';
 
@@ -19,19 +19,33 @@ import { µAppbar } from '.';
 import { useResponsiveContext } from '@/features/responsive';
 
 export const Appbar: React.FC<µAppbar.Types.Props> = props => {
+  const bg = useColorModeValue('gray.100', 'gray.900');
+  const borderColor = useColorModeValue('gray.200', 'gray.700');
+  const activeBg = useColorModeValue('white', 'gray.800');
+
   const routerHistory = useRouterHistory({});
   const { collapsible } = useResponsiveContext();
 
   return (
     <Flex
-      bg="gray.100"
+      bg={bg}
       flexDir="row"
       justifyContent="flex-start"
-      h={'100%'}
       width="100%"
       zIndex="docked"
       pos="relative"
       overflow="hidden"
+      marginBottom="-1px"
+      _before={{
+        content: "''",
+        pos: 'absolute',
+        width: '100%',
+        height: '1px',
+        borderBottom: '1px',
+        borderBottomColor: borderColor,
+        bottom: 0,
+        zIndex: 1,
+      }}
       {...props}
     >
       <Flex
@@ -46,7 +60,7 @@ export const Appbar: React.FC<µAppbar.Types.Props> = props => {
       >
         {collapsible.state.collapsed ? <CaretRight /> : <CaretLeft />}
       </Flex>
-      <Flex maxWidth="calc(100% - 40px)" overflowX="auto">
+      <Flex maxWidth="calc(100% - 40px)"  overflow="auto hidden">
         {routerHistory.state.routeHistory.map(ROUTE => {
           const [_, type, file] = ROUTE.path.split('/');
 
@@ -61,19 +75,35 @@ export const Appbar: React.FC<µAppbar.Types.Props> = props => {
           }
 
           return (
-            <Flex pos="relative" key={ROUTE.path}>
-              <IconWrapper
-                fontSize="20px"
-                position="absolute"
-                left="10px"
-                top="50%"
-                transform="translate(0,-50%)"
-                isActive={ROUTE.path === routerHistory.state.currentPath}
-              >
-                <Icon />
-              </IconWrapper>
+            <Flex
+              pos="relative"
+              key={ROUTE.path}
+              {...(ROUTE.path === routerHistory.state.currentPath && {
+                _after: {
+                  content: "''",
+                  position: 'absolute',
+                  bottom: '-1px',
+                  borderBottom: '2px solid',
+                  borderBottomColor: activeBg,
+                  width: '99%',
+                  height: '1px',
+                  left: '1px',
+                  zIndex: 1,
+                },
+              })}
+            >
               <NextLink href={ROUTE.path}>
-                <div style={{ display: 'flex' }}>
+                <div style={{ cursor: 'pointer', display: 'flex' }}>
+                  <IconWrapper
+                    fontSize="20px"
+                    position="absolute"
+                    left="10px"
+                    top="50%"
+                    transform="translate(0,-50%)"
+                    isActive={ROUTE.path === routerHistory.state.currentPath}
+                  >
+                    <Icon />
+                  </IconWrapper>
                   <AppbarTab
                     isActive={ROUTE.path === routerHistory.state.currentPath}
                   >
