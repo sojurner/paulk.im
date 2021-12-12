@@ -56,25 +56,23 @@ export const HomeRoot: React.FC<µHomeRoot.Types.Props> = ({
           switch (ITEM.type) {
             case 'POST':
               return (
-                <NextLink href={`/posts/${ITEM.data.slug}`}>
+                <NextLink
+                  key={ITEM.data.slug}
+                  href={`/posts/${ITEM.data.slug}`}
+                >
                   <div>
-                    <LatestBlogCard
-                      key={ITEM.data.slug}
-                      width={width}
-                      post={ITEM.data}
-                    />
+                    <LatestBlogCard width={width} post={ITEM.data} />
                   </div>
                 </NextLink>
               );
             case 'MEME':
               return (
-                <NextLink href={`/memes/${ITEM.data.slug}`}>
+                <NextLink
+                  key={ITEM.data.slug}
+                  href={`/memes/${ITEM.data.slug}`}
+                >
                   <div>
-                    <LatestMemeCard
-                      key={ITEM.data.slug}
-                      width={width}
-                      meme={ITEM.data}
-                    />
+                    <LatestMemeCard width={width} meme={ITEM.data} />
                   </div>
                 </NextLink>
               );

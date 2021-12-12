@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 import { createContextProvider } from '@/lib/createContextProvider';
 import { useCollapsible, useMediaQueries } from '@/features/responsive/hooks';
@@ -7,7 +8,7 @@ import { µResponsiveProvider } from '.';
 export const [ResponsiveContextProvider, useResponsiveContext] =
   createContextProvider<µResponsiveProvider.Types.Value>({
     name: 'ResponsiveContext',
-    errorMessage: 'context must be wrapped in Favorites Provider',
+    errorMessage: 'context must be wrapped in Responsive Provider',
   });
 
 export const ResponsiveProvider: React.FC = props => {
