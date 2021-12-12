@@ -1,7 +1,5 @@
-import { µRouterHistory } from '@/features/routerHistory';
-
 export interface State {
-  routeHistory: µRouterHistory.RouteHistory[];
+  routeHistory: RouteHistory[];
   currentPath?: string;
 }
 

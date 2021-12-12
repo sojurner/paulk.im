@@ -10,14 +10,6 @@ export const useRouterHistory = (
   const router = useRouter();
   const dataContext = useDataContext();
 
-  const validRoutes = [
-    ...µUseRouterHistory.Consts.VALID_ROUTES,
-    ...µUseRouterHistory.Utils.mapToValidRoutes(
-      dataContext.data.state.memes,
-      dataContext.data.state.posts
-    ),
-  ];
-
   const [_, rootPath, slug] = router.asPath.split('/');
 
   const [routeHistory, setRouteHistory] = useState<
@@ -42,31 +34,33 @@ export const useRouterHistory = (
     setRouteHistory(removeResult);
   };
 
-  // add route to route history
+  // validate path and add to routerHistory
   useEffect(() => {
-    const validPath = validRoutes.find(RTE => RTE === router.asPath);
-    if (!validPath) {
-      return;
-    }
+    const validPath = µUseRouterHistory.Utils.validatePath({
+      path: router.asPath,
+      memes: dataContext.data.state.memes,
+      posts: dataContext.data.state.posts,
+    });
 
-    const addResult = µUseRouterHistory.Utils.addRoute(
+    if (!validPath) return;
+
+    const newRouteHistory = µUseRouterHistory.Utils.addRoute(
       µUseRouterHistory.Enums.RouteHistoryCategory.POSTS,
       {
         path: validPath,
         name: slug || `${rootPath || 'home'}.pk`,
       }
     );
-    setRouteHistory(addResult);
-  }, [rootPath, slug]);
+    setRouteHistory(newRouteHistory);
+  }, [router.asPath]);
 
   // initialize route history
   useEffect(() => {
     const initialHistory = µUseRouterHistory.Utils.getRouteHistory(
       µUseRouterHistory.Enums.RouteHistoryCategory.POSTS
     ).reduce((ACC, ROUTE) => {
-      if (ROUTE.path === currentPath) {
-        return [ROUTE, ...ACC];
-      }
+      if (ROUTE.path === currentPath) return [ROUTE, ...ACC];
+
       return [...ACC, ROUTE];
     }, [] as µUseRouterHistory.Types.RouteHistory[]);
 

@@ -1,4 +1,4 @@
-import { Enums, Types } from '.';
+import { Consts, Enums, Types } from '.';
 
 export const getRouteHistory = (
   key: Enums.RouteHistoryCategory
@@ -45,12 +45,20 @@ export const initializeRouteHistory = (key: Enums.RouteHistoryCategory) => {
   localStorage.setItem(key, JSON.stringify([]));
 };
 
-export const mapToValidRoutes = (
-  memes: Models.Meme[],
-  posts: Models.Post[]
-) => {
-  return [
+export const validatePath = ({
+  path,
+  memes,
+  posts,
+}: {
+  path: string;
+  memes: Models.Meme[];
+  posts: Models.Post[];
+}): string | undefined => {
+  const validRoutes = [
+    ...Consts.VALID_ROUTES,
     ...memes.map(meme => `/memes/${meme.slug}`),
     ...posts.map(posts => `/posts/${posts.slug}`),
   ];
+
+  return validRoutes.find(RTE => RTE === path);
 };
