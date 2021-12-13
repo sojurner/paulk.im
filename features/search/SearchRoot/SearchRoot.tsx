@@ -34,6 +34,11 @@ export const SearchRoot: React.FC<µSearchRoot.Types.Props> = props => {
 
   const containerBg = useColorModeValue('gray.100', 'gray.700');
   const inputColorScheme = useColorModeValue('gray.50', 'gray.800');
+  const borderColor = useColorModeValue('gray.300', 'gray.600');
+  const boxShadow = useColorModeValue(
+    '0 4px 9px rgba(0,0,0,0.2)',
+    '0 4px 10px rgba(0,0,0)'
+  );
 
   return (
     <Flex
@@ -45,16 +50,20 @@ export const SearchRoot: React.FC<µSearchRoot.Types.Props> = props => {
       backgroundColor={containerBg}
       borderBottomRightRadius="5px"
       borderBottomLeftRadius="5px"
+      borderBottom="1px solid"
+      borderLeft="1px solid"
+      borderRight="1px solid"
+      borderColor={borderColor}
       minH="300px"
       pos="fixed"
       zIndex="1000"
       top={['40px', '0']}
       maxW="600px"
-      width={['100vw', '75vw']}
-      minW="400px"
+      width={['100%', '75vw']}
+      minW={['100%', '400px']}
       right="50%"
       transform="translate(50%, 0)"
-      boxShadow="0 4px 5px rgba(0,0,0,0.2)"
+      boxShadow={boxShadow}
       {...props}
     >
       <InputGroup my="2" width="98%">

@@ -25,8 +25,9 @@ export const SettingsItem: React.FC<Props> = ({
         "icon title switch"
         "icon desc switch"
       `}
+      width="100%"
       gridTemplateRows={'auto auto'}
-      gridTemplateColumns={'60px 320px 70px'}
+      gridTemplateColumns={'60px calc(100% - 130px) 70px'}
       {...props}
     >
       <GridItem justifySelf="center" alignSelf="center" gridArea="icon">
