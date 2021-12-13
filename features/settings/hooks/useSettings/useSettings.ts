@@ -6,9 +6,15 @@ export const useSettings = (): µUseSettings.Types.Return => {
   const toast = useToast();
   const { colorMode, toggleColorMode } = useColorMode();
 
-  const [settings, setSettings] = React.useState(
-    µUseSettings.Consts.LS_SETTINGS_INIT_VAL
-  );
+  const [settings, setSettings] = React.useState<
+    Record<µUseSettings.Enums.SettingsStorageKey, µUseSettings.Types.SettingsLS>
+  >({
+    ...µUseSettings.Consts.LS_SETTINGS_INIT_VAL,
+    [µUseSettings.Enums.SettingsStorageKey.DARK_MODE]: {
+      enabled: colorMode === 'light',
+      value: '',
+    },
+  });
 
   const onSettingsUpdate: µUseSettings.Types.Methods['onSettingsUpdate'] = (
     key,
@@ -18,6 +24,10 @@ export const useSettings = (): µUseSettings.Types.Return => {
 
     if (!validatedStorage) return onError();
 
+    if (key === µUseSettings.Enums.SettingsStorageKey.DARK_MODE) {
+      toggleColorMode();
+    }
+
     setSettings(STATE => {
       return {
         ...STATE,
@@ -25,10 +35,6 @@ export const useSettings = (): µUseSettings.Types.Return => {
       };
     });
 
-    if (key === µUseSettings.Enums.SettingsStorageKey.DARK_MODE) {
-      toggleColorMode();
-    }
-    
     µUseSettings.Utils.updateSettingsStorage(key, updateVal);
   };
 
@@ -72,9 +78,6 @@ export const useSettings = (): µUseSettings.Types.Return => {
     const validatedStorage = validateSettingsStorage();
 
     if (!validatedStorage) return onError();
-    if (validatedStorage.darkMode && colorMode === 'light') {
-      toggleColorMode();
-    }
 
     setSettings(validatedStorage);
   }, []);

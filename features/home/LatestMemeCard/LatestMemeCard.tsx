@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, HStack, Tag } from '@chakra-ui/react';
+import { Flex, HStack, Tag, useColorModeValue } from '@chakra-ui/react';
 import NextImage from 'next/image';
 
 import { LatestCard } from '@/features/home';
@@ -14,6 +14,8 @@ export const LatestMemeCard: React.FC<µLatestMemeCard.Types.Props> = ({
   meme,
   ...props
 }) => {
+  const secondaryTxtColor = useColorModeValue('gray.500', 'gray.400');
+
   return (
     <LatestCard maxW={width} width={width} minW={width} {...props}>
       <HStack p="2" alignItems="center">
@@ -36,22 +38,22 @@ export const LatestMemeCard: React.FC<µLatestMemeCard.Types.Props> = ({
       <Flex flex="1" flexDir="column" p="2">
         <SubTitle>{meme.title}</SubTitle>
 
-        <RegularText my="1" fontSize="1em" color="blackAlpha.700">
+        <RegularText my="1" fontSize="1em" color={secondaryTxtColor}>
           {meme.date.label}
         </RegularText>
 
         <HStack fontSize="1.3em" spacing="3" ml="auto" mt="auto">
-          <Flex alignItems="center" color="blackAlpha.700">
+          <Flex alignItems="center" color={secondaryTxtColor}>
             <EyeIcon />
             <RegularText ml="4px">{meme.viewCount}</RegularText>
           </Flex>
-          <RegularText color="blackAlpha.600">·</RegularText>
+          <RegularText color={secondaryTxtColor}>·</RegularText>
           <Flex alignItems="center">
             <MemeIcon />
             <RegularText
               ml="2"
               fontSize="20px"
-              color="blackAlpha.700"
+              color={secondaryTxtColor}
               justifyContent="center"
             >
               {meme.upvotes}

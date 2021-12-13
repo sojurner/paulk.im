@@ -16,7 +16,7 @@ export const theme = extendTheme({
     body: 'Karla',
   },
   config: {
-    initialColorMode: 'dark',
+    initialColorMode: 'light',
     useSystemColorMode: false,
     colors: {
       appbar: {

@@ -1,7 +1,7 @@
-import { FlexProps } from "@chakra-ui/layout";
+import { FlexProps } from '@chakra-ui/layout';
 
 export interface Props extends FlexProps {
-  width: number | string;
+  width: FlexProps['width'];
   post: Models.Post;
 }
 

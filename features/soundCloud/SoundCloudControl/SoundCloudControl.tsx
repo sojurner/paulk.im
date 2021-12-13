@@ -35,7 +35,12 @@ export const SoundCloudControl: React.FC<µSoundCloudControl.Props> = props => {
           </IconWrapper>
         </div>
       </PopoverTrigger>
-      <PopoverContent height="450px" width={['100vw', '650px']} pos="relative">
+      <PopoverContent
+        zIndex="modal"
+        height="450px"
+        width={['100vw', '650px']}
+        pos="relative"
+      >
         <PopoverArrow />
         <PopoverCloseButton />
         <PopoverHeader width="95%">

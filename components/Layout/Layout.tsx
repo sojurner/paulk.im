@@ -28,10 +28,10 @@ export const DesktopLayout: React.FC<µLayout.Types.Props> = props => {
         backgroundColor="whiteAlpha.100"
         gridTemplateAreas={[
           `"sidebar sidebar sidebar"
-        "content content content"
-        "footer footer footer"`,
+            "content content content"
+            "footer footer footer"`,
           `"sidebar content content"
-        "footer footer footer"`,
+            "footer footer footer"`,
         ]}
         gridTemplateColumns={['1fr 1fr 1fr', '60px auto auto']}
         gridTemplateRows={['40px auto 30px', 'auto 30px']}
@@ -59,7 +59,7 @@ export const DesktopLayout: React.FC<µLayout.Types.Props> = props => {
           </Grid>
         </GridItem>
 
-        <GridItem gridArea="footer">
+        <GridItem gridArea="footer" zIndex="overlay">
           <Footerbar />
         </GridItem>
       </Grid>

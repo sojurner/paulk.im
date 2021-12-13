@@ -1,6 +1,6 @@
 import React from 'react';
 import NextLink from 'next/link';
-import { Flex } from '@chakra-ui/react';
+import { Flex, useColorModeValue } from '@chakra-ui/react';
 
 import { useDataContext } from '@/features/data';
 import { useExplorerContext } from '@/features/explorer';
@@ -18,7 +18,12 @@ export const ExplorerPanel: React.FC<µExplorerPanel.Props> = props => {
   const { explorer } = useExplorerContext();
 
   return (
-    <Panel overflow="hidden" pos="relative" {...props}>
+    <Panel
+      zIndex="docked"
+      overflow="hidden"
+      pos="relative"
+      {...props}
+    >
       <Flex flexDir="column" width="100%" position="relative">
         <MidText fontFamily="heading" fontWeight="bold" p="2">
           Explorer

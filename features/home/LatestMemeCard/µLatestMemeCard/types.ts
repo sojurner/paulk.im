@@ -1,4 +1,6 @@
-export interface Props {
-  width: string | number;
+import { FlexProps } from "@chakra-ui/layout";
+
+export interface Props extends FlexProps {
+  width: FlexProps['width'];
   meme: Models.Meme;
 }

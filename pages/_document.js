@@ -8,7 +8,6 @@ export default class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
-          <title>YO</title>
           <link rel />
         </Head>
         <body>

@@ -9,7 +9,7 @@ import { µFooterbar } from '.';
 
 export const Footerbar: React.FC<µFooterbar.Types.Props> = props => {
   const { state } = useSettingsContext();
-  const bg = useColorModeValue('gray.50', 'gray.700');
+  const bg = useColorModeValue('gray.50', 'gray.900');
   const borderColor = useColorModeValue('gray.200', 'gray.600');
 
   const [activeControl, setActiveControl] = React.useState<

@@ -23,7 +23,7 @@ export const Sidebar: React.FC<µSidebar.Types.Props> = props => {
 
   const { searchToggle } = useSearchContext();
 
-  const bg = useColorModeValue('gray.100', 'gray.700');
+  const bg = useColorModeValue('gray.100', 'gray.900');
   const borderColor = useColorModeValue('gray.300', 'gray.600');
 
   return (

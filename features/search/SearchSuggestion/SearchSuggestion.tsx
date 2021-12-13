@@ -1,6 +1,6 @@
 import React from 'react';
-import { Grid, GridItem, Flex } from '@chakra-ui/layout';
-import { MidText, RegularText, SmallText } from '@/components/Typography';
+import { Grid, GridItem, Flex, useColorModeValue } from '@chakra-ui/react';
+import { MidText, RegularText } from '@/components/Typography';
 
 import { µSearchSuggestion } from '.';
 
@@ -9,6 +9,9 @@ export const SearchSuggestion: React.FC<µSearchSuggestion.Types.Props> = ({
   category,
   ...props
 }) => {
+  const txtColor = useColorModeValue('gray.500', 'gray.400');
+  const hoverBg = useColorModeValue('blue.50', 'blue.800');
+
   const Icon = µSearchSuggestion.Utils.getSuggestionCategoryIcon(category);
 
   return (
@@ -28,7 +31,7 @@ export const SearchSuggestion: React.FC<µSearchSuggestion.Types.Props> = ({
       py="2"
       cursor="pointer"
       _hover={{
-        background: 'gray.100',
+        background: hoverBg,
       }}
       {...props}
     >
@@ -50,7 +53,8 @@ export const SearchSuggestion: React.FC<µSearchSuggestion.Types.Props> = ({
       </GridItem>
       <GridItem justifySelf="start" gridArea="path">
         <MidText
-          color="blackAlpha.600"
+          fontStyle="italic"
+          color={txtColor}
           fontSize={['12px', '14px']}
         >{`/${suggestion.type}/${suggestion.id}`}</MidText>
       </GridItem>

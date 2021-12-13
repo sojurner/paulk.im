@@ -6,6 +6,7 @@ import {
   InputGroup,
   InputLeftElement,
   useOutsideClick,
+  useColorModeValue,
 } from '@chakra-ui/react';
 
 import { RegularText } from '@/components/Typography';
@@ -31,6 +32,9 @@ export const SearchRoot: React.FC<µSearchRoot.Types.Props> = props => {
     handler: searchToggle.methods.toggleSearch,
   });
 
+  const containerBg = useColorModeValue('gray.100', 'gray.700');
+  const inputColorScheme = useColorModeValue('gray.50', 'gray.800');
+
   return (
     <Flex
       ref={ref}
@@ -38,7 +42,7 @@ export const SearchRoot: React.FC<µSearchRoot.Types.Props> = props => {
       alignItems="center"
       justifyContent="flex-start"
       overflow="auto"
-      backgroundColor="white"
+      backgroundColor={containerBg}
       borderBottomRightRadius="5px"
       borderBottomLeftRadius="5px"
       minH="300px"
@@ -59,6 +63,9 @@ export const SearchRoot: React.FC<µSearchRoot.Types.Props> = props => {
         </InputLeftElement>
         <Input
           variant="filled"
+          colorScheme="red"
+          background={inputColorScheme}
+          focusBorderColor="gray.500"
           autoFocus
           defaultValue={''}
           value={searchQuery.state.inputValue}
@@ -68,7 +75,7 @@ export const SearchRoot: React.FC<µSearchRoot.Types.Props> = props => {
           }
         />
       </InputGroup>
-      <Flex width="100%" flexDir="column" maxH="350px" overflow="auto">
+      <Flex width="100%" flexDir="column" maxH="350px" overflowY="auto">
         {!!!searchQuery.state.shuffledSuggestions.length &&
           searchQuery.state.inputValue && (
             <RegularText p="3">No Matching Results</RegularText>

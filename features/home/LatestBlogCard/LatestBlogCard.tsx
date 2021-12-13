@@ -1,6 +1,6 @@
 import React from 'react';
 import NextImage from 'next/image';
-import { Flex, HStack, VStack, Tag } from '@chakra-ui/react';
+import { Flex, HStack, VStack, Tag, useColorModeValue } from '@chakra-ui/react';
 
 import { LatestCard } from '@/features/home';
 
@@ -16,6 +16,8 @@ export const LatestBlogCard: React.FC<µLatestBlogCard.Types.Props> = ({
   post,
   ...props
 }) => {
+  const secondaryTxtColor = useColorModeValue('gray.500', 'gray.400');
+
   return (
     <LatestCard maxW={width} width={width} minW={width} {...props}>
       <NextImage
@@ -32,13 +34,13 @@ export const LatestBlogCard: React.FC<µLatestBlogCard.Types.Props> = ({
 
         <HStack>
           <RegularText
-            color="blackAlpha.600"
+            color={secondaryTxtColor}
             letterSpacing="-.5px"
             fontSize="14px"
           >
             {post.date}
           </RegularText>
-          <RegularText color="blackAlpha.600">·</RegularText>
+          <RegularText color={secondaryTxtColor}>·</RegularText>
 
           {post.tags.map(TAG => (
             <Tag size="sm" key={TAG} variant="subtle">
@@ -47,7 +49,7 @@ export const LatestBlogCard: React.FC<µLatestBlogCard.Types.Props> = ({
           ))}
         </HStack>
 
-        <RegularText color="blackAlpha.700" fontSize="18px" cursor="pointer">
+        <RegularText color={secondaryTxtColor} fontSize="18px" cursor="pointer">
           {post.excerpt}
         </RegularText>
 
@@ -59,24 +61,24 @@ export const LatestBlogCard: React.FC<µLatestBlogCard.Types.Props> = ({
         >
           <AuthorAttribution />
           <HStack ml="auto" fontSize="1.2em">
-            <Flex color="blackAlpha.500" alignItems="center">
+            <Flex color={secondaryTxtColor} alignItems="center">
               <EyeIcon />
               <RegularText
                 ml="4px"
                 fontSize="15px"
-                color="blackAlpha.700"
+                color={secondaryTxtColor}
                 fontWeight="bold"
               >
                 {post.viewCount}
               </RegularText>
             </Flex>
-            <RegularText color="blackAlpha.600">·</RegularText>
-            <Flex color="blackAlpha.500" alignItems="center">
+            <RegularText color={secondaryTxtColor}>·</RegularText>
+            <Flex color={secondaryTxtColor} alignItems="center">
               <UpvoteIcon />
               <RegularText
                 ml="2px"
                 fontSize="15px"
-                color="blackAlpha.700"
+                color={secondaryTxtColor}
                 fontWeight="bold"
               >
                 {post.upvotes}

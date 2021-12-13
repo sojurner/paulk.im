@@ -60,7 +60,7 @@ export const Appbar: React.FC<µAppbar.Types.Props> = props => {
       >
         {collapsible.state.collapsed ? <CaretRight /> : <CaretLeft />}
       </Flex>
-      <Flex maxWidth="calc(100% - 40px)"  overflow="auto hidden">
+      <Flex maxWidth="calc(100% - 40px)" overflow="auto hidden">
         {routerHistory.state.routeHistory.map(ROUTE => {
           const [_, type, file] = ROUTE.path.split('/');
 
@@ -78,19 +78,20 @@ export const Appbar: React.FC<µAppbar.Types.Props> = props => {
             <Flex
               pos="relative"
               key={ROUTE.path}
-              {...(ROUTE.path === routerHistory.state.currentPath && {
-                _after: {
-                  content: "''",
-                  position: 'absolute',
-                  bottom: '-1px',
-                  borderBottom: '2px solid',
-                  borderBottomColor: activeBg,
-                  width: '99%',
-                  height: '1px',
-                  left: '1px',
-                  zIndex: 1,
-                },
-              })}
+              _after={{
+                content: "''",
+                position: 'absolute',
+                bottom: '0px',
+                borderBottom: '1px solid',
+                borderBottomColor:
+                  ROUTE.path === routerHistory.state.currentPath
+                    ? activeBg
+                    : borderColor,
+                width: '99%',
+                height: '1px',
+                left: '1px',
+                zIndex: 1,
+              }}
             >
               <NextLink href={ROUTE.path}>
                 <div style={{ cursor: 'pointer', display: 'flex' }}>
