@@ -60,7 +60,7 @@ export const DesktopLayout: React.FC<µLayout.Types.Props> = props => {
         </GridItem>
 
         <GridItem gridArea="footer" zIndex="overlay">
-          <Footerbar />
+          <Footerbar position={'fixed'} height="30px" bottom={0} />
         </GridItem>
       </Grid>
       {searchToggle.state.showSearch && <SearchRoot />}
