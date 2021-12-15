@@ -1,2 +1,2 @@
-export * as µExplorerPanel from './types';
+export * as µExplorerPanel from './µExplorerPanel';
 export * from './ExplorerPanel';

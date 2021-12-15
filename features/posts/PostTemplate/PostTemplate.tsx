@@ -27,14 +27,15 @@ const components = {
 export const PostTemplate: React.FC<µPostTemplate.Types.Props> = ({ post }) => {
   const { asPath } = useRouter();
   const { collapsible } = useResponsiveContext();
-  const utteranceInversion = useColorModeValue('invert(0)', 'invert(.9)');
+  const utteranceTheme = useColorModeValue('github-light', 'dark-blue');
+
   const postActions = usePostActions({ post });
 
   const ref = React.useRef(null);
 
   useComments({
     url: 'https://utteranc.es/client.js',
-    theme: 'github-light',
+    theme: utteranceTheme,
     issueTerm: post.slug,
     repo: 'sojurner/paulk.im',
     ref,
@@ -117,7 +118,7 @@ export const PostTemplate: React.FC<µPostTemplate.Types.Props> = ({ post }) => 
           <MDXRemote {...post.content} components={components} />
         </µPostTemplate.Styles.Article>
       </Flex>
-      <Box filter={utteranceInversion} width={['100%', '650px']} ref={ref} />
+      <Box width={['100%', '650px']} ref={ref} />
     </Flex>
   );
 };

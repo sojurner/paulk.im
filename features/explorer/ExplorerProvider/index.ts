@@ -1,2 +1,2 @@
 export * from './ExplorerProvider';
-export * as µExplorerProvider from './types';
+export * as µExplorerProvider from './µExplorerProvider';

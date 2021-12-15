@@ -42,19 +42,12 @@ export const PostsRoot: React.FC<µPostsRoot.Types.Props> = ({
         spacing="10"
       >
         {posts.map((POST, index) => {
-          let width;
-
-          if (mediaQueries.state.isLargerThan1600) {
-            width = index % 4 === 0 ? '500px' : '320px';
-          } else if (mediaQueries.state.isLargerThan1280) {
-            width =
-              index % 4 === 0 || (index - 3) % 4 === 0 ? '500px' : '320px';
-          } else if (mediaQueries.state.isLargerThan500) {
-            width = '500px';
-          } else {
-            width = '100%';
-          }
-
+          const width = [
+            '100%',
+            '500px',
+            index % 4 === 0 || (index - 3) % 4 === 0 ? '500px' : '320px',
+            index % 4 === 0 ? '500px' : '320px',
+          ];
           return (
             <Flex
               transition=".15s linear"

@@ -28,12 +28,13 @@ export const MemeTemplate: React.FC<µMemeTemplate.Types.Props> = ({
 }) => {
   const memeActions = useMemeActions({ meme });
   const secondaryTxtColor = useColorModeValue('gray.500', 'gray.300');
-  const utteranceInversion = useColorModeValue('invert(0)', 'invert(.9)');
+  const utteranceTheme = useColorModeValue('github-light', 'dark-blue');
+
   const ref = React.useRef(null);
 
   useComments({
     url: 'https://utteranc.es/client.js',
-    theme: 'github-light',
+    theme: utteranceTheme,
     issueTerm: meme.slug,
     repo: 'sojurner/paulk.im',
     ref,
@@ -152,7 +153,7 @@ export const MemeTemplate: React.FC<µMemeTemplate.Types.Props> = ({
             </Tooltip>
           </Flex>
         </Flex>
-        <Box filter={utteranceInversion} width="100%" ref={ref} />
+        <Box width="100%" ref={ref} />
       </Flex>
     </Flex>
   );
