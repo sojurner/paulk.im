@@ -52,7 +52,7 @@ export const SoundCloudControl: React.FC<µSoundCloudControl.Types.Props> =
                     <SoundCloudTag
                       key={KEY}
                       isActive={
-                        state.soundCloud.value === GENRE ||
+                        state?.soundCloud?.value === GENRE ||
                         (!state.soundCloud.value &&
                           GENRE === µSoundCloudControl.Enums.MusicGenre.LOFI)
                       }

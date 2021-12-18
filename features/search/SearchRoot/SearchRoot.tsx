@@ -80,7 +80,7 @@ export const SearchRoot: React.FC<µSearchRoot.Types.Props> = props => {
           value={searchQuery.state.inputValue}
           placeholder="search"
           onChange={e =>
-            searchQuery.methods.onQueryChange(e.currentTarget.value)
+            searchQuery.methods.onQueryChange(e?.currentTarget?.value)
           }
         />
       </InputGroup>
