@@ -27,15 +27,16 @@ const components = {
 export const PostTemplate: React.FC<µPostTemplate.Types.Props> = ({ post }) => {
   const { asPath } = useRouter();
   const { collapsible } = useResponsiveContext();
-  const utteranceTheme = useColorModeValue('github-light', 'dark-blue');
-
   const postActions = usePostActions({ post });
+
+  const utteranceTheme = useColorModeValue('invert(0)', 'invert(.85)');
+  const secondaryTxtColor = useColorModeValue('gray.500', 'gray.400');
 
   const ref = React.useRef(null);
 
   useComments({
     url: 'https://utteranc.es/client.js',
-    theme: utteranceTheme,
+    theme: 'github-light',
     issueTerm: post.slug,
     repo: 'sojurner/paulk.im',
     ref,
@@ -64,12 +65,12 @@ export const PostTemplate: React.FC<µPostTemplate.Types.Props> = ({ post }) => 
         <SubHeading>{post.title}</SubHeading>
         <HStack mt="3">
           <AuthorAttribution />
-          <RegularText color="blackAlpha.600">·</RegularText>
+          <RegularText color={secondaryTxtColor}>·</RegularText>
           <RegularText>{post.date}</RegularText>
-          <RegularText color="blackAlpha.600">·</RegularText>
-          <Flex color="blackAlpha.500" alignItems="center">
+          <RegularText color={secondaryTxtColor}>·</RegularText>
+          <Flex color={secondaryTxtColor} alignItems="center">
             <EyeIcon />
-            <RegularText ml="4px" fontSize="18px" color="blackAlpha.700">
+            <RegularText ml="4px" fontSize="18px" color={secondaryTxtColor}>
               {post.viewCount}
             </RegularText>
           </Flex>
@@ -96,9 +97,13 @@ export const PostTemplate: React.FC<µPostTemplate.Types.Props> = ({ post }) => 
             ))}
           </HStack>
           <HStack ml="auto" spacing="5" fontSize="1.2em">
-            <Flex fontSize="1.3em" color="blackAlpha.500" alignItems="center">
+            <Flex
+              fontSize="1.3em"
+              color={secondaryTxtColor}
+              alignItems="center"
+            >
               <UpvoteIcon />
-              <RegularText ml="4px" fontSize="18px" color="blackAlpha.700">
+              <RegularText ml="4px" fontSize="18px" color={secondaryTxtColor}>
                 {post.upvotes}
               </RegularText>
             </Flex>
@@ -118,7 +123,7 @@ export const PostTemplate: React.FC<µPostTemplate.Types.Props> = ({ post }) => 
           <MDXRemote {...post.content} components={components} />
         </µPostTemplate.Styles.Article>
       </Flex>
-      <Box width={['100%', '650px']} ref={ref} />
+      <Box width={['100%', '650px']} filter={utteranceTheme} ref={ref} />
     </Flex>
   );
 };

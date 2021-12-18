@@ -9,6 +9,7 @@ import {
   HStack,
   VStack,
   Tag,
+  useColorModeValue,
 } from '@chakra-ui/react';
 
 import { useSettingsContext } from '@/features/settings';
@@ -28,6 +29,7 @@ export const MemesRoot: React.FC<µMemesRoot.Types.Props> = ({
 }) => {
   const { favoritesStorage } = useFavoritesContext();
   const settingsContext = useSettingsContext();
+  const secondaryTxtColor = useColorModeValue('gray.600', 'gray.400');
 
   const handleFavoriteClick: µMemesRoot.Types.Methods['handleFavorite'] =
     React.useCallback(
@@ -56,7 +58,7 @@ export const MemesRoot: React.FC<µMemesRoot.Types.Props> = ({
         {memes.map(MEME => {
           return (
             <Box maxW="450px" width="450px" key={MEME.slug}>
-              <HStack alignItems="center">
+              <HStack spacing="3" alignItems="center">
                 <HStack>
                   {MEME.tags.map(TAG => {
                     return (
@@ -69,12 +71,12 @@ export const MemesRoot: React.FC<µMemesRoot.Types.Props> = ({
                 <RegularText
                   fontSize="16px"
                   fontWeight="bold"
-                  color="blackAlpha.600"
+                  color={secondaryTxtColor}
                 >
                   ·
                 </RegularText>
                 <RegularText
-                  color="blackAlpha.600"
+                  color={secondaryTxtColor}
                   letterSpacing="-.5px"
                   fontSize="16px"
                 >
@@ -88,9 +90,8 @@ export const MemesRoot: React.FC<µMemesRoot.Types.Props> = ({
                   placement="top"
                   bg="gray.500"
                 >
-                  <div>
+                  <div style={{ marginLeft: 'auto' }}>
                     <IconWrapper
-                      marginLeft="auto !important"
                       fontSize="1.4em"
                       isActive={
                         settingsContext.state.favorites.enabled &&

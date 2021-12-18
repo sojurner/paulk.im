@@ -17,15 +17,13 @@ export const AppbarTab: React.FC<µTab.Types.Props> = ({
   return (
     <Center
       background={isActive ? activeBg : bg}
-      borderLeft=".5px solid"
-      borderRight=".5px solid"
       borderLeftColor={borderColor}
-      borderRightColor={borderColor}
       cursor="pointer"
       overflow="hidden"
       maxW="250px"
-      py={4}
       px={10}
+      borderRight=".5px solid"
+      borderRightColor={borderColor}
       {...props}
     >
       <RegularText

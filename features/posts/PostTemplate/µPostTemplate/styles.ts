@@ -5,7 +5,7 @@ export const Article = styled.article`
     margin-bottom: 30px;
     font-size: 18px;
     font-weight: 300;
-    color: var(--chakra-colors-gray-600);
+    color: var(--chakra-colors-gray-500);
   }
 
   em {

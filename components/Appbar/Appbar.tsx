@@ -19,16 +19,18 @@ import { µAppbar } from '.';
 import { useResponsiveContext } from '@/features/responsive';
 
 export const Appbar: React.FC<µAppbar.Types.Props> = props => {
-  const bg = useColorModeValue('gray.100', 'gray.900');
-  const borderColor = useColorModeValue('gray.200', 'gray.700');
-  const activeBg = useColorModeValue('white', 'gray.800');
+  const containerBg = useColorModeValue('gray.100', 'gray.900');
+  const bottomBdrColor = useColorModeValue('gray.200', 'gray.700');
+  const activeTabBg = useColorModeValue('white', 'gray.800');
+
+  const iconColor = useColorModeValue('black', 'white');
 
   const routerHistory = useRouterHistory({});
   const { collapsible } = useResponsiveContext();
 
   return (
     <Flex
-      bg={bg}
+      bg={containerBg}
       flexDir="row"
       justifyContent="flex-start"
       width="100%"
@@ -42,7 +44,7 @@ export const Appbar: React.FC<µAppbar.Types.Props> = props => {
         width: '100%',
         height: '1px',
         borderBottom: '1px',
-        borderBottomColor: borderColor,
+        borderBottomColor: bottomBdrColor,
         bottom: 0,
         zIndex: 1,
       }}
@@ -54,14 +56,15 @@ export const Appbar: React.FC<µAppbar.Types.Props> = props => {
         alignItems="center"
         justifyContent="center"
         cursor="pointer"
-        _hover={{
-          background: 'blackAlpha.50',
-        }}
+        color={iconColor}
+        borderRight="1px solid"
+        borderRightColor={bottomBdrColor}
+        _hover={{}}
       >
         {collapsible.state.collapsed ? <CaretRight /> : <CaretLeft />}
       </Flex>
       <Flex maxWidth="calc(100% - 40px)" overflow="auto hidden">
-        {routerHistory.state.routeHistory.map(ROUTE => {
+        {routerHistory.state.routeHistory.map((ROUTE, index, arr) => {
           const [_, type, file] = ROUTE.path.split('/');
 
           let Icon;
@@ -85,8 +88,8 @@ export const Appbar: React.FC<µAppbar.Types.Props> = props => {
                 borderBottom: '1px solid',
                 borderBottomColor:
                   ROUTE.path === routerHistory.state.currentPath
-                    ? activeBg
-                    : borderColor,
+                    ? activeTabBg
+                    : bottomBdrColor,
                 width: '99%',
                 height: '1px',
                 left: '1px',
