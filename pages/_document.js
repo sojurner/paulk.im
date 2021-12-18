@@ -7,9 +7,7 @@ export default class MyDocument extends Document {
 
     return (
       <Html lang="en">
-        <Head>
-          <link rel />
-        </Head>
+        <Head />
         <body>
           <ColorModeScript initialColorMode={theme.config.initialColorMode} />
           <Main />
