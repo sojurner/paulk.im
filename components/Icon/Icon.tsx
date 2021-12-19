@@ -10,6 +10,7 @@ import ConfusedTravolta from '@/assets/icons/ConfusedTravolta.svg';
 import EyeIcon from '@/assets/icons/Eye.svg';
 
 import GmailIcon from '@/assets/icons/Gmail.svg';
+import GithubIcon from '@/assets/icons/Github.svg';
 
 import IdeaIcon from '@/assets/icons/Idea.svg';
 
@@ -48,6 +49,7 @@ export {
   CaretRight,
   ConfusedTravolta,
   EyeIcon,
+  GithubIcon,
   GmailIcon,
   IdeaIcon,
   LinkedinIcon,

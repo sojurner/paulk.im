@@ -45,7 +45,8 @@ export const MemeTemplate: React.FC<µMemeTemplate.Types.Props> = ({
       direction="column"
       pos="relative"
       alignItems="center"
-      pt="10"
+      pt={["6", "12"]}
+      pb="10"
       overflow="auto"
       {...props}
     >
@@ -57,7 +58,12 @@ export const MemeTemplate: React.FC<µMemeTemplate.Types.Props> = ({
         px="2"
         alignItems="center"
       >
-        <Flex width={'100%'} direction="column" alignItems="flex-start">
+        <Flex
+          height={['90vh', '75vh']}
+          width={'100%'}
+          direction="column"
+          alignItems="flex-start"
+        >
           {/* header title  */}
           <SubTitle fontWeight="600" fontSize="2xl">
             {meme.title}
@@ -153,6 +159,9 @@ export const MemeTemplate: React.FC<µMemeTemplate.Types.Props> = ({
             </Tooltip>
           </Flex>
         </Flex>
+        <Box alignSelf="flex-start" mt="5">
+          <SubTitle>Comments</SubTitle>
+        </Box>
         <Box filter={utteranceTheme} width="100%" ref={ref} />
       </Flex>
     </Flex>

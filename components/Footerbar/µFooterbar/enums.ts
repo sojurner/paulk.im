@@ -3,3 +3,8 @@ export enum FeatureControl {
   SOUND_CLOUD,
   FAVORITES,
 }
+
+export enum LinkType {
+  EXTERNAL,
+  EMAIL,
+}

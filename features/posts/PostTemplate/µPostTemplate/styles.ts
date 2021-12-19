@@ -1,34 +1,36 @@
 import styled from '@emotion/styled';
 
-export const Article = styled.article`
+export const Article = styled.article<{darkMode: boolean}>`
   p {
     margin-bottom: 30px;
     font-size: 18px;
     font-weight: 300;
-    color: var(--chakra-colors-gray-500);
+    color: ${props => props.darkMode ? "var(--chakra-colors-gray-300)" : "var(--chakra-colors-gray-600)"};
   }
 
   em {
-    color: var(--chakra-colors-blue-500);
-    text-shadow: 0 0 5px var(--chakra-colors-blue-100),
-      0 0 10px var(--chakra-colors-blue-200);
+    color: ${props => props.darkMode ? "var(--chakra-colors-blue-300)" : "var(--chakra-colors-blue-500)"};
   }
 
   strong {
-    color: var(--chakra-colors-pink-500);
-    text-shadow: 0 0 5px var(--chakra-colors-pink-100),
-      0 0 10px var(--chakra-colors-pink-200);
+    color: ${props => props.darkMode ? "var(--chakra-colors-pink-300)" : "var(--chakra-colors-pink-500)"};
     font-weight: 700;
-    letter-spacing: 1.1px;
+    letter-spacing: -.2px;
   }
 
   ul {
     margin: -10px 0 25px 0;
+    padding-left: 20px;
+
+    li {
+      p {
+        margin-bottom: 5px;
+      }
+    }
   }
 
   li {
     opacity: 0.9;
-    margin: 0.5em 0;
     color: $color-neutral-050;
     font-size: 18px;
   }
@@ -49,7 +51,8 @@ export const Article = styled.article`
     font-size: 1.5em;
     font-weight: 600;
     font-family: Noto Serif Display;
-    color: var(--chakra-colors-gray-800);
+    color: ${props => props.darkMode ? "var(--chakra-colors-orange-300)" : "var(--chakra-colors-orange-400)"};
+
   }
 
   h3 {

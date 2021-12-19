@@ -1,7 +1,14 @@
 import React from 'react';
 import NextImage from 'next/image';
 import { useRouter } from 'next/router';
-import { Flex, Box, HStack, Tag, useColorModeValue } from '@chakra-ui/react';
+import {
+  Flex,
+  Box,
+  HStack,
+  Tag,
+  useColorModeValue,
+  useColorMode,
+} from '@chakra-ui/react';
 import { MDXRemote } from 'next-mdx-remote';
 
 import { useComments } from '@/features/comments';
@@ -31,6 +38,7 @@ export const PostTemplate: React.FC<µPostTemplate.Types.Props> = ({ post }) => 
 
   const utteranceTheme = useColorModeValue('invert(0)', 'invert(.85)');
   const secondaryTxtColor = useColorModeValue('gray.500', 'gray.400');
+  const { colorMode } = useColorMode();
 
   const ref = React.useRef(null);
 
@@ -119,7 +127,7 @@ export const PostTemplate: React.FC<µPostTemplate.Types.Props> = ({ post }) => 
           </HStack>
         </Flex>
 
-        <µPostTemplate.Styles.Article>
+        <µPostTemplate.Styles.Article darkMode={colorMode === 'dark'}>
           <MDXRemote {...post.content} components={components} />
         </µPostTemplate.Styles.Article>
       </Flex>

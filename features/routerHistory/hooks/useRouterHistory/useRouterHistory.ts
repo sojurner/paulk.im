@@ -66,7 +66,7 @@ export const useRouterHistory = (
     }, [] as µUseRouterHistory.Types.RouteHistory[]);
 
     setRouteHistory(initialHistory);
-  }, []);
+  }, [router.asPath]);
 
   return {
     state: {

@@ -8,6 +8,7 @@ import {
   ModalBody,
   ModalCloseButton,
   ModalHeader,
+  useColorModeValue,
 } from '@chakra-ui/react';
 import { SubHeading } from '@/components/Typography';
 import {
@@ -29,6 +30,7 @@ import { SettingsDarkMode } from '../SettingsDarkMode';
 
 export const SettingsModal: React.FC<µSettingsModal.Types.Props> = props => {
   const settingsContext = useSettingsContext();
+  const iconFill = useColorModeValue('orange.500', 'orange.400');
 
   const forwardOnSettingsChange: µSettingsModal.Types.Methods['forwardOnSettingsChange'] =
     settingType => {
@@ -73,6 +75,7 @@ export const SettingsModal: React.FC<µSettingsModal.Types.Props> = props => {
               Icon={
                 <IconWrapper
                   isActive={settingsContext.state.soundCloud.enabled}
+                  color={iconFill}
                 >
                   <SoundCloudIcon fontSize={'2em'} />
                 </IconWrapper>

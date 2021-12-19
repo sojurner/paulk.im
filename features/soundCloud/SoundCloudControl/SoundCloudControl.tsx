@@ -8,6 +8,7 @@ import {
   PopoverArrow,
   PopoverCloseButton,
   Flex,
+  useColorModeValue,
 } from '@chakra-ui/react';
 
 import { IconWrapper, SoundCloudIcon } from '@/components/Icon';
@@ -19,6 +20,7 @@ import { µSoundCloudControl } from '.';
 export const SoundCloudControl: React.FC<µSoundCloudControl.Types.Props> =
   props => {
     const { state, methods } = useSettingsContext();
+    const iconFill = useColorModeValue('orange.500', 'orange.400');
 
     return (
       <Popover matchWidth placement="top" closeOnBlur={false} {...props}>
@@ -28,6 +30,7 @@ export const SoundCloudControl: React.FC<µSoundCloudControl.Types.Props> =
               px="1"
               cursor="pointer"
               fontSize="1.7em"
+              color={iconFill}
               _hover={{
                 background: 'blackAlpha.100',
               }}
