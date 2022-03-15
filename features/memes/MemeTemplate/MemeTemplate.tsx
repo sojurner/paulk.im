@@ -22,7 +22,7 @@ import {
 
 import { µMemeTemplate } from '.';
 
-export const MemeTemplate: React.FC<µMemeTemplate.Types.Props> = ({
+export const MemeTemplate: React.FC<µMemeTemplate.Props> = ({
   meme,
   ...props
 }) => {

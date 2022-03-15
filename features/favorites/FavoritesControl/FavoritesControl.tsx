@@ -24,7 +24,7 @@ import { FavoritesItem } from '@/features/favorites';
 import { µFavoritesControl } from '.';
 
 export const FavoritesControl: React.FC<
-  µFavoritesControl.Types.Props
+  µFavoritesControl.Props
 > = props => {
   const { favoritesStorage } = useFavoritesContext();
 
