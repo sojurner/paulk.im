@@ -1,2 +1,2 @@
 export * from './PostTemplate';
-export * as µPostTemplate from './µPostTemplate';
+export * as µPostTemplate from './PostTemplate.cb';

@@ -3,7 +3,7 @@ import { Box, useColorMode } from '@chakra-ui/react';
 
 import { µSoundCloudWidget } from '.';
 
-export const SoundCloudWidget: React.FC<µSoundCloudWidget.Types.Props> = ({
+export const SoundCloudWidget: React.FC<µSoundCloudWidget.Props> = ({
   playlistUrl,
 }) => {
   const { colorMode } = useColorMode();

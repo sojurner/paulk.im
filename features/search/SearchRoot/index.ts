@@ -1,2 +1,2 @@
 export * from './SearchRoot';
-export * as µSearchRoot from './µSearchRoot';
+export * as µSearchRoot from './SearchRoot.cb';

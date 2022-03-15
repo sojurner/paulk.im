@@ -3,7 +3,7 @@ import { Flex, useColorModeValue } from '@chakra-ui/react';
 
 import { µLatestCard } from '.';
 
-export const LatestCard: React.FC<µLatestCard.Types.Props> = props => {
+export const LatestCard: React.FC<µLatestCard.Props> = props => {
   const boxShadow = useColorModeValue(
     '0 2px 5px rgba(0,0,0,0.1)',
     '0 2px 6px rgba(0,0,0)'

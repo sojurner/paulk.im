@@ -6,15 +6,15 @@ import { µUseRouterHistory } from '.';
 import { useDataContext } from '@/features/data';
 
 export const useRouterHistory = (
-  params: µUseRouterHistory.Types.Params
-): µUseRouterHistory.Types.Return => {
+  params: µUseRouterHistory.Params
+): µUseRouterHistory.Return => {
   const router = useRouter();
   const dataContext = useDataContext();
 
   const [_, rootPath, slug] = router.asPath.split('/');
 
   const [routeHistory, setRouteHistory] = useState<
-    µUseRouterHistory.Types.RouteHistory[]
+    µUseRouterHistory.RouteHistory[]
   >([]);
 
   const currentPath = useMemo(() => {
@@ -22,8 +22,8 @@ export const useRouterHistory = (
   }, [router.asPath]);
 
   const onRemoveRoute = (path: string) => {
-    const removeResult = µUseRouterHistory.Utils.removeRoute(
-      µUseRouterHistory.Enums.RouteHistoryCategory.POSTS,
+    const removeResult = µUseRouterHistory.removeRoute(
+      µUseRouterHistory.RouteHistoryCategory.POSTS,
       path
     );
 
@@ -37,7 +37,7 @@ export const useRouterHistory = (
 
   // validate path and add to routerHistory
   useEffect(() => {
-    const validPath = µUseRouterHistory.Utils.validatePath({
+    const validPath = µUseRouterHistory.validatePath({
       path: router.asPath,
       memes: dataContext.data.state.memes,
       posts: dataContext.data.state.posts,
@@ -45,8 +45,8 @@ export const useRouterHistory = (
 
     if (!validPath) return;
 
-    const newRouteHistory = µUseRouterHistory.Utils.addRoute(
-      µUseRouterHistory.Enums.RouteHistoryCategory.POSTS,
+    const newRouteHistory = µUseRouterHistory.addRoute(
+      µUseRouterHistory.RouteHistoryCategory.POSTS,
       {
         path: validPath,
         name: slug || `${rootPath || 'home'}.pk`,
@@ -57,13 +57,13 @@ export const useRouterHistory = (
 
   // initialize route history
   useEffect(() => {
-    const initialHistory = µUseRouterHistory.Utils.getRouteHistory(
-      µUseRouterHistory.Enums.RouteHistoryCategory.POSTS
-    ).reduce((ACC, ROUTE) => {
-      if (ROUTE.path === currentPath) return [ROUTE, ...ACC];
+    const initialHistory = µUseRouterHistory
+      .getRouteHistory(µUseRouterHistory.RouteHistoryCategory.POSTS)
+      .reduce((ACC, ROUTE) => {
+        if (ROUTE.path === currentPath) return [ROUTE, ...ACC];
 
-      return [...ACC, ROUTE];
-    }, [] as µUseRouterHistory.Types.RouteHistory[]);
+        return [...ACC, ROUTE];
+      }, [] as µUseRouterHistory.RouteHistory[]);
 
     setRouteHistory(initialHistory);
   }, [router.asPath]);

@@ -1,2 +1,2 @@
-export * as µSettingsModal from './µSettingsModal';
+export * as µSettingsModal from './SettingsModal.cb';
 export * from './SettingsModal';

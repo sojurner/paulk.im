@@ -1,2 +1,2 @@
 export * from './HomeRoot'
-export * as µHomeRoot from './µHomeRoot'
+export * as µHomeRoot from './HomeRoot.cb'

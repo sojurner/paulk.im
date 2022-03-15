@@ -1,2 +1,2 @@
 export * from './AuthorAttribution';
-export * as µAuthorAttribution from './µAuthorAttribution';
+export * as µAuthorAttribution from './AuthorAttribution.cb';

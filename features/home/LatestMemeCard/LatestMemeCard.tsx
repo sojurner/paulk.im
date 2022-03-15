@@ -9,7 +9,7 @@ import { RegularText, SubTitle } from '@/components/Typography';
 
 import { µLatestMemeCard } from '.';
 
-export const LatestMemeCard: React.FC<µLatestMemeCard.Types.Props> = ({
+export const LatestMemeCard: React.FC<µLatestMemeCard.Props> = ({
   width,
   meme,
   ...props

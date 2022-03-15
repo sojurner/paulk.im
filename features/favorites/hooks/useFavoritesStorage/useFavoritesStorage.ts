@@ -4,15 +4,15 @@ import { useSettingsContext } from '@/features/settings';
 
 import { µUseFavoritesStorage } from '.';
 
-export const useFavoritesStorage = (): µUseFavoritesStorage.Types.Return => {
+export const useFavoritesStorage = (): µUseFavoritesStorage.Return => {
   const settingsContext = useSettingsContext();
   const toast = useToast();
 
   const [favorites, setFavorites] = useState<
-    µUseFavoritesStorage.Types.State['favorites']
-  >(µUseFavoritesStorage.Consts.LS_FAVORITES_INIT_VAL);
+    µUseFavoritesStorage.State['favorites']
+  >(µUseFavoritesStorage.LS_FAVORITES_INIT_VAL);
 
-  const onFavoritesUpdate: µUseFavoritesStorage.Types.Methods['onFavoritesUpdate'] =
+  const onFavoritesUpdate: µUseFavoritesStorage.Methods['onFavoritesUpdate'] =
     params => {
       if (!settingsContext.state.favorites.enabled) return;
 
@@ -41,18 +41,16 @@ export const useFavoritesStorage = (): µUseFavoritesStorage.Types.Return => {
         };
       });
 
-      µUseFavoritesStorage.Utils.updateFavoritesStorage(updateFavorite);
+      µUseFavoritesStorage.updateFavoritesStorage(updateFavorite);
     };
 
-  const onStorageValidate: µUseFavoritesStorage.Types.Methods['onStorageValidate'] =
+  const onStorageValidate: µUseFavoritesStorage.Methods['onStorageValidate'] =
     () => {
       const favoritesStorage =
-        µUseFavoritesStorage.Utils.getFavoritesStorage() as µUseFavoritesStorage.Types.FavoritesStore;
+        µUseFavoritesStorage.getFavoritesStorage() as µUseFavoritesStorage.FavoritesStore;
 
       const favoriteEntries = Object.entries(favoritesStorage);
-      const favoriteTypes = Object.values(
-        µUseFavoritesStorage.Enums.FavoriteType
-      );
+      const favoriteTypes = Object.values(µUseFavoritesStorage.FavoriteType);
 
       const isValid = favoriteEntries.every(([KEY, _VALUE]) => {
         const validEnums = favoriteTypes.some(TYPE => TYPE === KEY);
@@ -64,7 +62,7 @@ export const useFavoritesStorage = (): µUseFavoritesStorage.Types.Return => {
     };
 
   const onStorageError = () => {
-    µUseFavoritesStorage.Utils.initializeFavoritesStorage();
+    µUseFavoritesStorage.initializeFavoritesStorage();
 
     toast({
       title: 'Corrupted Data',

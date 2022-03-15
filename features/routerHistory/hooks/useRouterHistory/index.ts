@@ -1,2 +1,2 @@
-export * as µUseRouterHistory from './µUseRouterHistory';
+export * as µUseRouterHistory from './useRouterHistory.cb';
 export * from './useRouterHistory';

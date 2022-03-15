@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { µUseData } from '.';
 
-export const useData = (): µUseData.Types.Return => {
+export const useData = (): µUseData.Return => {
   const [initialized, setInitialized] = useState(false);
-  const [posts, setPosts] = useState<µUseData.Types.State['posts']>([]);
-  const [memes, setMemes] = useState<µUseData.Types.State['memes']>([]);
+  const [posts, setPosts] = useState<µUseData.State['posts']>([]);
+  const [memes, setMemes] = useState<µUseData.State['memes']>([]);
 
-  const fetchData: µUseData.Types.Methods['fetchData'] = async () => {
+  const fetchData: µUseData.Methods['fetchData'] = async () => {
     const response = await fetch('/api/all', {
       method: 'GET',
       headers: {

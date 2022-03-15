@@ -1,2 +1,2 @@
 export * from './PostsRoot'
-export * as µPostsRoot from './µPostsRoot'
+export * as µPostsRoot from './PostsRoot.cb'

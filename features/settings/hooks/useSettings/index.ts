@@ -1,2 +1,2 @@
-export * as µUseSettings from './µUseSettings';
+export * as µUseSettings from './useSettings.cb';
 export * from './useSettings';

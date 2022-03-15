@@ -1,9 +1,10 @@
 import React from 'react';
-import { createContextProvider } from '@/lib/createContextProvider';
+
+import { createContextProvider } from '@/lib/core';
 import { useSettings, µUseSettings } from '@/features/settings';
 
 export const [SettingsContextProvider, useSettingsContext] =
-  createContextProvider<µUseSettings.Types.Return>({
+  createContextProvider<µUseSettings.Return>({
     name: 'SettingsContext',
     errorMessage: 'context must be wrapped in Feature Provider',
   });

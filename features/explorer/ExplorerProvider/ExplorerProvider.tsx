@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { createContextProvider } from '@/lib/createContextProvider';
+import { createContextProvider } from '@/lib/core';
 
 import { useExplorer } from '@/features/explorer';
 import { useResponsiveContext } from '@/features/responsive';
@@ -9,12 +9,12 @@ import { useDataContext } from '@/features/data';
 import { µExplorerProvider } from '.';
 
 export const [ExplorerContextProvider, useExplorerContext] =
-  createContextProvider<µExplorerProvider.Types.Value>({
+  createContextProvider<µExplorerProvider.Value>({
     name: 'SearchContext',
     errorMessage: 'context must be wrapped in Search Provider',
   });
 
-export const ExplorerProvider: React.FC<µExplorerProvider.Types.Props> = props => {
+export const ExplorerProvider: React.FC<µExplorerProvider.Props> = props => {
   const { collapsible } = useResponsiveContext();
   const { data } = useDataContext();
 

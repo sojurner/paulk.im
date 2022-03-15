@@ -1,2 +1,2 @@
 export * from './Layout';
-export * as µLayout from './µLayout';
+export * as µLayout from './Layout.cb';

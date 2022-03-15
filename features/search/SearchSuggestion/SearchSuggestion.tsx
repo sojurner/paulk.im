@@ -4,7 +4,7 @@ import { MidText, RegularText } from '@/components/Typography';
 
 import { µSearchSuggestion } from '.';
 
-export const SearchSuggestion: React.FC<µSearchSuggestion.Types.Props> = ({
+export const SearchSuggestion: React.FC<µSearchSuggestion.Props> = ({
   suggestion,
   category,
   ...props
@@ -12,7 +12,7 @@ export const SearchSuggestion: React.FC<µSearchSuggestion.Types.Props> = ({
   const txtColor = useColorModeValue('gray.500', 'gray.400');
   const hoverBg = useColorModeValue('blue.50', 'blue.800');
 
-  const Icon = µSearchSuggestion.Utils.getSuggestionCategoryIcon(category);
+  const Icon = µSearchSuggestion.getSuggestionCategoryIcon(category);
 
   return (
     <Grid

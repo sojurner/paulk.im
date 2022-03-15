@@ -13,7 +13,7 @@ import { MidText } from '@/components/Typography';
 
 import { µExplorerPanel } from '.';
 
-export const ExplorerPanel: React.FC<µExplorerPanel.Types.Props> = props => {
+export const ExplorerPanel: React.FC<µExplorerPanel.Props> = props => {
   const { data } = useDataContext();
   const { explorer } = useExplorerContext();
 

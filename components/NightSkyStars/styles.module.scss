@@ -1,0 +1,73 @@
+@function generate-random-stars($screen-width, $color, $density) {
+  $h-shadow: random($screen-width);
+  $v-shadow: random($screen-width);
+
+  $stars: '#{$h-shadow}px #{$v-shadow}px #{$color}';
+  @for $i from 2 through $density {
+    $h-shadow: random($screen-width);
+    $v-shadow: random($screen-width);
+
+    $stars: '#{$stars}, #{$h-shadow}px #{$v-shadow}px #{$color}';
+  }
+  @return unquote($stars);
+}
+
+@mixin stars-content($screen-width, $color, $density, $speed, $delay) {
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  opacity: 0;
+  box-shadow: generate-random-stars($screen-width, $color, $density);
+  animation-name: glowing-stars;
+  animation-duration: $speed + s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-timing-function: linear;
+  animation-delay: $delay + s;
+}
+
+.overlay {
+  background: rgba(0, 0, 0, 0.753);
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  z-index: 20;
+}
+
+.group1 {
+  @include stars-content(1800, #fff, 200, 1, 0);
+}
+
+.group2 {
+  @include stars-content(1800, #fff, 200, 1, 0.1);
+}
+
+.group3 {
+  @include stars-content(1800, #fff, 200, 1, 0.2);
+}
+
+.group4 {
+  @include stars-content(1800, #fff, 200, 1, 0.3);
+}
+
+.group5 {
+  @include stars-content(1800, #fff, 200, 1, 0.4);
+}
+
+.group6 {
+  @include stars-content(1800, #fff, 200, 1, 0.5);
+}
+
+@keyframes glowing-stars {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}

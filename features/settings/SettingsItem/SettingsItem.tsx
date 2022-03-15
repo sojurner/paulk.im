@@ -1,17 +1,9 @@
 import React from 'react';
 import { Grid, GridProps, GridItem, Switch } from '@chakra-ui/react';
 import { MidText, RegularText } from '@/components/Typography';
+import { µSettingsItem } from '.';
 
-import { ChangeEventHandler, ReactNode } from 'react';
-
-interface Props extends Omit<GridProps, 'onChange'> {
-  isEnabled: boolean;
-  onChange: ChangeEventHandler;
-  Icon: ReactNode;
-  content: string[];
-}
-
-export const SettingsItem: React.FC<Props> = ({
+export const SettingsItem: React.FC<µSettingsItem.Props> = ({
   isEnabled,
   onChange,
   content,

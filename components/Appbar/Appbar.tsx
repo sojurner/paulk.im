@@ -18,7 +18,7 @@ import {
 import { µAppbar } from '.';
 import { useResponsiveContext } from '@/features/responsive';
 
-export const Appbar: React.FC<µAppbar.Types.Props> = props => {
+export const Appbar: React.FC<µAppbar.Props> = props => {
   const containerBg = useColorModeValue('gray.100', 'gray.900');
   const bottomBdrColor = useColorModeValue('gray.200', 'gray.700');
   const activeTabBg = useColorModeValue('white', 'gray.800');

@@ -6,7 +6,7 @@ import { CaretDown, CaretRight } from '@/components/Icon';
 
 import { µDirectory } from '.';
 
-export const Directory: React.FC<µDirectory.Types.Props> = ({
+export const Directory: React.FC<µDirectory.Props> = ({
   children,
   isActive,
   initialExpanded,

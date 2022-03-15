@@ -5,7 +5,7 @@ import { RegularText } from '@/components/Typography';
 
 import { µTab } from '.';
 
-export const AppbarTab: React.FC<µTab.Types.Props> = ({
+export const AppbarTab: React.FC<µTab.Props> = ({
   isActive,
   children,
   ...props
@@ -38,10 +38,7 @@ export const AppbarTab: React.FC<µTab.Types.Props> = ({
   );
 };
 
-export const SidebarTab: React.FC<µTab.Types.Props> = ({
-  isActive,
-  ...props
-}) => {
+export const SidebarTab: React.FC<µTab.Props> = ({ isActive, ...props }) => {
   const bg = useColorModeValue('blue.50', 'blue.900');
 
   return (

@@ -1,2 +1,2 @@
 export * from './ResponsiveProvider';
-export * as µResponsiveProvider from './µResponsiveProvider';
+export * as µResponsiveProvider from './ResponsiveProvider.cb';

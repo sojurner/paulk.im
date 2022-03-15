@@ -1,2 +1,2 @@
-export * as µIcon from './µIcon';
+export * as µIcon from './Icon.cb';
 export * from './Icon';

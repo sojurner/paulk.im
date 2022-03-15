@@ -35,7 +35,7 @@ import X from '@/assets/icons/X.svg';
 
 import { µIcon } from '.';
 
-export const IconWrapper: React.FC<µIcon.Types.Props> = ({
+export const IconWrapper: React.FC<µIcon.Props> = ({
   isActive = true,
   ...props
 }) => {

@@ -2,8 +2,8 @@ import { useMediaQuery } from '@chakra-ui/react';
 import { µUseMediaQueries } from '.';
 
 export const useMediaQueries = (
-  args: µUseMediaQueries.Types.Args
-): µUseMediaQueries.Types.Return => {
+  args: µUseMediaQueries.Args
+): µUseMediaQueries.Return => {
   const [isLargerThan1600] = useMediaQuery(
     `(min-width: ${args.collapsed ? 1600 - 320 : 1600}px)`
   );

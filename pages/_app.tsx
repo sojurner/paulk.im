@@ -1,5 +1,6 @@
 import '@fontsource/karla';
 import '@fontsource/noto-serif-display';
+import "prismjs/themes/prism-tomorrow.css";
 import '@/styles/globals.scss';
 
 import { theme, Fonts } from '@/config/chakra';
@@ -16,6 +17,7 @@ import { DesktopLayout } from '@/components/Layout';
 import { ExplorerProvider } from '@/features/explorer';
 
 function App({ Component, pageProps }: AppProps) {
+
   return (
     <ChakraProvider theme={theme}>
       <Fonts />

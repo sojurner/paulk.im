@@ -17,7 +17,7 @@ import {
 
 import { µSidebar } from '.';
 
-export const Sidebar: React.FC<µSidebar.Types.Props> = props => {
+export const Sidebar: React.FC<µSidebar.Props> = props => {
   const router = useRouter();
   const [_, root] = router.asPath.split('/');
 

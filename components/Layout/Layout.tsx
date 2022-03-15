@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Grid, GridItem, useColorModeValue } from '@chakra-ui/react';
 
 import { useResponsiveContext } from '@/features/responsive';
-import { SearchRoot, useSearchContext } from '@/features/search';
+import { SearchRoot, useSearchContext, RootWithBg } from '@/features/search';
 import { ExplorerPanel } from '@/features/explorer';
 
 import { Appbar } from '@/components/Appbar';
@@ -11,7 +11,7 @@ import { Footerbar } from '@/components/Footerbar';
 
 import { µLayout } from '.';
 
-export const DesktopLayout: React.FC<µLayout.Types.Props> = props => {
+export const DesktopLayout: React.FC<µLayout.Props> = props => {
   const { collapsible } = useResponsiveContext();
   const { searchToggle } = useSearchContext();
   const contentBG = useColorModeValue('white', 'gray.800');

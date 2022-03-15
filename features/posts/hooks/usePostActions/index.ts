@@ -1,2 +1,2 @@
-export * as µUsePostActions from './µUsePostActions'
+export * as µUsePostActions from './usePostActions.cb'
 export * from './usePostActions'

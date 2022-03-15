@@ -7,7 +7,7 @@ import BrushStroke from '@/assets/icons/BrushStroke.svg';
 
 import { µHeader } from '.';
 
-export const Header: React.FC<µHeader.Types.Props> = () => {
+export const Header: React.FC<µHeader.Props> = () => {
   return (
     <HStack
       position="relative"
@@ -26,13 +26,13 @@ export const Header: React.FC<µHeader.Types.Props> = () => {
       >
         <BrushStroke />
       </Box>
-      {µHeader.Consts.LINKS_LEFT.map(LINK => {
+      {µHeader.LINKS_LEFT.map(LINK => {
         return (
           <Box
             minWidth="70px"
             zIndex="1"
             key={LINK.path}
-            _hover={µHeader.Styles._linkHover}
+            _hover={µHeader._linkHover}
           >
             <NextLink href={LINK.path}>
               <Link
@@ -59,13 +59,13 @@ export const Header: React.FC<µHeader.Types.Props> = () => {
         <Logo />
       </Flex>
 
-      {µHeader.Consts.LINKS_RIGHT.map(LINK => {
+      {µHeader.LINKS_RIGHT.map(LINK => {
         return (
           <Box
             minWidth="70px"
             zIndex="1"
             key={LINK.path}
-            _hover={µHeader.Styles._linkHover}
+            _hover={µHeader._linkHover}
             fontSize={['1em', '1.2rem']}
           >
             <NextLink key={LINK.path} href={LINK.path}>

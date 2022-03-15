@@ -1,2 +1,2 @@
 export * from './Sidebar';
-export * as µSidebar from './µSidebar';
+export * as µSidebar from './Sidebar.cb';

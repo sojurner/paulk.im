@@ -1,2 +1,2 @@
-export * as µLatestCard from './µLatestCard'
+export * as µLatestCard from './LatestCard.cb'
 export * from './LatestCard'

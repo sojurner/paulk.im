@@ -1,2 +1,2 @@
 export * from './Header';
-export * as µHeader from './µHeader';
+export * as µHeader from './Header.cb';

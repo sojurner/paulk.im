@@ -1,2 +1,2 @@
 export * from './Directory';
-export * as µDirectory from './µDirectory';
+export * as µDirectory from './Directory.cb';

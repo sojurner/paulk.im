@@ -5,7 +5,7 @@ import NextImage from 'next/image';
 
 import { µFavoritesItem } from '.';
 
-export const FavoritesItem: React.FC<µFavoritesItem.Types.Props> = ({
+export const FavoritesItem: React.FC<µFavoritesItem.Props> = ({
   favorite,
   ...props
 }) => {

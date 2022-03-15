@@ -1,2 +1,2 @@
 export * from './useSearchQuery';
-export * as µUseSearchQuery from './µUseSearchQuery';
+export * as µUseSearchQuery from './useSearchToggle.cb';

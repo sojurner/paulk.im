@@ -1,2 +1,2 @@
-export * from './MemesRoot'
-export * as µMemesRoot from './µMemesRoot'
+export * from './MemesRoot';
+export * as µMemesRoot from './MemesRoot.cb';

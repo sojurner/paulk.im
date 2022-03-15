@@ -1,2 +1,2 @@
 export * from './Panel';
-export * as µPanel from './µPanel';
+export * as µPanel from './Panel.cb';

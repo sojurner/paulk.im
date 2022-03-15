@@ -26,7 +26,7 @@ export const SunRay: React.FC<{ index: number; enabled: boolean }> = ({
   );
 };
 
-export const SettingsDarkMode: React.FC<µSettingsDarkMode.Types.Props> =
+export const SettingsDarkMode: React.FC<µSettingsDarkMode.Props> =
   props => {
     return (
       <Flex

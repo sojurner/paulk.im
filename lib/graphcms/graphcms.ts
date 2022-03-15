@@ -1,4 +1,3 @@
-import type {NextConfig} from 'next'
 import { GraphQLClient } from 'graphql-request';
 
 export function request({ query, variables }: any) {

@@ -1,2 +1,2 @@
-export * as µUseFlexSearch from './µUseFlexSearch';
+export * as µUseFlexSearch from './useFlexSearch.cb';
 export * from './useFlexSearch';

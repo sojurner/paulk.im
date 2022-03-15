@@ -9,7 +9,7 @@ import { MidText } from '../Typography';
 
 import { µFooterbar } from '.';
 
-export const Footerbar: React.FC<µFooterbar.Types.Props> = props => {
+export const Footerbar: React.FC<µFooterbar.Props> = props => {
   const { state } = useSettingsContext();
 
   const bg = useColorModeValue('gray.50', 'gray.900');
@@ -17,21 +17,21 @@ export const Footerbar: React.FC<µFooterbar.Types.Props> = props => {
   const iconColor = useColorModeValue('blue.900', 'white');
 
   const [activeControl, setActiveControl] = React.useState<
-    µFooterbar.Types.State['activeControl']
-  >(µFooterbar.Enums.FeatureControl.NONE);
+    µFooterbar.State['activeControl']
+  >(µFooterbar.FeatureControl.NONE);
 
-  const forwardOnSetActiveControl: µFooterbar.Types.Methods['forwardOnSetActiveControl'] =
+  const forwardOnSetActiveControl: µFooterbar.Methods['forwardOnSetActiveControl'] =
     control => () => {
       setActiveControl(control);
     };
 
   const onControlClose = forwardOnSetActiveControl(
-    µFooterbar.Enums.FeatureControl.NONE
+    µFooterbar.FeatureControl.NONE
   );
 
-  const handleLinkClick: µFooterbar.Types.Methods['handleContactItemClick'] =
+  const handleLinkClick: µFooterbar.Methods['handleContactItemClick'] =
     React.useCallback(contact => {
-      if (contact.type === µFooterbar.Enums.LinkType.EMAIL) {
+      if (contact.type === µFooterbar.LinkType.EMAIL) {
         window.location.href = contact.link;
       } else {
         window.open(contact.link, '_blank');
@@ -51,36 +51,34 @@ export const Footerbar: React.FC<µFooterbar.Types.Props> = props => {
       <HStack spacing="5">
         {state.soundCloud.enabled && (
           <SoundCloudControl
-            isOpen={
-              activeControl === µFooterbar.Enums.FeatureControl.SOUND_CLOUD
-            }
+            isOpen={activeControl === µFooterbar.FeatureControl.SOUND_CLOUD}
             onOpen={forwardOnSetActiveControl(
-              µFooterbar.Enums.FeatureControl.SOUND_CLOUD
+              µFooterbar.FeatureControl.SOUND_CLOUD
             )}
             onClose={onControlClose}
           />
         )}
         {state.favorites.enabled && (
           <FavoritesControl
-            isOpen={activeControl === µFooterbar.Enums.FeatureControl.FAVORITES}
+            isOpen={activeControl === µFooterbar.FeatureControl.FAVORITES}
             onOpen={forwardOnSetActiveControl(
-              µFooterbar.Enums.FeatureControl.FAVORITES
+              µFooterbar.FeatureControl.FAVORITES
             )}
             onClose={onControlClose}
           />
         )}
       </HStack>
       <Flex alignItems="center" mx="auto">
-        <MidText>© 2022 Paul Kim</MidText>
+        <MidText>{µFooterbar.COPY_RIGHT}</MidText>
       </Flex>
       <HStack spacing="7">
-        {µFooterbar.Consts.contactLinks.map(ELE => {
+        {µFooterbar.CONTACT_LINKS.map(ELE => {
           return (
             <Flex
               color={iconColor}
               cursor="pointer"
               _hover={{
-                filter: "invert(.5)"
+                filter: 'invert(.5)',
               }}
               onClick={handleLinkClick.bind(null, ELE)}
               fontSize="1.3em"

@@ -10,7 +10,7 @@ import { Title } from '@/components/Typography';
 
 import { µHomeRoot } from '.';
 
-export const HomeRoot: React.FC<µHomeRoot.Types.Props> = ({
+export const HomeRoot: React.FC<µHomeRoot.Props> = ({
   latestItems,
   ...props
 }) => {

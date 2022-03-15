@@ -1,2 +1,2 @@
-export * from './FavoritesProvider'
-export * as µFavoritesProvider from './µFavoritesProvider'
+export * from './FavoritesProvider';
+export * as µFavoritesProvider from './FavoritesProvider.cb';

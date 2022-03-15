@@ -1,2 +1,2 @@
 export * from './File';
-export * as µFile from './µFile';
+export * as µFile from './File.cb';

@@ -6,7 +6,7 @@ import { RegularText } from '../Typography';
 import { µFile } from '.';
 import { IconWrapper } from '../Icon';
 
-export const File: React.FC<µFile.Types.Props> = ({
+export const File: React.FC<µFile.Props> = ({
   content,
   isActive,
   isCurrent,
@@ -51,6 +51,6 @@ export const File: React.FC<µFile.Types.Props> = ({
   );
 };
 
-export const FileList: React.FC<µFile.Types.FlexProps> = props => (
+export const FileList: React.FC<µFile.FlexProps> = props => (
   <Flex flexDir="column" {...props} />
 );

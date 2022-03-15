@@ -6,7 +6,7 @@ import { useResponsiveContext } from '@/features/responsive';
 
 export default function Posts({ posts }) {
   const { collapsible, mediaQueries } = useResponsiveContext();
-
+  console.log(posts);
   React.useEffect(() => {
     if (!mediaQueries.state.isLargerThan500 || !collapsible.state.collapsed)
       return;
@@ -23,6 +23,6 @@ export async function getStaticProps() {
       ${articles_query}
     }`,
   });
-
+  // console.log(posts)
   return { props: { posts: articles } };
 }

@@ -12,7 +12,7 @@ import { AvatarPkImage } from '@/assets/images';
 
 import { µPostsRoot } from '.';
 
-export const PostsRoot: React.FC<µPostsRoot.Types.Props> = ({
+export const PostsRoot: React.FC<µPostsRoot.Props> = ({
   posts,
   ...props
 }) => {
@@ -41,7 +41,7 @@ export const PostsRoot: React.FC<µPostsRoot.Types.Props> = ({
         maxWidth="1240px"
         spacing="10"
       >
-        {posts.map((POST, index) => {
+        {posts?.map((POST, index) => {
           const width = [
             '100%',
             '500px',
@@ -100,7 +100,7 @@ export const PostsRoot: React.FC<µPostsRoot.Types.Props> = ({
                       </RegularText>
                       <RegularText color="blackAlpha.600">·</RegularText>
 
-                      {POST.tags.map(TAG => (
+                      {POST?.tags?.map(TAG => (
                         <Tag size="sm" key={TAG} variant="subtle">
                           {TAG}
                         </Tag>

@@ -4,9 +4,9 @@ import { Document } from 'flexsearch';
 import { µUseFlexSearch } from '.';
 
 export const useFlexSearch = (
-  args?: µUseFlexSearch.Types.Args
-): µUseFlexSearch.Types.Return => {
-  const [memeDocument] = useState<µUseFlexSearch.Types.State['memeDocument']>(
+  args?: µUseFlexSearch.Args
+): µUseFlexSearch.Return => {
+  const [memeDocument] = useState<µUseFlexSearch.State['memeDocument']>(
     new Document({
       document: {
         id: 'slug',
@@ -16,7 +16,7 @@ export const useFlexSearch = (
       tokenize: 'full',
     })
   );
-  const [postDocument] = useState<µUseFlexSearch.Types.State['postDocument']>(
+  const [postDocument] = useState<µUseFlexSearch.State['postDocument']>(
     new Document({
       document: {
         id: 'slug',

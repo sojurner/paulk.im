@@ -1,8 +1,6 @@
-// import { useRouter } from 'next/router';
-// import ErrorPage from 'next/error';
-// import Head from 'next/head';
 import { serialize } from 'next-mdx-remote/serialize';
 import matter from 'gray-matter';
+
 import {
   request,
   articles_query,

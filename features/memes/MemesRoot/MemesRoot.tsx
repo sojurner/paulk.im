@@ -23,21 +23,18 @@ import {
 
 import { µMemesRoot } from '.';
 
-export const MemesRoot: React.FC<µMemesRoot.Types.Props> = ({
-  memes,
-  ...props
-}) => {
+export const MemesRoot: React.FC<µMemesRoot.Props> = ({ memes, ...props }) => {
   const { favoritesStorage } = useFavoritesContext();
   const settingsContext = useSettingsContext();
   const secondaryTxtColor = useColorModeValue('gray.600', 'gray.400');
 
-  const handleFavoriteClick: µMemesRoot.Types.Methods['handleFavorite'] =
+  const handleFavoriteClick: µMemesRoot.Methods['handleFavorite'] =
     React.useCallback(
       meme => () => {
         favoritesStorage.methods.onFavoritesUpdate({
           slug: meme.slug,
           title: meme.title,
-          type: µUseFavoritesStorage.Enums.FavoriteType.MEME,
+          type: µUseFavoritesStorage.FavoriteType.MEME,
           value: meme.image,
         });
       },

@@ -1,2 +1,2 @@
-export * as µUseSearchToggle from './µUseSearchToggle';
+export * as µUseSearchToggle from './useSearchToggle.cb';
 export * from './useSearchToggle'

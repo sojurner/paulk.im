@@ -11,7 +11,7 @@ import { EyeIcon, UpvoteIcon } from '@/components/Icon';
 
 import { µLatestBlogCard } from '.';
 
-export const LatestBlogCard: React.FC<µLatestBlogCard.Types.Props> = ({
+export const LatestBlogCard: React.FC<µLatestBlogCard.Props> = ({
   width,
   post,
   ...props

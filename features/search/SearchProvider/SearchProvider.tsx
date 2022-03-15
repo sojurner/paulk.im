@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { createContextProvider } from '@/lib/createContextProvider';
+import { createContextProvider } from '@/lib/core';
 
 import { useSearchToggle, useFlexSearch } from '@/features/search';
 import { useDataContext } from '@/features/data';
@@ -8,12 +8,12 @@ import { useDataContext } from '@/features/data';
 import { µSearchProvider } from '.';
 
 export const [SearchContextProvider, useSearchContext] =
-  createContextProvider<µSearchProvider.Types.Value>({
+  createContextProvider<µSearchProvider.Value>({
     name: 'SearchContext',
     errorMessage: 'context must be wrapped in Search Provider',
   });
 
-export const SearchProvider: React.FC<µSearchProvider.Types.Props> = props => {
+export const SearchProvider: React.FC<µSearchProvider.Props> = props => {
   const searchToggle = useSearchToggle();
   const { data } = useDataContext();
 

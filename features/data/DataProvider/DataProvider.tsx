@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { createContextProvider } from '@/lib/createContextProvider';
+import { createContextProvider } from '@/lib/core';
 import { useData } from '@/features/data';
 
 import { µDataProvider } from '.';
 
 export const [DataContextProvider, useDataContext] =
-  createContextProvider<µDataProvider.Types.Value>({
+  createContextProvider<µDataProvider.Value>({
     name: 'DataContext',
     errorMessage: 'context must be wrapped in Data Provider',
   });

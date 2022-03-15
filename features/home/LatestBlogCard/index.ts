@@ -1,2 +1,2 @@
 export * from './LatestBlogCard';
-export * as µLatestBlogCard from './µLatestBlogCard';
+export * as µLatestBlogCard from './LatestBlogCard.cb';

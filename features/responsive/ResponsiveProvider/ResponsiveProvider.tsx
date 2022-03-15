@@ -1,12 +1,12 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
-import { createContextProvider } from '@/lib/createContextProvider';
+
+import { createContextProvider } from '@/lib/core';
 import { useCollapsible, useMediaQueries } from '@/features/responsive/hooks';
 
 import { µResponsiveProvider } from '.';
 
 export const [ResponsiveContextProvider, useResponsiveContext] =
-  createContextProvider<µResponsiveProvider.Types.Value>({
+  createContextProvider<µResponsiveProvider.Value>({
     name: 'ResponsiveContext',
     errorMessage: 'context must be wrapped in Responsive Provider',
   });

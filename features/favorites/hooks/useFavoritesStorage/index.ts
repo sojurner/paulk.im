@@ -1,2 +1,2 @@
-export * as µUseFavoritesStorage from './µUseFavoritesStorage'
+export * as µUseFavoritesStorage from './useFavoritesStorage.cb'
 export * from './useFavoritesStorage'

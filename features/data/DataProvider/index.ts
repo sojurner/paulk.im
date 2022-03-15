@@ -1,2 +1,2 @@
-export * as µDataProvider from './µDataProvider';
+export * as µDataProvider from './DataProvider.cb';
 export * from './DataProvider';

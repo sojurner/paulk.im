@@ -8,35 +8,33 @@ import {
 import { useSettingsContext } from '@/features/settings';
 
 export const usePostActions = (
-  args: µUsePostActions.Types.Args
-): µUsePostActions.Types.Return => {
+  args: µUsePostActions.Args
+): µUsePostActions.Return => {
   const { favoritesStorage } = useFavoritesContext();
   const settingsContext = useSettingsContext();
 
   const [upvoted, setUpvoted] = useState(false);
 
-  const handleFavorite: µUsePostActions.Types.Methods['handleFavorite'] =
-    () => {
-      favoritesStorage.methods.onFavoritesUpdate({
-        type: µUseFavoritesStorage.Enums.FavoriteType.POST,
-        title: args.post.title,
-        slug: args.post.slug,
-        value: args.post.coverImage,
-      });
-    };
+  const handleFavorite: µUsePostActions.Methods['handleFavorite'] = () => {
+    favoritesStorage.methods.onFavoritesUpdate({
+      type: µUseFavoritesStorage.FavoriteType.POST,
+      title: args.post.title,
+      slug: args.post.slug,
+      value: args.post.coverImage,
+    });
+  };
 
-  const handleUpvote: µUsePostActions.Types.Methods['handleUpvote'] =
-    async () => {
-      await fetch(`/api/posts/${args.post.slug}`, {
-        method: 'POST',
-        body: JSON.stringify({ upvotes: args.post.upvotes + 1 }),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+  const handleUpvote: µUsePostActions.Methods['handleUpvote'] = async () => {
+    await fetch(`/api/posts/${args.post.slug}`, {
+      method: 'POST',
+      body: JSON.stringify({ upvotes: args.post.upvotes + 1 }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
 
-      setUpvoted(true);
-    };
+    setUpvoted(true);
+  };
 
   useEffect(() => {
     if (!upvoted) return;
@@ -49,7 +47,7 @@ export const usePostActions = (
     notFavorited:
       !settingsContext.state.favorites.enabled ||
       !favoritesStorage.state.favorites?.[
-        µUseFavoritesStorage.Enums.FavoriteType.POST
+        µUseFavoritesStorage.FavoriteType.POST
       ]?.[args.post.slug]?.saved,
   };
   const methods = { setUpvoted, handleFavorite, handleUpvote };

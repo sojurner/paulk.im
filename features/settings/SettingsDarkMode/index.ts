@@ -1,2 +1,2 @@
 export * from './SettingsDarkMode';
-export * as µSettingsDarkMode from './µSettingsDarkMode'
+export * as µSettingsDarkMode from './SettingsDarkMode.cb'

@@ -1,2 +1,2 @@
 export * from './FavoritesItem';
-export * as µFavoritesItem from './µFavoritesItem';
+export * as µFavoritesItem from './FavoritesItem.cb';

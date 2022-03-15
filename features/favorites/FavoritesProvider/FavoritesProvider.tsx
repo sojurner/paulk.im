@@ -1,12 +1,12 @@
 import React from 'react';
 
 import { useFavoritesStorage } from '@/features/favorites';
-import { createContextProvider } from '@/lib/createContextProvider';
+import { createContextProvider } from '@/lib/core';
 
 import { µFavoritesProvider } from '.';
 
 export const [FavoritesContextProvider, useFavoritesContext] =
-  createContextProvider<µFavoritesProvider.Types.Value>({
+  createContextProvider<µFavoritesProvider.Value>({
     name: 'FavoritesContext',
     errorMessage: 'context must be wrapped in Favorites Provider',
   });

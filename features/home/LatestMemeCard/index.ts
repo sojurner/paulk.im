@@ -1,2 +1,2 @@
-export * as µLatestMemeCard from './µLatestMemeCard';
+export * as µLatestMemeCard from './LatestMemeCard.cb';
 export * from './LatestMemeCard';

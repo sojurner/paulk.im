@@ -2,21 +2,21 @@ import React from 'react';
 import { useToast, useColorMode } from '@chakra-ui/react';
 import { µUseSettings } from '.';
 
-export const useSettings = (): µUseSettings.Types.Return => {
+export const useSettings = (): µUseSettings.Return => {
   const toast = useToast();
   const { colorMode, toggleColorMode } = useColorMode();
 
   const [settings, setSettings] = React.useState<
-    Record<µUseSettings.Enums.SettingsStorageKey, µUseSettings.Types.SettingsLS>
+    Record<µUseSettings.SettingsStorageKey, µUseSettings.SettingsLS>
   >({
-    ...µUseSettings.Consts.LS_SETTINGS_INIT_VAL,
-    [µUseSettings.Enums.SettingsStorageKey.DARK_MODE]: {
+    ...µUseSettings.LS_SETTINGS_INIT_VAL,
+    [µUseSettings.SettingsStorageKey.DARK_MODE]: {
       enabled: colorMode === 'light',
       value: '',
     },
   });
 
-  const onSettingsUpdate: µUseSettings.Types.Methods['onSettingsUpdate'] = (
+  const onSettingsUpdate: µUseSettings.Methods['onSettingsUpdate'] = (
     key,
     updateVal
   ) => {
@@ -24,7 +24,7 @@ export const useSettings = (): µUseSettings.Types.Return => {
 
     if (!validatedStorage) return onError();
 
-    if (key === µUseSettings.Enums.SettingsStorageKey.DARK_MODE) {
+    if (key === µUseSettings.SettingsStorageKey.DARK_MODE) {
       toggleColorMode();
     }
 
@@ -35,22 +35,20 @@ export const useSettings = (): µUseSettings.Types.Return => {
       };
     });
 
-    µUseSettings.Utils.updateSettingsStorage(key, updateVal);
+    µUseSettings.updateSettingsStorage(key, updateVal);
   };
 
   const validateSettingsStorage = (): null | Record<
-    µUseSettings.Enums.SettingsStorageKey,
-    µUseSettings.Types.SettingsLS
+    µUseSettings.SettingsStorageKey,
+    µUseSettings.SettingsLS
   > => {
-    const settingsStorage = µUseSettings.Utils.getSettingsStorage() as Record<
-      µUseSettings.Enums.SettingsStorageKey,
-      µUseSettings.Types.SettingsLS
+    const settingsStorage = µUseSettings.getSettingsStorage() as Record<
+      µUseSettings.SettingsStorageKey,
+      µUseSettings.SettingsLS
     >;
 
     const storageEntries = Object.entries(settingsStorage);
-    const storageEnumValues = Object.values(
-      µUseSettings.Enums.SettingsStorageKey
-    );
+    const storageEnumValues = Object.values(µUseSettings.SettingsStorageKey);
 
     const valid = storageEntries.every(([KEY, VAL]) => {
       const validEnums = storageEnumValues.some(ENUM => ENUM === KEY);
@@ -63,7 +61,7 @@ export const useSettings = (): µUseSettings.Types.Return => {
   };
 
   const onError = () => {
-    µUseSettings.Utils.initializeSettingsStorage();
+    µUseSettings.initializeSettingsStorage();
 
     toast({
       title: 'Corrupted Data',

@@ -1,2 +1,2 @@
 export * from './Tab'
-export * as µTab from './µTab'
+export * as µTab from './Tab.cb'

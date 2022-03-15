@@ -7,7 +7,7 @@ import { SettingsIcon } from '@/components/Icon';
 
 import { µSettingsControl } from '.';
 
-export const SettingsControl: React.FC<µSettingsControl.Types.Props> = () => {
+export const SettingsControl: React.FC<µSettingsControl.Props> = () => {
   const [showSettings, toggleShowSettings] = React.useReducer(
     state => !state,
     false

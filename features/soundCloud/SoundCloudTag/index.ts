@@ -1,2 +1,2 @@
 export * from './SoundCloudTag'
-export * as µSoundCloudTag from './µSoundCloudTag'
+export * as µSoundCloudTag from './SoundCloudTag.cb'

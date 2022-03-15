@@ -10,6 +10,8 @@ import {
   useColorMode,
 } from '@chakra-ui/react';
 import { MDXRemote } from 'next-mdx-remote';
+import Prism from 'prismjs';
+import 'prismjs/components/prism-jsx.min';
 
 import { useComments } from '@/features/comments';
 import { useResponsiveContext } from '@/features/responsive';
@@ -31,7 +33,7 @@ const components = {
   ReactLiveEditor,
 };
 
-export const PostTemplate: React.FC<µPostTemplate.Types.Props> = ({ post }) => {
+export const PostTemplate: React.FC<µPostTemplate.Props> = ({ post }) => {
   const { asPath } = useRouter();
   const { collapsible } = useResponsiveContext();
   const postActions = usePostActions({ post });
@@ -50,10 +52,14 @@ export const PostTemplate: React.FC<µPostTemplate.Types.Props> = ({ post }) => 
     ref,
   });
 
+  // React.useEffect(() => {
+  //   if (collapsible.state.collapsed) return;
+  //   collapsible.methods.toggleCollapsed();
+  // }, [asPath]);
+
   React.useEffect(() => {
-    if (collapsible.state.collapsed) return;
-    collapsible.methods.toggleCollapsed();
-  }, [asPath]);
+    Prism.highlightAll();
+  });
 
   return (
     <Flex
@@ -127,9 +133,9 @@ export const PostTemplate: React.FC<µPostTemplate.Types.Props> = ({ post }) => 
           </HStack>
         </Flex>
 
-        <µPostTemplate.Styles.Article darkMode={colorMode === 'dark'}>
+        <µPostTemplate.StyledArticle darkMode={colorMode === 'dark'}>
           <MDXRemote {...post.content} components={components} />
-        </µPostTemplate.Styles.Article>
+        </µPostTemplate.StyledArticle>
       </Flex>
       <Box width={['100%', '650px']} filter={utteranceTheme} ref={ref} />
     </Flex>

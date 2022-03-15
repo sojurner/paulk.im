@@ -1,2 +1,2 @@
-export * as µUseMediaQueries from './µUseMediaQueries';
+export * as µUseMediaQueries from './useMediaQueries.cb';
 export * from './useMediaQueries';

@@ -17,6 +17,7 @@ import {
   SettingsItem,
 } from '@/features/settings';
 
+import { NightSkyStars } from '@/components/NightSkyStars';
 import {
   SoundCloudIcon,
   BookmarkIcon,
@@ -28,11 +29,11 @@ import {
 import { µSettingsModal } from '.';
 import { SettingsDarkMode } from '../SettingsDarkMode';
 
-export const SettingsModal: React.FC<µSettingsModal.Types.Props> = props => {
+export const SettingsModal: React.FC<µSettingsModal.Props> = props => {
   const settingsContext = useSettingsContext();
   const iconFill = useColorModeValue('orange.500', 'orange.400');
 
-  const forwardOnSettingsChange: µSettingsModal.Types.Methods['forwardOnSettingsChange'] =
+  const forwardOnSettingsChange: µSettingsModal.Methods['forwardOnSettingsChange'] =
     settingType => {
       return ({ currentTarget }) => {
         settingsContext.methods.onSettingsUpdate(settingType, {
@@ -44,6 +45,7 @@ export const SettingsModal: React.FC<µSettingsModal.Types.Props> = props => {
 
   return (
     <Modal size="lg" {...props}>
+      <NightSkyStars />
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>
@@ -58,7 +60,7 @@ export const SettingsModal: React.FC<µSettingsModal.Types.Props> = props => {
               isEnabled={settingsContext.state.darkMode?.enabled}
               content={['Dark Mode', 'Join the dark side']}
               onChange={forwardOnSettingsChange(
-                µUseSettings.Enums.SettingsStorageKey.DARK_MODE
+                µUseSettings.SettingsStorageKey.DARK_MODE
               )}
               Icon={
                 <SettingsDarkMode
@@ -70,7 +72,7 @@ export const SettingsModal: React.FC<µSettingsModal.Types.Props> = props => {
               isEnabled={settingsContext.state.soundCloud.enabled}
               content={['Sound Cloud', 'Listen to my sound cloud playlists']}
               onChange={forwardOnSettingsChange(
-                µUseSettings.Enums.SettingsStorageKey.SOUND_CLOUD
+                µUseSettings.SettingsStorageKey.SOUND_CLOUD
               )}
               Icon={
                 <IconWrapper
@@ -86,7 +88,7 @@ export const SettingsModal: React.FC<µSettingsModal.Types.Props> = props => {
               isEnabled={settingsContext.state.favorites.enabled}
               content={['Bookmarks', 'Bookmark your favorite posts/memes.']}
               onChange={forwardOnSettingsChange(
-                µUseSettings.Enums.SettingsStorageKey.FAVORITES
+                µUseSettings.SettingsStorageKey.FAVORITES
               )}
               Icon={
                 <Box
@@ -105,7 +107,7 @@ export const SettingsModal: React.FC<µSettingsModal.Types.Props> = props => {
               isEnabled={settingsContext.state.openWeather.enabled}
               content={['Open Weather', 'coming soon']}
               onChange={forwardOnSettingsChange(
-                µUseSettings.Enums.SettingsStorageKey.OPEN_WEATHER
+                µUseSettings.SettingsStorageKey.OPEN_WEATHER
               )}
               Icon={
                 <IconWrapper
