@@ -52,11 +52,6 @@ export const PostTemplate: React.FC<µPostTemplate.Props> = ({ post }) => {
     ref,
   });
 
-  // React.useEffect(() => {
-  //   if (collapsible.state.collapsed) return;
-  //   collapsible.methods.toggleCollapsed();
-  // }, [asPath]);
-
   React.useEffect(() => {
     Prism.highlightAll();
   });

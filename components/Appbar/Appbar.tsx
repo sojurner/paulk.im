@@ -19,10 +19,8 @@ import { µAppbar } from '.';
 import { useResponsiveContext } from '@/features/responsive';
 
 export const Appbar: React.FC<µAppbar.Props> = props => {
-  const containerBg = useColorModeValue('gray.100', 'gray.900');
   const bottomBdrColor = useColorModeValue('gray.200', 'gray.700');
   const activeTabBg = useColorModeValue('white', 'gray.800');
-
   const iconColor = useColorModeValue('black', 'white');
 
   const routerHistory = useRouterHistory({});
@@ -30,7 +28,7 @@ export const Appbar: React.FC<µAppbar.Props> = props => {
 
   return (
     <Flex
-      bg={containerBg}
+      bg={useColorModeValue('gray.100', 'gray.900')}
       flexDir="row"
       justifyContent="flex-start"
       width="100%"
@@ -64,7 +62,7 @@ export const Appbar: React.FC<µAppbar.Props> = props => {
         {collapsible.state.collapsed ? <CaretRight /> : <CaretLeft />}
       </Flex>
       <Flex maxWidth="calc(100% - 40px)" overflow="auto hidden">
-        {routerHistory.state.routeHistory.map((ROUTE, index, arr) => {
+        {routerHistory.state.routeHistory.map(ROUTE => {
           const [_, type, file] = ROUTE.path.split('/');
 
           let Icon;

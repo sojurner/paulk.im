@@ -6,7 +6,7 @@ import { µUseRouterHistory } from '.';
 import { useDataContext } from '@/features/data';
 
 export const useRouterHistory = (
-  params: µUseRouterHistory.Params
+  params?: µUseRouterHistory.Params
 ): µUseRouterHistory.Return => {
   const router = useRouter();
   const dataContext = useDataContext();

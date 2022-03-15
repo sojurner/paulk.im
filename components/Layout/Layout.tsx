@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Grid, GridItem, useColorModeValue } from '@chakra-ui/react';
 
 import { useResponsiveContext } from '@/features/responsive';
-import { SearchRoot, useSearchContext, RootWithBg } from '@/features/search';
+import { SearchRoot, useSearchContext } from '@/features/search';
 import { ExplorerPanel } from '@/features/explorer';
 
 import { Appbar } from '@/components/Appbar';

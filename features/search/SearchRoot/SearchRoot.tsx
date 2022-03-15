@@ -20,25 +20,19 @@ import {
 import { SearchIcon } from '@/components/Icon';
 
 import { µSearchRoot } from '.';
+import { useRouterHistory } from '@/features/routerHistory';
 
 export const SearchRoot: React.FC<µSearchRoot.Props> = props => {
   const searchQuery = useSearchQuery();
   const { searchToggle } = useSearchContext();
+  const routerHistory = useRouterHistory({});
 
   const ref = React.useRef<HTMLDivElement>(null);
-
+  console.log(routerHistory.state.routeHistory);
   useOutsideClick({
     ref,
     handler: searchToggle.methods.toggleSearch,
   });
-
-  const containerBg = useColorModeValue('gray.100', 'gray.700');
-  const inputColorScheme = useColorModeValue('gray.50', 'gray.800');
-  const borderColor = useColorModeValue('gray.300', 'gray.600');
-  const boxShadow = useColorModeValue(
-    '0 4px 9px rgba(0,0,0,0.2)',
-    '0 4px 10px rgba(0,0,0)'
-  );
 
   return (
     <>
@@ -48,13 +42,13 @@ export const SearchRoot: React.FC<µSearchRoot.Props> = props => {
         alignItems="center"
         justifyContent="flex-start"
         overflow="auto"
-        backgroundColor={containerBg}
+        backgroundColor={useColorModeValue('gray.100', 'gray.700')}
         borderBottomRightRadius="5px"
         borderBottomLeftRadius="5px"
         borderBottom="1px solid"
         borderLeft="1px solid"
         borderRight="1px solid"
-        borderColor={borderColor}
+        borderColor={useColorModeValue('gray.300', 'gray.600')}
         minH="300px"
         pos="fixed"
         zIndex="1000"
@@ -64,7 +58,10 @@ export const SearchRoot: React.FC<µSearchRoot.Props> = props => {
         minW={['100%', '400px']}
         right="50%"
         transform="translate(50%, 0)"
-        boxShadow={boxShadow}
+        boxShadow={useColorModeValue(
+          '0 4px 9px rgba(0,0,0,0.2)',
+          '0 4px 10px rgba(0,0,0)'
+        )}
         {...props}
       >
         <InputGroup my="2" width="98%">
@@ -74,7 +71,7 @@ export const SearchRoot: React.FC<µSearchRoot.Props> = props => {
           <Input
             variant="filled"
             colorScheme="red"
-            background={inputColorScheme}
+            background={useColorModeValue('gray.50', 'gray.800')}
             focusBorderColor="gray.500"
             autoFocus
             defaultValue={''}
