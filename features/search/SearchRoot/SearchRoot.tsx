@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import NextLink from 'next/link';
 import {
   Flex,
@@ -20,24 +20,21 @@ import {
 import { SearchIcon } from '@/components/Icon';
 
 import { µSearchRoot } from '.';
-import { useRouterHistory } from '@/features/routerHistory';
 
 export const SearchRoot: React.FC<µSearchRoot.Props> = props => {
   const searchQuery = useSearchQuery();
   const { searchToggle } = useSearchContext();
-  const routerHistory = useRouterHistory({});
 
-  const ref = React.useRef<HTMLDivElement>(null);
-  console.log(routerHistory.state.routeHistory);
+  const clickAwayRef = React.useRef<HTMLDivElement>(null);
   useOutsideClick({
-    ref,
+    ref: clickAwayRef,
     handler: searchToggle.methods.toggleSearch,
   });
 
   return (
     <>
       <Flex
-        ref={ref}
+        ref={clickAwayRef}
         flexDir="column"
         alignItems="center"
         justifyContent="flex-start"
@@ -74,9 +71,9 @@ export const SearchRoot: React.FC<µSearchRoot.Props> = props => {
             background={useColorModeValue('gray.50', 'gray.800')}
             focusBorderColor="gray.500"
             autoFocus
-            defaultValue={''}
             value={searchQuery.state.inputValue}
-            placeholder="search"
+            placeholder="search by title"
+            onKeyDown={searchQuery.methods.onKeyDown}
             onChange={e =>
               searchQuery.methods.onQueryChange(e?.currentTarget?.value)
             }
@@ -88,7 +85,7 @@ export const SearchRoot: React.FC<µSearchRoot.Props> = props => {
               <RegularText p="3">No Matching Results</RegularText>
             )}
           {!!searchQuery.state.shuffledSuggestions.length &&
-            searchQuery.state.shuffledSuggestions.map(SUGG => {
+            searchQuery.state.shuffledSuggestions.map((SUGG, index) => {
               return (
                 <NextLink key={SUGG.id} href={`/${SUGG.type}/${SUGG.id}`}>
                   <div
@@ -99,6 +96,10 @@ export const SearchRoot: React.FC<µSearchRoot.Props> = props => {
                       key={SUGG.id}
                       suggestion={SUGG}
                       category={SUGG.type}
+                      {...(index ===
+                        searchQuery.state.focusedSuggestionIndex && {
+                        background: 'blackAlpha.200',
+                      })}
                     />
                   </div>
                 </NextLink>

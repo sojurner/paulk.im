@@ -9,9 +9,6 @@ export const SearchSuggestion: React.FC<µSearchSuggestion.Props> = ({
   category,
   ...props
 }) => {
-  const txtColor = useColorModeValue('gray.500', 'gray.400');
-  const hoverBg = useColorModeValue('blue.50', 'blue.800');
-
   const Icon = µSearchSuggestion.getSuggestionCategoryIcon(category);
 
   return (
@@ -31,7 +28,7 @@ export const SearchSuggestion: React.FC<µSearchSuggestion.Props> = ({
       py="2"
       cursor="pointer"
       _hover={{
-        background: hoverBg,
+        background: 'blackAlpha.200',
       }}
       {...props}
     >
@@ -54,7 +51,7 @@ export const SearchSuggestion: React.FC<µSearchSuggestion.Props> = ({
       <GridItem justifySelf="start" gridArea="path">
         <MidText
           fontStyle="italic"
-          color={txtColor}
+          color={useColorModeValue('gray.500', 'gray.400')}
           fontSize={['12px', '14px']}
         >{`/${suggestion.type}/${suggestion.id}`}</MidText>
       </GridItem>
