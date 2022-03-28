@@ -59,7 +59,7 @@ export const DesktopLayout: React.FC<µLayout.Props> = props => {
           </Grid>
         </GridItem>
 
-        <GridItem gridArea="footer" zIndex="base">
+        <GridItem gridArea="footer" zIndex="docked">
           <Footerbar position={'fixed'} height="30px" bottom={0} />
         </GridItem>
       </Grid>
