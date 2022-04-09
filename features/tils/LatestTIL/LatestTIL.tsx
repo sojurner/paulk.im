@@ -20,7 +20,7 @@ export const LatestTIL: React.FC<{
     >
       <Box
         left={['0', '-5em']}
-        top={['-1.2em', '0']}
+        top={['-1.2em', '.5em']}
         pos="absolute"
         fontSize={'1.5em'}
       >
@@ -46,7 +46,6 @@ export const LatestTIL: React.FC<{
         isLight={isLight}
         dangerouslySetInnerHTML={{ __html: til?.content }}
       />
-      {/* <MDXRemote key={til?.slug} {...til?.??content} /> */}
       <HStack mt="2">
         {til.tags.map(TAG => {
           return (

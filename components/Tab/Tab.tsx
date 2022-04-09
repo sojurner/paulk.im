@@ -38,17 +38,23 @@ export const AppbarTab: React.FC<µTab.Props> = ({
   );
 };
 
-export const SidebarTab: React.FC<µTab.Props> = ({ isActive, ...props }) => {
-  const bg = useColorModeValue('blue.50', 'blue.900');
+// eslint-disable-next-line react/display-name
+export const SidebarTab =
+  // eslint-disable-next-line react/display-name
+  React.forwardRef<HTMLDivElement, µTab.Props>(
+    ({ isActive, ...props }, ref) => {
+      const bg = useColorModeValue('blue.50', 'blue.900');
 
-  return (
-    <Center
-      cursor="pointer"
-      bg={isActive ? bg : 'initial'}
-      pos="relative"
-      height={['40px', '60px']}
-      width={['40px', '100%']}
-      {...props}
-    ></Center>
+      return (
+        <Center
+          ref={ref}
+          cursor="pointer"
+          bg={isActive ? bg : 'initial'}
+          pos="relative"
+          height={['40px', '60px']}
+          width={['40px', '100%']}
+          {...props}
+        ></Center>
+      );
+    }
   );
-};

@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Grid, GridItem, useColorModeValue } from '@chakra-ui/react';
 import { useResponsiveContext } from '@/features/responsive';
-// import { ExplorerPanel } from '@/features/explorer';
 
 import { Appbar } from '@/components/Appbar';
 import { Sidebar } from '@/components/Sidebar';
@@ -46,7 +45,6 @@ export const DesktopLayout: React.FC<µLayout.Props> = props => {
             gridTemplateRows={['calc(100vh - 75px)', '45px calc(100vh - 75px)']}
           >
             <Appbar display={['none', 'flex']} gridArea="appbar" />
-            {/* <ExplorerPanel gridArea="panel" /> */}
             {props.children}
           </Grid>
         </GridItem>

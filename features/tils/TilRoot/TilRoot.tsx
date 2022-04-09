@@ -68,10 +68,9 @@ export const TilRoot: React.FC<µTilRoot.Props> = ({ tils, ...props }) => {
         </InputLeftElement>
         <Input
           variant="filled"
-          colorScheme="red"
-          background={useColorModeValue('gray.50', 'gray.800')}
-          focusBorderColor="gray.500"
-          outline={'1px solid blue'}
+          background={useColorModeValue('gray.50', 'gray.900')}
+          outline={'1px solid'}
+          outlineColor={useColorModeValue('gray.500', 'orange.300')}
           autoFocus
           value={searchQuery.state.inputValue}
           placeholder="search by title"
