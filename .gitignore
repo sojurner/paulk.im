@@ -38,3 +38,5 @@ pg.ts
 
 pages/draft
 /_posts
+
+tsconfig.tsbuildinfo

@@ -1,4 +1,3 @@
-import { UPDATE_ID } from '@/features/tils/LatestTIL';
 import { µGraphCMS } from '.';
 
 export const CONTENT_OF_WEEK_QUERY = `
@@ -47,8 +46,6 @@ export const TIL_QUERY = `
 //     week
 //   }
 // `;
-
-UPDATE_ID
 
 export const TAG_ENUM_QUERY = `
   __type(name: "Tag") {
