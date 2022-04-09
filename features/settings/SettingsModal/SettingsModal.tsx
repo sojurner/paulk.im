@@ -23,11 +23,9 @@ import {
   BookmarkIcon,
   OpenWeatherIcon,
   IconWrapper,
-  SettingsIcon,
 } from '@/components/Icon';
 
 import { µSettingsModal } from '.';
-import { SettingsDarkMode } from '../SettingsDarkMode';
 
 export const SettingsModal: React.FC<µSettingsModal.Props> = props => {
   const settingsContext = useSettingsContext();
@@ -56,18 +54,6 @@ export const SettingsModal: React.FC<µSettingsModal.Props> = props => {
         <ModalCloseButton size="lg" />
         <ModalBody>
           <VStack mb="5" spacing="5">
-            <SettingsItem
-              isEnabled={settingsContext.state.darkMode?.enabled}
-              content={['Dark Mode', 'Join the dark side']}
-              onChange={forwardOnSettingsChange(
-                µUseSettings.SettingsStorageKey.DARK_MODE
-              )}
-              Icon={
-                <SettingsDarkMode
-                  enabled={settingsContext.state.darkMode?.enabled}
-                />
-              }
-            />
             <SettingsItem
               isEnabled={settingsContext.state.soundCloud.enabled}
               content={['Sound Cloud', 'Listen to my sound cloud playlists']}

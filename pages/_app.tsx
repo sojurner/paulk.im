@@ -13,7 +13,6 @@ import { ResponsiveProvider } from '@/features/responsive';
 import { DataProvider } from '@/features/data';
 
 import { DesktopLayout } from '@/components/Layout';
-import { ExplorerProvider } from '@/features/explorer';
 
 function App({ Component, pageProps }: AppProps) {
   return (
@@ -23,11 +22,9 @@ function App({ Component, pageProps }: AppProps) {
         <SettingsProvider>
           <FavoritesProvider>
             <ResponsiveProvider>
-              <ExplorerProvider>
-                <DesktopLayout>
-                  <Component {...pageProps} />
-                </DesktopLayout>
-              </ExplorerProvider>
+              <DesktopLayout>
+                <Component {...pageProps} />
+              </DesktopLayout>
             </ResponsiveProvider>
           </FavoritesProvider>
         </SettingsProvider>
