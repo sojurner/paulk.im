@@ -53,6 +53,15 @@ export const TilRoot: React.FC<µTilRoot.Props> = ({ tils, ...props }) => {
         })}
       {...props}
     >
+      <blockquote className="imgur-embed-pub" lang="en" data-id="a/I7YctOG">
+        <a href="//imgur.com/a/I7YctOG">And awayyyy we go</a>
+      </blockquote>
+      <blockquote className="imgur-embed-pub" lang="en" data-id="a/z9UD3tz">
+        <a href="//imgur.com/a/z9UD3tz">
+          From Russia &quot;For the children&quot;
+        </a>
+      </blockquote>
+
       <HStack spacing={4} alignItems={'center'}>
         <IconWrapper fontSize={'1.2em'}>
           <IdeaIcon />
