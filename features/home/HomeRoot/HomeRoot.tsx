@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Divider, Flex, useColorModeValue, VStack } from '@chakra-ui/react';
 
 import { useResponsiveContext } from '@/features/responsive';
@@ -50,7 +50,7 @@ export const HomeRoot: React.FC<µHomeRoot.Props> = ({ results, ...props }) => {
             <Divider />
 
             <LatestImgur
-              id={COW.imgurId}
+              url={COW?.image?.url}
               isLargerThan500={mediaQueries.state.isLargerThan500}
             />
             <Divider />

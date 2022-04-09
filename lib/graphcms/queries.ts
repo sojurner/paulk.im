@@ -5,9 +5,15 @@ export const CONTENT_OF_WEEK_QUERY = `
     createdAt
     youtubeUrl
     soundCloudUrl
-    imgurId
     weekNumber
     year
+    image {
+      url(
+        transformation: {
+          image: { resize: { width: 520, fit: clip } }
+        }
+      )
+    }
   }
 `;
 

@@ -10,7 +10,9 @@ declare namespace Models {
   declare interface ContentOfWeek {
     youtubeUrl: string;
     soundCloudUrl: string;
-    imgurId: string;
+    image: {
+      url: string;
+    };
     weekRange: string;
     weekNumber: number;
     year: number;
