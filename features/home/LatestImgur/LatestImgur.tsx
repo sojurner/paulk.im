@@ -7,7 +7,6 @@ export const LatestImgur: React.FC<{
   url: string;
   isLargerThan500: boolean;
 }> = ({ url, isLargerThan500 }) => {
-  console.log(url);
   return (
     <Flex width="100%" flexDir="column" pos="relative">
       <Box left="-1.8em" pos="absolute" fontSize={'1.6em'}>

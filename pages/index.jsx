@@ -29,7 +29,7 @@ export async function getStaticProps() {
       ${CONTENT_OF_WEEK_QUERY}
     }`,
   });
-  console.log(response)
+
   const results = response.contentOfTheWeeks.map(COW => {
     const end = dayjs({ year: COW?.year }).week(COW?.weekNumber);
     const start = end.startOf('week');
