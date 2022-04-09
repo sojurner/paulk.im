@@ -1,5 +1,13 @@
 import React from 'react';
-import { VStack, Box, Flex, HStack, FlexProps, Tag } from '@chakra-ui/react';
+import {
+  VStack,
+  Box,
+  Flex,
+  HStack,
+  FlexProps,
+  Tag,
+  useColorMode,
+} from '@chakra-ui/react';
 
 import { useResponsiveContext } from '@/features/responsive';
 import Prism from 'prismjs';
@@ -8,16 +16,24 @@ import { LatestTIL } from '../LatestTIL';
 import { SubTitle } from '@/components/Typography';
 import { IconWrapper, IdeaIcon } from '@/components/Icon';
 import { useRouter } from 'next/router';
+import { useFavoritesContext } from '@/features/favorites';
 
 export const TilTag: React.FC<FlexProps & { tils: Models.TIL[] }> = ({
   tils,
   ...props
 }) => {
   const { collapsible, mediaQueries } = useResponsiveContext();
+  const { colorMode } = useColorMode();
   const router = useRouter();
+  const favoritesCxt = useFavoritesContext();
+
   React.useEffect(() => {
     Prism.highlightAll();
   });
+
+  const onFavoriteClick = React.useCallback((slug: string) => {
+    favoritesCxt.methods.onFavoriteToggle(slug);
+  }, []);
 
   return (
     <Flex
@@ -50,7 +66,11 @@ export const TilTag: React.FC<FlexProps & { tils: Models.TIL[] }> = ({
         {tils.map(TIL => {
           return (
             <Box key={TIL.slug} width={['95%', 700]}>
-              <LatestTIL til={TIL} />
+              <LatestTIL
+                onFavoriteClick={onFavoriteClick}
+                isLight={colorMode === 'light'}
+                til={TIL}
+              />
             </Box>
           );
         })}
