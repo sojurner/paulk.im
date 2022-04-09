@@ -1,6 +1,8 @@
 export interface Args {
-  memes: Models.Meme[];
-  posts: Models.Post[];
+  sow: Models.SOW[];
+  vow: Models.VOW[];
+  til: Models.TIL[];
+  pow: Models.POW[];
 }
 
 export interface State {
@@ -27,7 +29,7 @@ export interface Explorer {
 }
 
 export interface DirectoryState {
-  files: Models.Post[];
+  // files: Models.Post[];
   expanded?: boolean;
   isActive?: boolean;
 }

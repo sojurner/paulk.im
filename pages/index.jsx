@@ -1,62 +1,44 @@
-import Head from 'next/head';
-import Image from 'next/image';
 import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
+import Script from 'next/script';
+
+import objectSupport from 'dayjs/plugin/objectSupport';
+import weekOfYear from 'dayjs/plugin/weekOfYear';
+import isBetween from 'dayjs/plugin/isBetween';
 
 import React from 'react';
-import {
-  request,
-  latest_articles_query,
-  latest_memes_query,
-} from '@/lib/graphcms';
+import { request, CONTENT_OF_WEEK_QUERY } from '@/lib/graphcms';
 
 import { HomeRoot } from '@/features/home';
 
-dayjs.extend(relativeTime);
+dayjs.extend(objectSupport);
+dayjs.extend(weekOfYear);
+dayjs.extend(isBetween);
 
-const HomePage = ({ latestItems }) => {
-  return <HomeRoot gridArea="body" latestItems={latestItems} />;
+const HomePage = ({ results }) => {
+  return (
+    <>
+      <HomeRoot gridArea="body" results={results} />
+    </>
+  );
 };
 
 export async function getStaticProps() {
   const response = await request({
     query: `{
-      ${latest_articles_query}
-      ${latest_memes_query}
+      ${CONTENT_OF_WEEK_QUERY}
     }`,
   });
 
-  const posts = response.articles.map(ART => ({
-    type: 'POST',
-    data: ART,
-  }));
+  const results = response.contentOfTheWeeks.map(COW => {
+    const end = dayjs({ year: COW?.year }).week(COW?.weekNumber);
+    const start = end.startOf('week');
+    return {
+      ...COW,
+      weekRange: `${start.format('MMM D')} - ${end.format('MMM D')}`,
+    };
+  });
 
-  const memes = response.memes.map(MEME => ({
-    type: 'MEME',
-    data: {
-      ...MEME,
-      date: {
-        label: dayjs(MEME.date).format('MMM D, YYYY'),
-        timeFromNow: dayjs(MEME.date).fromNow(),
-      },
-    },
-  }));
-
-  const latestItems = [
-    posts[0],
-    memes[0],
-    posts[1],
-    //---
-    memes[1],
-    posts[2],
-    memes[2],
-    //---
-    memes[3],
-    posts[3],
-    posts[4],
-  ];
-
-  return { props: { latestItems } };
+  return { props: { results } };
 }
 
 export default HomePage;

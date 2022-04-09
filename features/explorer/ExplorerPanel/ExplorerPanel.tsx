@@ -14,7 +14,7 @@ import { MidText } from '@/components/Typography';
 import { µExplorerPanel } from '.';
 
 export const ExplorerPanel: React.FC<µExplorerPanel.Props> = props => {
-  const { data } = useDataContext();
+  const dataContext = useDataContext();
   const { explorer } = useExplorerContext();
 
   return (
@@ -25,7 +25,7 @@ export const ExplorerPanel: React.FC<µExplorerPanel.Props> = props => {
         </MidText>
         <Directory
           onClick={() => explorer.methods.toggleRootDirectory('posts')}
-          initialExpanded={explorer.state.explorer.posts}
+          // initialExpanded={explorer.state.explorer.posts}
           content={['posts']}
         >
           {Object.entries(explorer.state.directoryPosts || {}).map(
@@ -33,13 +33,13 @@ export const ExplorerPanel: React.FC<µExplorerPanel.Props> = props => {
               return (
                 <Directory
                   onClick={() => explorer.methods.togglePostDirectory(CAT)}
-                  initialExpanded={POSTS.expanded}
+                  // initialExpanded={POSTS.expanded}
                   key={CAT}
                   content={[CAT]}
                   pl="20px"
                 >
                   <FileList>
-                    {POSTS.files.map(POST => {
+                    {/* {POSTS.files.map(POST => {
                       return (
                         <NextLink key={POST.slug} href={`/posts/${POST.slug}`}>
                           <div>
@@ -53,7 +53,7 @@ export const ExplorerPanel: React.FC<µExplorerPanel.Props> = props => {
                           </div>
                         </NextLink>
                       );
-                    })}
+                    })} */}
                   </FileList>
                 </Directory>
               );
@@ -62,11 +62,11 @@ export const ExplorerPanel: React.FC<µExplorerPanel.Props> = props => {
         </Directory>
         <Directory
           onClick={() => explorer.methods.toggleRootDirectory('memes')}
-          initialExpanded={explorer.state.explorer.posts}
+          // initialExpanded={explorer.state.explorer.posts}
           content={['memes']}
         >
           <FileList>
-            {data.state.memes.map(MEME => {
+            {/* {dataContext.state.memes.map(MEME => {
               return (
                 <NextLink key={MEME.slug} href={`/memes/${MEME.slug}`}>
                   <div>
@@ -80,7 +80,7 @@ export const ExplorerPanel: React.FC<µExplorerPanel.Props> = props => {
                   </div>
                 </NextLink>
               );
-            })}
+            })} */}
           </FileList>
         </Directory>
       </Flex>

@@ -1,10 +1,9 @@
 import { useState } from 'react';
 import { µUseData } from '.';
 
-export const useData = (): µUseData.Return => {
+export const useData = () => {
   const [initialized, setInitialized] = useState(false);
-  const [posts, setPosts] = useState<µUseData.State['posts']>([]);
-  const [memes, setMemes] = useState<µUseData.State['memes']>([]);
+  const [tags, setTags] = useState<µUseData.State['tils']>([]);
 
   const fetchData: µUseData.Methods['fetchData'] = async () => {
     const response = await fetch('/api/all', {
@@ -14,19 +13,16 @@ export const useData = (): µUseData.Return => {
       },
     });
 
-    if (!response.ok) return;
+    if (!response?.ok) return;
+    const jsonResult = await response.json();
 
-    const { memes, posts } = await response.json();
-
-    setMemes(memes);
-    setPosts(posts);
+    setTags(jsonResult.tags);
     setInitialized(true);
   };
 
   const state = {
     initialized,
-    posts,
-    memes,
+    tags,
   };
 
   const methods = {

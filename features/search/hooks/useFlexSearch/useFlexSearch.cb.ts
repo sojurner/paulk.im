@@ -1,13 +1,11 @@
 import { Document } from 'flexsearch';
 
 export interface Args {
-  memes: Models.Meme[];
-  posts: Models.Post[];
+  tils: Models.TIL[];
 }
 
 export interface State {
-  memeDocument: Document<unknown, true>;
-  postDocument: Document<unknown, true>;
+  tilsDocument: Document<unknown, true>;
 }
 
 export interface Methods {}

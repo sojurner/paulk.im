@@ -33,6 +33,11 @@ import Wings from '@/assets/icons/Wings.svg';
 
 import X from '@/assets/icons/X.svg';
 
+import Menu from '@/assets/icons/Menu.svg';
+import Music from '@/assets/icons/Music.svg';
+import Video from '@/assets/icons/Video.svg';
+import Imgur from '@/assets/icons/Imgur.svg';
+
 import { µIcon } from '.';
 
 export const IconWrapper: React.FC<µIcon.Props> = ({
@@ -56,6 +61,7 @@ export {
   Logo,
   Wings,
   MemeIcon,
+  Menu,
   OpenWeatherIcon,
   ResumeIcon,
   SearchIcon,
@@ -63,4 +69,7 @@ export {
   SoundCloudIcon,
   UpvoteIcon,
   X,
+  Video,
+  Music,
+  Imgur
 };

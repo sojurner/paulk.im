@@ -1,14 +1,11 @@
+import { useData } from '.';
 export interface State {
   initialized: boolean;
-  memes: Models.Meme[];
-  posts: Models.Post[];
+  tils: string[];
 }
 
 export interface Methods {
   fetchData: () => Promise<void>;
 }
 
-export interface Return {
-  state: State;
-  methods: Methods;
-}
+export type Return = ReturnType<typeof useData>;
