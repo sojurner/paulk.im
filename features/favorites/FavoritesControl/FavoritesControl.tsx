@@ -41,7 +41,7 @@ export const FavoritesControl: React.FC<
         <Box
           px="1"
           cursor="pointer"
-          fontSize="1.4em"
+          fontSize="1.2em"
           _hover={{
             background: 'blackAlpha.100',
           }}

@@ -1,12 +1,8 @@
 // ==========================================================================================
 // Consts˝
 // ==========================================================================================
-export const VALID_ROUTES = ['/', '/memes', '/posts'];
-
-export enum RouteHistoryCategory {
-  POSTS = 'router-history-posts',
-  MEMES = 'router-history-memes',
-}
+export const VALID_ROUTES = ['/', '/tils'];
+export const ROUTER_HISTORY_KEY = 'router-history';
 
 // ==========================================================================================
 // Types
@@ -37,63 +33,51 @@ export interface RouteHistory {
 // Utils
 // ==========================================================================================
 
-export const getRouteHistory = (key: RouteHistoryCategory): RouteHistory[] => {
-  const routerHistory = localStorage.getItem(key);
+export const getRouteHistory = (): RouteHistory[] => {
+  const routerHistory = localStorage.getItem(ROUTER_HISTORY_KEY);
 
   if (!routerHistory) {
-    initializeRouteHistory(key);
+    initializeRouteHistory();
     return [] as RouteHistory[];
   }
 
   return JSON.parse(routerHistory) as RouteHistory[];
 };
 
-export const addRoute = (
-  key: RouteHistoryCategory,
-  route: RouteHistory
-): RouteHistory[] => {
-  let routeHistory = getRouteHistory(key);
+export const addRoute = (route: RouteHistory): RouteHistory[] => {
+  let routeHistory = getRouteHistory();
   const routeExists = routeHistory.some(RH => RH.path === route.path);
 
   if (!routeExists) {
     routeHistory = [route, ...routeHistory];
   }
 
-  localStorage.setItem(key, JSON.stringify(routeHistory));
+  localStorage.setItem(ROUTER_HISTORY_KEY, JSON.stringify(routeHistory));
   return routeHistory;
 };
 
-export const removeRoute = (
-  key: RouteHistoryCategory,
-  path: string
-): RouteHistory[] => {
-  const routeHistory = getRouteHistory(key);
+export const removeRoute = (path: string): RouteHistory[] => {
+  const routeHistory = getRouteHistory();
 
   const removeRouteHistory = routeHistory.filter(RH => RH.path !== path);
 
-  localStorage.setItem(key, JSON.stringify(removeRouteHistory));
+  localStorage.setItem(ROUTER_HISTORY_KEY, JSON.stringify(removeRouteHistory));
 
   return removeRouteHistory;
 };
 
-export const initializeRouteHistory = (key: RouteHistoryCategory) => {
-  localStorage.setItem(key, JSON.stringify([]));
+export const initializeRouteHistory = () => {
+  localStorage.setItem(ROUTER_HISTORY_KEY, JSON.stringify([]));
 };
 
 export const validatePath = ({
   path,
-  memes,
-  posts,
+  tags,
 }: {
   path: string;
-  memes: Models.Meme[];
-  posts: Models.Post[];
+  tags: string[];
 }): string | undefined => {
-  const validRoutes = [
-    ...VALID_ROUTES,
-    ...memes.map(meme => `/memes/${meme.slug}`),
-    ...posts.map(posts => `/posts/${posts.slug}`),
-  ];
+  const validRoutes = [...VALID_ROUTES, ...tags.map(TAG => `/tils/${TAG}`)];
 
   return validRoutes.find(RTE => RTE === path);
 };

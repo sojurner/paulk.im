@@ -1,11 +1,8 @@
 export interface Args {
-  slug: string;
-  viewCount?: number;
-  upvote?: number;
+  query: string;
 }
 
 export interface Methods {
   queryable: (args: Args) => string;
   mutation: (args: Args) => string;
 }
-

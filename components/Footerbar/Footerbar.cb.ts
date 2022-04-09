@@ -1,6 +1,5 @@
 import { GithubIcon, GmailIcon, LinkedinIcon } from '@/components/Icon';
 import { FlexProps } from '@chakra-ui/react';
-import { Component } from 'react';
 
 // ============================================================================
 // Consts

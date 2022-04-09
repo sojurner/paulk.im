@@ -16,19 +16,24 @@ export const [ExplorerContextProvider, useExplorerContext] =
 
 export const ExplorerProvider: React.FC<µExplorerProvider.Props> = props => {
   const { collapsible } = useResponsiveContext();
-  const { data } = useDataContext();
+  const { state, methods } = useDataContext();
 
-  const explorer = useExplorer({
-    memes: data.state.memes,
-    posts: data.state.posts,
-  });
+  // const explorer = useExplorer({
+  //   memes: state.pow,
+  //   posts: state.,
+  // });
 
   React.useEffect(() => {
-    if (data.state.initialized) return;
+    if (state.initialized) return;
     if (collapsible.state.collapsed) return;
 
-    data.methods.fetchData();
+    methods.fetchData();
   }, [collapsible.state.collapsed]);
 
-  return <ExplorerContextProvider value={{ explorer }} {...props} />;
+  return (
+    <ExplorerContextProvider
+      value={{ explorer: { state: {} as any, methods: {} as any } }}
+      {...props}
+    />
+  );
 };

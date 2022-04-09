@@ -35,12 +35,12 @@ export const useExplorer = (
     };
 
   useEffect(() => {
-    if (directoryPosts) return;
-    if (!args.memes.length || !args.posts.length) return;
+    // if (directoryPosts) return;
+    // if (!args.memes.length || !args.posts.length) return;
 
-    setDirectoryPosts(
-      µUseExplorer.Utils.mapPostsToCategoryRecord(args.posts, activeFile)
-    );
+    // setDirectoryPosts(
+    //   µUseExplorer.Utils.mapPostsToCategoryRecord(args.posts, activeFile)
+    // );
   }, [args, directoryPosts]);
 
   const state = {

@@ -1,39 +1,28 @@
 declare namespace Models {
-  declare interface Post {
-    slug: string;
-    excerpt: string;
+  declare interface TIL {
     title: string;
-    category: string;
+    slug: string;
+    content: string;
     tags: string[];
-    author: string;
-    date: string;
-    content: import('next-mdx-remote').MDXRemoteSerializeResult;
-    viewCount: number;
-    upvotes: number;
-    coverImage: {
-      url: string;
-    };
+    date?: string;
   }
 
-  declare interface Meme {
-    title: string;
-    slug: string;
-    tags: string[];
-    date: {
-      timeFromNow: string;
-      label: string;
-    };
-    viewCount: number;
-    upvotes: number;
-    image: {
-      url: string;
-    };
+  declare interface ContentOfWeek {
+    youtubeUrl: string;
+    soundCloudUrl: string;
+    imgurUrl: string;
+    weekRange: string;
+    weekNumber: number;
+    year: number;
   }
 
   declare interface Document {
     date: string;
     slug: string;
     title: string;
+    content: string;
+    tags: string[];
+    date?: string;
   }
 }
 

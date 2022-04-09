@@ -36,7 +36,7 @@ export const SettingsDarkMode: React.FC<µSettingsDarkMode.Props> =
         justifyContent="center"
         position="relative"
         {...(props.enabled && {
-          background: 'gray.700',
+          background: 'gray.900',
         })}
       >
         <Box
@@ -53,7 +53,7 @@ export const SettingsDarkMode: React.FC<µSettingsDarkMode.Props> =
           transformOrigin="right"
           {...(props.enabled && {
             transform: 'scale(1) translate(10%, -10%)',
-            background: 'gray.700',
+            background: 'gray.900',
           })}
         />
         <Box
@@ -65,7 +65,7 @@ export const SettingsDarkMode: React.FC<µSettingsDarkMode.Props> =
           borderColor="orange.50"
           {...(props.enabled && {
             backgroundColor: 'pink.400',
-            borderColor: 'gray.700',
+            borderColor: 'gray.900',
           })}
         />
         <SunRay enabled={props.enabled} index={0} />

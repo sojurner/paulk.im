@@ -1,108 +1,89 @@
+import { UPDATE_ID } from '@/features/tils/LatestTIL';
 import { µGraphCMS } from '.';
 
-export const memes_query = `
-  memes {
-    title
+export const CONTENT_OF_WEEK_QUERY = `
+  contentOfTheWeeks {
+    createdAt
+    youtubeUrl
+    soundCloudUrl
+    imgurUrl
+    weekNumber
+    year
+  }
+`;
+
+export const TIL_QUERY = `
+  tils {
     slug
+    title
+    tags
+    content
     date
-    tags
-    viewCount
-    upvotes
-    image {
-      url(
-        transformation: {
-          image: { resize: { width: 420, fit: clip } }
-        }
-      )
+  }
+`;
+
+// export const TILS_QUERYABLE: µGraphCMS.Methods['queryable'] = ({ slug }) => `
+//   meme(where: {slug: "${slug}"}) {
+//     slug
+//     title
+//     tags
+//     content
+//     date
+//   }
+// `;
+
+// export const POW_QUERYABLE: µGraphCMS.Methods['queryable'] = ({ slug }) => `
+//   vow(where: {slug: "${slug}"}) {
+//     title
+//     slug
+//     img {
+//       url(
+//         transformation: {
+//           image: { resize: { width: 420, fit: clip } }
+//         }
+//       )
+//     }
+//     year
+//     week
+//   }
+// `;
+
+UPDATE_ID
+
+export const TAG_ENUM_QUERY = `
+  __type(name: "Tag") {
+    enumValues {
+      name
     }
   }
 `;
 
-export const meme_queryable: µGraphCMS.Methods['queryable'] = ({ slug }) => `
-  meme(where: {slug: "${slug}"}) {
-    title
-    slug
-    date
-    tags
-    viewCount
-    upvotes
-    image {
-      url(transformation: {image: {resize: {height: 400, width: 300}}})
+export const TIL_TAG_QUERYABLE: µGraphCMS.Methods['queryable'] = ({
+  query,
+}) => `
+  tils(where: { tags_contains_some: ${query}}) {
+      slug
+      title
+      tags
+      content
+      date
     }
-  }
 `;
 
-export const article_queryable: µGraphCMS.Methods['queryable'] = ({ slug }) => `
-  article(where: {slug: "${slug}"}) {
-    title
-    excerpt
-    slug
-  	date
-    tags
-    viewCount
-    upvotes
-    category
-    body
-    coverImage {
-      url
-    }
-  }
-`;
-
-export const articles_query = `
-  articles {
-    title
-    excerpt
-    slug
-  	date
-    tags
-    category
-    viewCount
-    upvotes
-    coverImage {
-      url(
-        transformation: {
-          image: { resize: { width: 420, fit: clip } }
-        }
-      )
-    }
-  }
-`;
-
-export const latest_articles_query = `
-  articles(orderBy: createdAt_ASC, first: 5) {
-    title
-    excerpt
-    slug
-  	date
-    tags
-    category
-    viewCount
-    upvotes
-    coverImage {
-      url(
-        transformation: {
-          image: { resize: { width: 420, fit: clip } }
-        }
-      )
-    }
-  }
-`;
-
-export const latest_memes_query = `
-  memes(orderBy: createdAt_ASC, first: 5) {
-    title
-    slug
-    date
-    tags
-    viewCount
-    upvotes
-    image {
-      url(
-        transformation: {
-          image: { resize: { width: 420, fit: clip } }
-        }
-      )
-    }
-  }
-`;
+// export const latest_memes_query = `
+//   memes(orderBy: createdAt_ASC, first: 5) {
+//     title
+//     slug
+//     date
+//     tags
+//     viewCount
+//     upvotes
+//     image {
+//       url(
+//         transformation: {
+//           image: { resize: { width: 420, fit: clip } }
+//         }
+//       )
+//     }
+//   }
+// `;

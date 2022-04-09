@@ -8,61 +8,19 @@ export const useFavoritesStorage = (): µUseFavoritesStorage.Return => {
   const settingsContext = useSettingsContext();
   const toast = useToast();
 
-  const [favorites, setFavorites] = useState<
-    µUseFavoritesStorage.State['favorites']
-  >(µUseFavoritesStorage.LS_FAVORITES_INIT_VAL);
+  const [favorites, setFavorites] = useState(
+    µUseFavoritesStorage.LS_FAVORITES_INIT_VAL
+  );
 
-  const onFavoritesUpdate: µUseFavoritesStorage.Methods['onFavoritesUpdate'] =
-    params => {
-      if (!settingsContext.state.favorites.enabled) return;
+  const onFavoriteToggle: µUseFavoritesStorage.Methods['onFavoriteToggle'] =
+    slug => {
+      const updateFavorites = µUseFavoritesStorage.toggleFavorite(slug);
 
-      const validatedStorage = onStorageValidate();
-
-      if (!validatedStorage) return onStorageError();
-
-      const favoriteType = favorites[params.type];
-      let updateSaved = true;
-
-      if (params.slug in favoriteType)
-        updateSaved = !!!favoriteType[params.slug].saved;
-
-      const updateFavorite = {
-        ...params,
-        saved: updateSaved,
-      };
-
-      setFavorites(state => {
-        return {
-          ...state,
-          [params.type]: {
-            ...state[params.type],
-            [params.slug]: updateFavorite,
-          },
-        };
-      });
-
-      µUseFavoritesStorage.updateFavoritesStorage(updateFavorite);
-    };
-
-  const onStorageValidate: µUseFavoritesStorage.Methods['onStorageValidate'] =
-    () => {
-      const favoritesStorage =
-        µUseFavoritesStorage.getFavoritesStorage() as µUseFavoritesStorage.FavoritesStore;
-
-      const favoriteEntries = Object.entries(favoritesStorage);
-      const favoriteTypes = Object.values(µUseFavoritesStorage.FavoriteType);
-
-      const isValid = favoriteEntries.every(([KEY, _VALUE]) => {
-        const validEnums = favoriteTypes.some(TYPE => TYPE === KEY);
-
-        return validEnums;
-      });
-
-      return isValid ? favoritesStorage : null;
+      setFavorites(updateFavorites);
     };
 
   const onStorageError = () => {
-    µUseFavoritesStorage.initializeFavoritesStorage();
+    µUseFavoritesStorage.initializeFavorites();
 
     toast({
       title: 'Corrupted Data',
@@ -74,17 +32,13 @@ export const useFavoritesStorage = (): µUseFavoritesStorage.Return => {
   };
 
   useEffect(() => {
-    if (!settingsContext.state.favorites.enabled) return;
+    const favoritesStorage = µUseFavoritesStorage.getFavorites();
 
-    const validatedStorage = onStorageValidate();
-
-    if (!validatedStorage) return onStorageError();
-
-    setFavorites(validatedStorage);
+    setFavorites(favoritesStorage);
   }, [settingsContext.state.favorites.enabled]);
 
   const state = { favorites };
-  const methods = { onFavoritesUpdate, onStorageValidate, onStorageError };
+  const methods = { onFavoriteToggle, onStorageError };
 
   return { state, methods };
 };

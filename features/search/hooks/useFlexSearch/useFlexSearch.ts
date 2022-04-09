@@ -6,17 +6,7 @@ import { µUseFlexSearch } from '.';
 export const useFlexSearch = (
   args?: µUseFlexSearch.Args
 ): µUseFlexSearch.Return => {
-  const [memeDocument] = useState<µUseFlexSearch.State['memeDocument']>(
-    new Document({
-      document: {
-        id: 'slug',
-        index: ['title'],
-        store: true,
-      },
-      tokenize: 'full',
-    })
-  );
-  const [postDocument] = useState<µUseFlexSearch.State['postDocument']>(
+  const [tilsDocument] = useState<µUseFlexSearch.State['tilsDocument']>(
     new Document({
       document: {
         id: 'slug',
@@ -28,29 +18,20 @@ export const useFlexSearch = (
   );
 
   useEffect(() => {
-    if (!args?.memes.length || !args?.posts.length) return;
+    if (!args?.tils.length) return;
 
-    args.memes.forEach(MEME => {
-      memeDocument.add({
-        title: MEME.title,
-        date: MEME.date,
-        slug: MEME.slug,
-      });
-    });
-
-    args.posts.forEach(POST => {
-      postDocument.add({
-        title: POST.title,
-        date: POST.date,
-        slug: POST.slug,
+    args.tils.forEach(TIL => {
+      tilsDocument.add({
+        title: TIL.title,
+        date: TIL.date,
+        slug: TIL.slug,
+        content: TIL.content,
+        tags: TIL.tags,
       });
     });
   }, [args]);
 
-  const state = {
-    memeDocument,
-    postDocument,
-  };
+  const state = { tilsDocument };
 
   const methods = {};
 

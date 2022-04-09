@@ -1,22 +1,14 @@
 export const LS_FAVORITES_KEY = 'pk-favorites';
 
-export enum FavoriteType {
-  POST = 'post',
-  MEME = 'meme',
-}
+export const LS_FAVORITES_INIT_VAL: Record<string, boolean> = {};
 
-export const LS_FAVORITES_INIT_VAL: FavoritesStore = {
-  [FavoriteType.POST]: {},
-  [FavoriteType.MEME]: {},
-};
-
+export type FavoriteStore = Record<string, boolean>;
 export interface State {
-  favorites: FavoritesStore;
+  favorites: FavoriteStore;
 }
 
 export interface Methods {
-  onFavoritesUpdate: (params: Types.PartialBy<Favorite, 'saved'>) => void;
-  onStorageValidate: () => FavoritesStore | null;
+  onFavoriteToggle: (slug: string) => void;
   onStorageError: () => void;
 }
 
@@ -25,55 +17,29 @@ export interface Return {
   methods: Methods;
 }
 
-export interface Favorite {
-  slug: string;
-  title: string;
-  type: FavoriteType;
-  value: any;
-  saved: boolean;
-}
-
-export type FavoritesStore = Record<FavoriteType, Record<string, Favorite>>;
-export interface GetParams {
-  key?: string;
-  type: FavoriteType;
-}
-
-export const initializeFavoritesStorage = () => {
+export const initializeFavorites = () => {
   localStorage.setItem(LS_FAVORITES_KEY, JSON.stringify(LS_FAVORITES_INIT_VAL));
 };
 
-export const getFavoritesStorage = (params?: GetParams) => {
+export const getFavorites = (): FavoriteStore => {
   const favoritesStorageExists = localStorage.getItem(LS_FAVORITES_KEY);
 
   if (!favoritesStorageExists) {
-    initializeFavoritesStorage();
+    initializeFavorites();
     return LS_FAVORITES_INIT_VAL;
   }
 
-  const favoritesStorage: FavoritesStore = JSON.parse(favoritesStorageExists);
-
-  if (!params?.key || !params.type) return favoritesStorage;
-
-  return favoritesStorage[params.type][params.key];
+  return JSON.parse(favoritesStorageExists);
 };
 
-export const updateFavoritesStorage = (params: Favorite) => {
-  const favoritesStorage = getFavoritesStorage() as FavoritesStore;
+export const toggleFavorite = (slug: string) => {
+  const favorites = getFavorites();
+  const updatedFavorites: FavoriteStore = {
+    ...favorites,
+    [slug]: slug in favorites ? !favorites[slug] : true,
+  };
 
-  if (!favoritesStorage) {
-    initializeFavoritesStorage();
-    return;
-  }
+  localStorage.setItem(LS_FAVORITES_KEY, JSON.stringify(updatedFavorites));
 
-  localStorage.setItem(
-    LS_FAVORITES_KEY,
-    JSON.stringify({
-      ...favoritesStorage,
-      [params.type]: {
-        ...favoritesStorage[params.type],
-        [params.slug]: params,
-      },
-    })
-  );
+  return updatedFavorites;
 };

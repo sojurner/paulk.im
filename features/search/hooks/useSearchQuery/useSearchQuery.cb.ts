@@ -1,22 +1,17 @@
-import { Dispatch, SetStateAction, KeyboardEvent } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 
 // ========================================================================================
 // Types
 // ========================================================================================
 export interface State {
   inputValue: string;
-  postSuggestions: Suggestion[];
-  memeSuggestions: Suggestion[];
-  shuffledSuggestions: Suggestion[];
-  focusedSuggestionIndex?: number;
+  suggestions: Suggestion[];
 }
 
 export interface Methods {
-  setPostSuggestions: Dispatch<SetStateAction<State['postSuggestions']>>;
-  setMemeSuggestions: Dispatch<SetStateAction<State['memeSuggestions']>>;
+  setSuggestions: Dispatch<SetStateAction<State['suggestions']>>;
   setInputValue: Dispatch<SetStateAction<State['inputValue']>>;
   onQueryChange: (query: string) => void;
-  onKeyDown: (e: KeyboardEvent<HTMLInputElement>) => void;
 }
 
 export interface Params {}
@@ -28,7 +23,6 @@ export interface Return {
 
 export interface Suggestion {
   doc: Models.Document;
-  type: SuggestionCategory;
   id: string;
 }
 

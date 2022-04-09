@@ -1,6 +1,6 @@
 import React from 'react';
 import NextLink from 'next/link';
-import { Flex, Box, useColorModeValue } from '@chakra-ui/react';
+import { Flex, Box, useColorModeValue, useColorMode } from '@chakra-ui/react';
 
 import { useRouterHistory } from '@/features/routerHistory';
 
@@ -17,12 +17,13 @@ import {
 
 import { µAppbar } from '.';
 import { useResponsiveContext } from '@/features/responsive';
+import { SettingsDarkMode } from '@/features/settings/SettingsDarkMode';
 
 export const Appbar: React.FC<µAppbar.Props> = props => {
   const bottomBdrColor = useColorModeValue('gray.200', 'gray.700');
   const activeTabBg = useColorModeValue('white', 'gray.800');
   const iconColor = useColorModeValue('black', 'white');
-
+  const { colorMode, toggleColorMode } = useColorMode();
   const routerHistory = useRouterHistory({});
   const { collapsible } = useResponsiveContext();
 
@@ -49,19 +50,18 @@ export const Appbar: React.FC<µAppbar.Props> = props => {
       {...props}
     >
       <Flex
-        width="40px"
-        onClick={collapsible.methods.toggleCollapsed}
+        width="50px"
+        onClick={toggleColorMode}
         alignItems="center"
         justifyContent="center"
         cursor="pointer"
         color={iconColor}
         borderRight="1px solid"
         borderRightColor={bottomBdrColor}
-        _hover={{}}
       >
-        {collapsible.state.collapsed ? <CaretRight /> : <CaretLeft />}
+        <SettingsDarkMode enabled={colorMode === 'dark'} />
       </Flex>
-      <Flex maxWidth="calc(100% - 40px)" overflow="auto hidden">
+      <Flex maxWidth="calc(100% - 50px)" overflow="auto hidden">
         {routerHistory.state.routeHistory.map(ROUTE => {
           const [_, type, file] = ROUTE.path.split('/');
 
