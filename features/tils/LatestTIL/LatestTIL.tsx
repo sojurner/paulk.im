@@ -51,7 +51,7 @@ export const TilTitle: React.FC<{ title: string; query?: string }> = ({
 
 export const LatestTIL: React.FC<{
   til: Models.TIL;
-  query: string;
+  query?: string;
   isFavorited?: boolean;
   isLight: boolean;
   onFavoriteClick: (slug: string) => void;
