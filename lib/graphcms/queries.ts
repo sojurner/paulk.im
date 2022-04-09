@@ -5,7 +5,7 @@ export const CONTENT_OF_WEEK_QUERY = `
     createdAt
     youtubeUrl
     soundCloudUrl
-    imgurUrl
+    imgurId
     weekNumber
     year
   }

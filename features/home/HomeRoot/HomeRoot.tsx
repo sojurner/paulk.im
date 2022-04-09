@@ -6,7 +6,7 @@ import { useResponsiveContext } from '@/features/responsive';
 import { SubTitle } from '@/components/Typography';
 import { LatestSoundcloud } from '@/features/home/LatestSoundcloud';
 import { LatestYoutube } from '@/features/home/LatestYoutube';
-// import { LatestImgur } from '@/features/home/LatestImgur';
+import { LatestImgur } from '@/features/home/LatestImgur';
 
 import { µHomeRoot } from '.';
 
@@ -29,7 +29,6 @@ export const HomeRoot: React.FC<µHomeRoot.Props> = ({ results, ...props }) => {
       {...props}
     >
       <SubTitle fontSize={'2em'}>Discoveries of the Week</SubTitle>
-
       {results.map(COW => {
         return (
           <VStack width={['95%', 700]} key={COW.weekRange} spacing="5">
@@ -48,6 +47,12 @@ export const HomeRoot: React.FC<µHomeRoot.Props> = ({ results, ...props }) => {
 
             <LatestYoutube url={COW.youtubeUrl} />
 
+            <Divider />
+
+            <LatestImgur
+              id={COW.imgurId}
+              isLargerThan500={mediaQueries.state.isLargerThan500}
+            />
             <Divider />
 
             <LatestSoundcloud url={COW.soundCloudUrl} />

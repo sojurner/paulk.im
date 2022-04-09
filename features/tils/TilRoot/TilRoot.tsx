@@ -53,15 +53,6 @@ export const TilRoot: React.FC<µTilRoot.Props> = ({ tils, ...props }) => {
         })}
       {...props}
     >
-      <blockquote className="imgur-embed-pub" lang="en" data-id="a/I7YctOG">
-        <a href="//imgur.com/a/I7YctOG">And awayyyy we go</a>
-      </blockquote>
-      <blockquote className="imgur-embed-pub" lang="en" data-id="a/z9UD3tz">
-        <a href="//imgur.com/a/z9UD3tz">
-          From Russia &quot;For the children&quot;
-        </a>
-      </blockquote>
-
       <HStack spacing={4} alignItems={'center'}>
         <IconWrapper fontSize={'1.2em'}>
           <IdeaIcon />
@@ -71,7 +62,7 @@ export const TilRoot: React.FC<µTilRoot.Props> = ({ tils, ...props }) => {
           <IdeaIcon />
         </IconWrapper>
       </HStack>
-      <InputGroup my="2" width={['95%', 700]}>
+      <InputGroup width={['95%', 700]}>
         <InputLeftElement pointerEvents="none">
           <SearchIcon />
         </InputLeftElement>
@@ -79,6 +70,7 @@ export const TilRoot: React.FC<µTilRoot.Props> = ({ tils, ...props }) => {
           variant="filled"
           background={useColorModeValue('gray.50', 'gray.900')}
           outline={'1px solid'}
+          focusBorderColor={useColorModeValue('gray.400', 'orange.200')}
           outlineColor={useColorModeValue('gray.500', 'orange.300')}
           autoFocus
           value={searchQuery.state.inputValue}
@@ -94,6 +86,7 @@ export const TilRoot: React.FC<µTilRoot.Props> = ({ tils, ...props }) => {
           return (
             <Box key={SUGG.doc.slug} width={['95%', 700]}>
               <LatestTIL
+                query={searchQuery.state.inputValue}
                 isFavorited={favoritesCxt.state.favorites[SUGG.doc.slug]}
                 onFavoriteClick={onFavoriteClick}
                 isLight={colorMode === 'light'}
@@ -111,6 +104,7 @@ export const TilRoot: React.FC<µTilRoot.Props> = ({ tils, ...props }) => {
           return (
             <Box key={TIL.slug} width={['95%', 700]}>
               <LatestTIL
+                query={searchQuery.state.inputValue}
                 isFavorited={favoritesCxt.state.favorites[TIL.slug]}
                 isLight={colorMode === 'light'}
                 onFavoriteClick={onFavoriteClick}

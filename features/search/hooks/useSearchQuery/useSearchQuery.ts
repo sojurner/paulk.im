@@ -20,6 +20,7 @@ export const useSearchQuery = ({
     const [queried] = document?.search(query, {
       enrich: true,
     });
+
     const mapped = queried?.result.map((ELE: unknown) => ({
       ...(ELE as µUseSearchQuery.Suggestion),
     }));

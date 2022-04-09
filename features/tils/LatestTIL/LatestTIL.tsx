@@ -4,15 +4,61 @@ import { BookmarkIcon, IconWrapper } from '@/components/Icon';
 import NextLink from 'next/link';
 import { µLatestTIL } from '.';
 
+export const TilTitle: React.FC<{ title: string; query?: string }> = ({
+  title,
+  query,
+}) => {
+  if (!query) {
+    return (
+      <SubTitle fontSize={'1.2em'} maxWidth="95%" opacity={0.8} mb="2">
+        {title}
+      </SubTitle>
+    );
+  }
+
+  const regex = new RegExp(query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
+  const highlightStart = title.search(regex);
+
+  if (highlightStart === -1) {
+    return (
+      <SubTitle fontSize={'1.2em'} maxWidth="95%" opacity={0.8} mb="2">
+        {title}
+      </SubTitle>
+    );
+  }
+
+  const highlightEnd = highlightStart + query.length;
+
+  return (
+    <SubTitle
+      sx={{
+        strong: {
+          background: 'var(--chakra-colors-gray-500)',
+          color: 'var(--chakra-colors-gray-100)'
+        },
+      }}
+      fontSize={'1.2em'}
+      maxWidth="95%"
+      opacity={0.8}
+      mb="2"
+    >
+      {title.slice(0, highlightStart)}
+      <strong>{title.slice(highlightStart, highlightEnd)}</strong>
+      {title.slice(highlightEnd)}
+    </SubTitle>
+  );
+};
+
 export const LatestTIL: React.FC<{
   til: Models.TIL;
+  query: string;
   isFavorited?: boolean;
   isLight: boolean;
   onFavoriteClick: (slug: string) => void;
-}> = ({ til, isLight, isFavorited, onFavoriteClick }) => {
+}> = ({ til, isLight, query, isFavorited, onFavoriteClick }) => {
   return (
     <Flex
-      background={isLight ? "gray.100" :"whiteAlpha.100"}
+      background={isLight ? 'gray.100' : 'whiteAlpha.100'}
       borderRadius={10}
       padding="3"
       flexDir="column"
@@ -28,9 +74,7 @@ export const LatestTIL: React.FC<{
           {til.date}
         </RegularText>
       </Box>
-      <SubTitle fontSize={'1.2em'} maxWidth="95%" opacity={0.8} mb="2">
-        {til.title}
-      </SubTitle>
+      <TilTitle query={query} title={til.title} />
       <IconWrapper
         cursor="pointer"
         fontSize="1.5em"
@@ -55,10 +99,12 @@ export const LatestTIL: React.FC<{
                   cursor="pointer"
                   width="max-content"
                   variant={'subtle'}
-                  colorScheme={isLight ? "blue" : "gray"}
+                  colorScheme={isLight ? 'blue' : 'gray'}
                   key={TAG}
                   _hover={{
-                    outline: isLight ? '1px solid var(--chakra-colors-blue-200)' : '1px solid #fdb54a',
+                    outline: isLight
+                      ? '1px solid var(--chakra-colors-blue-200)'
+                      : '1px solid #fdb54a',
                   }}
                 >
                   #{TAG}

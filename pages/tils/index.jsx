@@ -14,7 +14,6 @@ export default function Posts(props) {
     <>
       <TilRoot gridArea="body" {...props} />
       <Script
-        async
         src="//s.imgur.com/min/embed.js"
         strategy="afterInteractive"
         charSet="utf-8"
