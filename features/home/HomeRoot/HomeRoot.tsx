@@ -31,7 +31,7 @@ export const HomeRoot: React.FC<µHomeRoot.Props> = ({ results, ...props }) => {
       <SubTitle fontSize={'2em'}>Discoveries of the Week</SubTitle>
       {results.map(COW => {
         return (
-          <VStack width={['95%', 700]} key={COW.weekRange} spacing="5">
+          <VStack width={['95%', 540]} key={COW.weekRange} spacing="5">
             <Flex width="100%" justifyContent={'center'} alignItems="center">
               <Divider borderColor={dateRangeDivider} />
               <SubTitle

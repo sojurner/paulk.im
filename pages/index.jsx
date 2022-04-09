@@ -18,6 +18,7 @@ const HomePage = ({ results }) => {
   return (
     <>
       <HomeRoot gridArea="body" results={results} />
+      <Script async src="//s.imgur.com/min/embed.js" charSet="utf-8" />
     </>
   );
 };
