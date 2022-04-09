@@ -3,7 +3,6 @@ import { Flex, HStack, useColorModeValue } from '@chakra-ui/react';
 
 import { useSettingsContext } from '@/features/settings';
 import { SoundCloudControl } from '@/features/soundCloud';
-import { FavoritesControl } from '@/features/favorites';
 
 import { MidText } from '../Typography';
 
@@ -58,15 +57,6 @@ export const Footerbar: React.FC<µFooterbar.Props> = props => {
             onClose={onControlClose}
           />
         )}
-        {/* {state.favorites.enabled && (
-          <FavoritesControl
-            isOpen={activeControl === µFooterbar.FeatureControl.FAVORITES}
-            onOpen={forwardOnSetActiveControl(
-              µFooterbar.FeatureControl.FAVORITES
-            )}
-            onClose={onControlClose}
-          />
-        )} */}
       </HStack>
       <Flex alignItems="center" mx="auto">
         <MidText>{µFooterbar.COPY_RIGHT}</MidText>
