@@ -15,7 +15,7 @@ export const LatestImgur: React.FC<{
       <Image
         layout="responsive"
         width={isLargerThan500 ? '540px' : '100%'}
-        height={isLargerThan500 ? '540px' : '100%'}
+        height={isLargerThan500 ? '490px' : '100%'}
         alt={'image'}
         src={url}
       />

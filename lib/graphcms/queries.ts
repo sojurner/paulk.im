@@ -1,7 +1,7 @@
 import { µGraphCMS } from '.';
 
 export const CONTENT_OF_WEEK_QUERY = `
-  contentOfTheWeeks {
+  contentOfTheWeeks(orderBy: weekNumber_DESC) {
     createdAt
     youtubeUrl
     soundCloudUrl
@@ -10,7 +10,7 @@ export const CONTENT_OF_WEEK_QUERY = `
     image {
       url(
         transformation: {
-          image: { resize: { width: 520, fit: clip } }
+          image: { resize: { width: 520, fit: scale } }
         }
       )
     }
