@@ -7,6 +7,7 @@ import {
   useColorModeValue,
   useColorMode,
 } from '@chakra-ui/react';
+import { useResponsiveContext } from '@/features/responsive';
 
 import { SettingsControl } from '@/features/settings';
 
@@ -14,14 +15,16 @@ import { SidebarTab } from '@/components/Tab';
 import { Logo, IdeaIcon, IconWrapper } from '@/components/Icon';
 
 import { µSidebar } from '.';
+import { SettingsDarkMode } from '@/features/settings/SettingsDarkMode';
 
 export const Sidebar: React.FC<µSidebar.Props> = props => {
   const router = useRouter();
   const [_] = router.asPath.split('/');
+  const { mediaQueries } = useResponsiveContext();
 
   const bg = useColorModeValue('gray.100', 'gray.900');
   const borderColor = useColorModeValue('gray.300', 'gray.600');
-  const { colorMode } = useColorMode();
+  const { colorMode, toggleColorMode } = useColorMode();
   return (
     <Flex
       flexDir="column"
@@ -75,6 +78,18 @@ export const Sidebar: React.FC<µSidebar.Props> = props => {
         </NextLink>
       </Flex>
       <Flex flexDir={{ sm: 'row', md: 'column' }} className="tools-tabs">
+        {!mediaQueries.state.isLargerThan500 && (
+          <Flex
+            onClick={toggleColorMode}
+            cursor="pointer"
+            alignItems={'center'}
+            justifyContent="center"
+            pos="relative"
+            width="30px"
+          >
+            <SettingsDarkMode enabled={colorMode === 'dark'} />
+          </Flex>
+        )}
         <Flex pos="relative">
           <SettingsControl />
         </Flex>

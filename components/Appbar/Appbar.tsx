@@ -5,15 +5,7 @@ import { Flex, Box, useColorModeValue, useColorMode } from '@chakra-ui/react';
 import { useRouterHistory } from '@/features/routerHistory';
 
 import { AppbarTab } from '@/components/Tab';
-import {
-  IdeaIcon,
-  MemeIcon,
-  Logo,
-  X,
-  CaretLeft,
-  CaretRight,
-  IconWrapper,
-} from '@/components/Icon';
+import { IdeaIcon, MemeIcon, Logo, X, IconWrapper } from '@/components/Icon';
 
 import { µAppbar } from '.';
 import { useResponsiveContext } from '@/features/responsive';
@@ -25,7 +17,6 @@ export const Appbar: React.FC<µAppbar.Props> = props => {
   const iconColor = useColorModeValue('black', 'white');
   const { colorMode, toggleColorMode } = useColorMode();
   const routerHistory = useRouterHistory({});
-  const { collapsible } = useResponsiveContext();
 
   return (
     <Flex
@@ -55,7 +46,6 @@ export const Appbar: React.FC<µAppbar.Props> = props => {
         alignItems="center"
         justifyContent="center"
         cursor="pointer"
-        color={iconColor}
         borderRight="1px solid"
         borderRightColor={bottomBdrColor}
       >
