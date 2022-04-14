@@ -7,12 +7,11 @@ export const CONTENT_OF_WEEK_QUERY = `
     soundCloudUrl
     weekNumber
     year
+    videoUrl
     image {
-      url(
-        transformation: {
-          image: { resize: { width: 520, fit: scale } }
-        }
-      )
+      url
+      width
+      height
     }
   }
 `;

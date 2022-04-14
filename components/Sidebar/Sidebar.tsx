@@ -85,12 +85,16 @@ export const Sidebar: React.FC<µSidebar.Props> = props => {
             alignItems={'center'}
             justifyContent="center"
             pos="relative"
-            width="30px"
           >
             <SettingsDarkMode enabled={colorMode === 'dark'} />
           </Flex>
         )}
-        <Flex pos="relative">
+        <Flex
+          pos="relative"
+          cursor="pointer"
+          alignItems={'center'}
+          justifyContent="center"
+        >
           <SettingsControl />
         </Flex>
       </Flex>

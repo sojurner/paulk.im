@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Divider, Flex, useColorModeValue, VStack } from '@chakra-ui/react';
 
 import { useResponsiveContext } from '@/features/responsive';
@@ -9,6 +9,7 @@ import { LatestYoutube } from '@/features/home/LatestYoutube';
 import { LatestImgur } from '@/features/home/LatestImgur';
 
 import { µHomeRoot } from '.';
+import { LatestVideo } from '../LatestVideo';
 
 export const HomeRoot: React.FC<µHomeRoot.Props> = ({ results, ...props }) => {
   const { collapsible, mediaQueries } = useResponsiveContext();
@@ -50,16 +51,26 @@ export const HomeRoot: React.FC<µHomeRoot.Props> = ({ results, ...props }) => {
             <Divider />
 
             <LatestImgur
-              url={COW?.image?.url}
+              imgProps={{
+                height: COW.image?.height,
+                width: COW.image?.width,
+                src: COW?.image?.url,
+              }}
               isLargerThan500={mediaQueries.state.isLargerThan500}
             />
+            
+            {COW.videoUrl && (
+              <LatestVideo
+                src={COW.videoUrl}
+                width={mediaQueries.state.isLargerThan500 ? 540 : '100%'}
+              />
+            )}
+
             <Divider />
 
             <LatestSoundcloud url={COW.soundCloudUrl} />
 
             <Divider />
-
-            {/* <LatestImgur url={COW.imgurUrl} /> */}
           </VStack>
         );
       })}
