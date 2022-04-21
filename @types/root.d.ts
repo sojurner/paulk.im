@@ -21,6 +21,20 @@ declare namespace Models {
     year: number;
   }
 
+  declare interface Post {
+    title: string;
+    slug: string;
+    resource?: string;
+    type: 'image' | 'youtube' | 'misc' | 'soundcloud';
+    tag: string[];
+    uploadDate: string;
+    asset?: {
+      url: string;
+      width: number;
+      height: number;
+    }
+  }
+
   declare interface Document {
     date: string;
     slug: string;

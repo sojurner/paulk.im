@@ -6,9 +6,6 @@ export const LatestSoundcloud: React.FC<{ url: string }> = ({ url }) => {
 
   return (
     <Flex width="100%" flexDir="column" pos="relative">
-      <Box left="-2em" pos="absolute" fontSize={'1.5em'}>
-        <Music />
-      </Box>
       <iframe
         id={'sc-iframe'}
         {...(colorMode === 'dark' && {

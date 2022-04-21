@@ -1,7 +1,7 @@
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import { request, TAG_ENUM_QUERY, TIL_TAG_QUERYABLE } from '@/lib/graphcms';
+import { request, ENUM_QUERY, TIL_TAG_QUERYABLE } from '@/lib/graphcms';
 
 import { TilTag } from '@/features/tils/TilTag';
 import { markdown2HTML } from '@/lib/markdown';
@@ -40,7 +40,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 export const getStaticPaths: GetStaticPaths = async () => {
   const response = await request({
     query: `query {
-      ${TAG_ENUM_QUERY}
+      ${ENUM_QUERY('TilTag')}
     }`,
   });
 

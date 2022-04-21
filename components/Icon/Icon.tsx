@@ -38,6 +38,7 @@ import Music from '@/assets/icons/Music.svg';
 import Youtube from '@/assets/icons/Youtube.svg';
 import Video from '@/assets/icons/Video.svg';
 import Imgur from '@/assets/icons/Imgur.svg';
+import ShareLink from '@/assets/icons/ShareLink.svg'
 
 import { µIcon } from '.';
 
@@ -74,4 +75,5 @@ export {
   Music,
   Imgur,
   Video,
+  ShareLink
 };

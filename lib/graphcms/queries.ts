@@ -26,6 +26,43 @@ export const TIL_QUERY = `
   }
 `;
 
+export const POSTS_QUERY = ({
+  tagQuery,
+  typeQuery,
+  first,
+  skip,
+}: {
+  tagQuery?: string;
+  typeQuery?: string;
+  first?: number;
+  skip?: number;
+}) => `
+  posts (
+    ${
+      tagQuery || typeQuery
+        ? `where: { ${typeQuery ? `type: ${typeQuery}` : ''} ${
+            tagQuery ? `tag_contains_some: ${tagQuery}` : ''
+          } }`
+        : ''
+    } 
+    ${first ? `first: ${first}` : ''} 
+    ${skip ? `skip: ${skip}` : ''} 
+    orderBy: uploadDate_DESC
+  ){
+    title
+    slug
+    resource
+    type
+    tag
+    uploadDate
+    asset {
+      url
+      height
+      width
+    }
+  }
+`;
+
 // export const TILS_QUERYABLE: µGraphCMS.Methods['queryable'] = ({ slug }) => `
 //   meme(where: {slug: "${slug}"}) {
 //     slug
@@ -52,24 +89,30 @@ export const TIL_QUERY = `
 //   }
 // `;
 
-export const TAG_ENUM_QUERY = `
-  __type(name: "Tag") {
+export const ENUM_QUERY = (name: string) => {
+  return `__type(name: "${name}") {
     enumValues {
       name
     }
-  }
-`;
+  }`;
+};
 
 export const TIL_TAG_QUERYABLE: µGraphCMS.Methods['queryable'] = ({
   query,
 }) => `
   tils(where: { tags_contains_some: ${query}}) {
-      slug
-      title
-      tags
-      content
-      date
-    }
+    slug
+    title
+    tags
+    content
+    date
+  }
+`;
+
+export const CONTENT_TAG_QUERYABLE: µGraphCMS.Methods['queryable'] = ({
+  query,
+}) => `
+  tils(where: {  })
 `;
 
 // export const latest_memes_query = `

@@ -1,45 +1,34 @@
 import dayjs from 'dayjs';
-import Script from 'next/script';
 
 import objectSupport from 'dayjs/plugin/objectSupport';
-import weekOfYear from 'dayjs/plugin/weekOfYear';
-import isBetween from 'dayjs/plugin/isBetween';
 
 import React from 'react';
-import { request, CONTENT_OF_WEEK_QUERY } from '@/lib/graphcms';
+import { request, POSTS_QUERY, ENUM_QUERY } from '@/lib/graphcms';
 
-import { HomeRoot } from '@/features/home';
+import { PostsRoot } from '@/features/posts';
 
 dayjs.extend(objectSupport);
-dayjs.extend(weekOfYear);
-dayjs.extend(isBetween);
 
-const HomePage = ({ results }) => {
-  return (
-    <>
-      <HomeRoot gridArea="body" results={results} />
-      <Script async src="//s.imgur.com/min/embed.js" charSet="utf-8" />
-    </>
-  );
-};
+const HomePage = props => <PostsRoot gridArea="body" {...props} />;
 
 export async function getStaticProps() {
   const response = await request({
     query: `{
-      ${CONTENT_OF_WEEK_QUERY}
+      ${POSTS_QUERY({ first: 25, skip: 0 })}
+      tags: ${ENUM_QUERY('ContentTag')}
     }`,
   });
 
-  const results = response.contentOfTheWeeks.map(COW => {
-    const end = dayjs({ year: COW?.year }).week(COW?.weekNumber);
-    const start = end.startOf('week');
+  const results = response.posts.map(POST => {
     return {
-      ...COW,
-      weekRange: `${start.format('MMM D')} - ${end.format('MMM D')}`,
+      ...POST,
+      uploadDate: dayjs(POST?.uploadDate).format('MMM D, YYYY'),
     };
   });
 
-  return { props: { results } };
+  const tags = response.tags.enumValues.map(TAG => TAG.name);
+
+  return { props: { results, tags } };
 }
 
 export default HomePage;
