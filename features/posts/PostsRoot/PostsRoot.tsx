@@ -40,7 +40,7 @@ export const PostsRoot: React.VFC<
 
   const onCopyPostLink = (slug: string) => async () => {
     await navigator.clipboard.writeText(
-      `${window.location.origin}/posts#${slug}`
+      `${window.location.origin}/#${slug}`
     );
     toast({
       title: 'Link Copied!',

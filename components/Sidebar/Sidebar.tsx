@@ -79,24 +79,23 @@ export const Sidebar: React.FC<µSidebar.Props> = props => {
       </Flex>
       <Flex flexDir={{ sm: 'row', md: 'column' }} className="tools-tabs">
         {!mediaQueries.state.isLargerThan500 && (
-          <Flex
-            onClick={toggleColorMode}
-            cursor="pointer"
-            alignItems={'center'}
+          <SidebarTab
+            width="50px"
+            alignItems="center"
             justifyContent="center"
-            pos="relative"
+            onClick={toggleColorMode}
           >
             <SettingsDarkMode enabled={colorMode === 'dark'} />
-          </Flex>
+          </SidebarTab>
         )}
-        <Flex
-          pos="relative"
+        {/* <Flex
           cursor="pointer"
           alignItems={'center'}
           justifyContent="center"
+          fontSize={['1.4em', '2em']}
         >
           <SettingsControl />
-        </Flex>
+        </Flex> */}
       </Flex>
     </Flex>
   );

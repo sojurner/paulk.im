@@ -42,7 +42,7 @@ export const Footerbar: React.FC<µFooterbar.Props> = props => {
       bg={bg}
       borderTop="1px solid"
       borderColor={borderColor}
-      px="10"
+      px={['5', '10']}
       width="100%"
       height="100%"
       {...props}
@@ -71,7 +71,7 @@ export const Footerbar: React.FC<µFooterbar.Props> = props => {
                 filter: 'invert(.5)',
               }}
               onClick={handleLinkClick.bind(null, ELE)}
-              fontSize="1em"
+              fontSize={[".8em", "1em"]}
               key={ELE.name}
             >
               <ELE.Icon />

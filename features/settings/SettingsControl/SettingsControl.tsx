@@ -15,11 +15,7 @@ export const SettingsControl: React.FC<µSettingsControl.Props> = () => {
 
   return (
     <>
-      <SidebarTab
-        onClick={toggleShowSettings}
-        pos="relative"
-        fontSize={['1.4em', '2em']}
-      >
+      <SidebarTab onClick={toggleShowSettings}>
         <SettingsIcon />
       </SidebarTab>
       <SettingsModal

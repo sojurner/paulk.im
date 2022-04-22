@@ -8,13 +8,12 @@ import { AppbarTab } from '@/components/Tab';
 import { IdeaIcon, MemeIcon, Logo, X, IconWrapper } from '@/components/Icon';
 
 import { µAppbar } from '.';
-import { useResponsiveContext } from '@/features/responsive';
+
 import { SettingsDarkMode } from '@/features/settings/SettingsDarkMode';
 
 export const Appbar: React.FC<µAppbar.Props> = props => {
   const bottomBdrColor = useColorModeValue('gray.200', 'gray.700');
   const activeTabBg = useColorModeValue('white', 'gray.800');
-  const iconColor = useColorModeValue('black', 'white');
   const { colorMode, toggleColorMode } = useColorMode();
   const routerHistory = useRouterHistory({});
 
