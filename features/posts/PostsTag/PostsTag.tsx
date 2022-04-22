@@ -1,4 +1,5 @@
 import React from 'react';
+import dynamic from 'next/dynamic';
 import {
   Divider,
   Flex,
@@ -15,14 +16,22 @@ import {
 import { useResponsiveContext } from '@/features/responsive';
 
 import { RegularText, SubTitle } from '@/components/Typography';
-import { LatestSoundcloud } from '@/features/posts/LatestSoundcloud';
-import { LatestYoutube } from '@/features/posts/LatestYoutube';
 
-import { LatestVideo } from '../LatestVideo';
-import { LatestImage } from '../LatestImage';
 import { useRouter } from 'next/router';
-import { IconWrapper, ShareLink } from '@/components/Icon';
-import { SelectButtonGroup } from '@/components/SelectButtonGroup/SelectButtonGroup';
+import { ShareLink } from '@/components/Icon';
+
+const DynamicVideo = dynamic<any>(() =>
+  import('../LatestVideo').then(mod => mod.LatestVideo)
+);
+const DynamicImage = dynamic<any>(() =>
+  import('../LatestImage').then(mod => mod.LatestImage)
+);
+const DynamicYoutube = dynamic<any>(() =>
+  import('../LatestYoutube').then(mod => mod.LatestYoutube)
+);
+const DynamicSoundcloud = dynamic<any>(() =>
+import('../LatestSoundcloud').then(mod => mod.LatestSoundcloud)
+);
 
 export const PostsTag: React.VFC<
   FlexProps & { tag: string; posts: Models.Post[]; tags: string[] }
@@ -98,19 +107,19 @@ export const PostsTag: React.VFC<
               </Flex>
 
               {POST.type === 'youtube' && (
-                <LatestYoutube url={POST.resource as string} />
+                <DynamicYoutube url={POST.resource as string} />
               )}
 
               {POST.type === 'soundcloud' && (
-                <LatestSoundcloud url={POST.resource as string} />
+                <DynamicSoundcloud url={POST.resource as string} />
               )}
 
               {POST.type === 'misc' && (
-                <LatestVideo src={POST.resource as string} width={'100%'} />
+                <DynamicVideo src={POST.resource as string} width={'100%'} />
               )}
 
               {POST.type === 'image' && (
-                <LatestImage
+                <DynamicImage
                   height={POST.asset?.height}
                   width={POST.asset?.width}
                   src={POST.asset?.url as string}
