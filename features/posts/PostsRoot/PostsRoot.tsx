@@ -76,7 +76,7 @@ export const PostsRoot: React.VFC<
       {...props}
     >
       <SubTitle my="4" fontSize={'2em'}>
-        Discoveries of the Week
+        Posts
       </SubTitle>
       <HStack spacing="5">
         <Box
