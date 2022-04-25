@@ -17,7 +17,7 @@ export const CONTENT_OF_WEEK_QUERY = `
 `;
 
 export const TIL_QUERY = `
-  tils {
+  tils(orderBy: date_DESC) {
     slug
     title
     tags
