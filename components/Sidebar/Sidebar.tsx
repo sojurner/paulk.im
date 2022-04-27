@@ -12,7 +12,7 @@ import { useResponsiveContext } from '@/features/responsive';
 import { SettingsControl } from '@/features/settings';
 
 import { SidebarTab } from '@/components/Tab';
-import { Logo, IdeaIcon, IconWrapper } from '@/components/Icon';
+import { Logo, IdeaIcon, Pepe, IconWrapper } from '@/components/Icon';
 
 import { µSidebar } from '.';
 import { SettingsDarkMode } from '@/features/settings/SettingsDarkMode';
@@ -46,8 +46,9 @@ export const Sidebar: React.FC<µSidebar.Props> = props => {
               hasArrow
             >
               <SidebarTab
-                fontSize={['1.4em', '2em']}
+                fontSize={['1.6em', '2em']}
                 isActive={router.asPath === '/'}
+                width={['50px', '100%']}
               >
                 <IconWrapper isActive={router.asPath === '/'}>
                   <Logo />
@@ -68,9 +69,31 @@ export const Sidebar: React.FC<µSidebar.Props> = props => {
               <SidebarTab
                 fontSize={['1.4em', '2em']}
                 isActive={router.asPath === '/tils'}
+                width={['50px', '100%']}
               >
                 <IconWrapper isActive={router.asPath === '/tils'}>
                   <IdeaIcon />
+                </IconWrapper>
+              </SidebarTab>
+            </Tooltip>
+          </div>
+        </NextLink>
+        <NextLink href="/about">
+          <div>
+            <Tooltip
+              label="About Me"
+              placement="right"
+              color="white"
+              hasArrow
+              bg={colorMode === 'light' ? 'blue.900' : 'gray.600'}
+            >
+              <SidebarTab
+                fontSize={['1.8em', '2.5em']}
+                width={['50px', '100%']}
+                isActive={router.asPath === '/about'}
+              >
+                <IconWrapper isActive={router.asPath === '/about'}>
+                  <Pepe />
                 </IconWrapper>
               </SidebarTab>
             </Tooltip>

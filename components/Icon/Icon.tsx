@@ -18,6 +18,8 @@ import LinkedinIcon from '@/assets/icons/Linkedin.svg';
 import Logo from '@/assets/icons/Logo.svg';
 
 import MemeIcon from '@/assets/icons/Meme.svg';
+import Pepe from '@/assets/icons/Pepe.svg';
+
 
 import OpenWeatherIcon from '@/assets/icons/OpenWeather.svg';
 
@@ -75,5 +77,6 @@ export {
   Music,
   Imgur,
   Video,
-  ShareLink
+  ShareLink,
+  Pepe
 };

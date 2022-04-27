@@ -1,5 +1,6 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
 import {
   Divider,
   Flex,
@@ -16,8 +17,6 @@ import {
 import { useResponsiveContext } from '@/features/responsive';
 
 import { SubTitle } from '@/components/Typography';
-
-import { useRouter } from 'next/router';
 import {
   ShareLink,
   MemeIcon,
@@ -36,7 +35,7 @@ const DynamicYoutube = dynamic<any>(() =>
   import('../LatestYoutube').then(mod => mod.LatestYoutube)
 );
 const DynamicSoundcloud = dynamic<any>(() =>
-import('../LatestSoundcloud').then(mod => mod.LatestSoundcloud)
+  import('../LatestSoundcloud').then(mod => mod.LatestSoundcloud)
 );
 
 export const PostsRoot: React.VFC<
@@ -75,10 +74,10 @@ export const PostsRoot: React.VFC<
         })}
       {...props}
     >
-      <SubTitle my="4" fontSize={'2em'}>
+      <SubTitle my="2" fontSize={'2em'}>
         Posts
       </SubTitle>
-      <HStack spacing="5">
+      <HStack my="4" spacing="5">
         <Box
           onClick={onTypeClick('misc')}
           cursor="pointer"
