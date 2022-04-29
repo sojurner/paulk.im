@@ -176,7 +176,7 @@ export const PostsType: React.VFC<
                               : '1px solid #fdb54a',
                         }}
                       >
-                        #{TAG}
+                        {TAG.replace(/_/g, ' ')}
                       </Tag>
                     );
                   })}

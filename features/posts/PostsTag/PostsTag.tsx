@@ -30,7 +30,7 @@ const DynamicYoutube = dynamic<any>(() =>
   import('../LatestYoutube').then(mod => mod.LatestYoutube)
 );
 const DynamicSoundcloud = dynamic<any>(() =>
-import('../LatestSoundcloud').then(mod => mod.LatestSoundcloud)
+  import('../LatestSoundcloud').then(mod => mod.LatestSoundcloud)
 );
 
 export const PostsTag: React.VFC<
@@ -79,7 +79,7 @@ export const PostsTag: React.VFC<
               my="1"
               mr="2"
             >
-              #{TAG}
+              {TAG.replace(/_/g, ' ')}
             </Tag>
           );
         })}
@@ -151,7 +151,7 @@ export const PostsTag: React.VFC<
                               : '1px solid #fdb54a',
                         }}
                       >
-                        #{TAG}
+                        {TAG.replace(/_/g, ' ')}
                       </Tag>
                     );
                   })}

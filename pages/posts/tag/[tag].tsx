@@ -44,11 +44,13 @@ export const getStaticPaths: GetStaticPaths = async () => {
     }`,
   });
 
-  const paths = tags.enumValues.map((TAG: { name: string }) => ({
-    params: {
-      tag: TAG.name,
-    },
-  }));
+  const paths = tags.enumValues.map((TAG: { name: string }) => {
+    return {
+      params: {
+        tag: TAG.name,
+      },
+    };
+  });
 
   return {
     paths: paths,

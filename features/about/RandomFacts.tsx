@@ -1,4 +1,5 @@
-import { ListItem, Link, UnorderedList } from '@chakra-ui/react';
+import Image from 'next/image';
+import { ListItem, Box, Link, UnorderedList } from '@chakra-ui/react';
 import { RegularText } from '@/components/Typography';
 
 export const RandomFacts = () => {
@@ -32,10 +33,27 @@ export const RandomFacts = () => {
         I have 2 cats: <strong>Sozo</strong> (black/white) &{' '}
         <strong>Silver</strong> (gray)
       </ListItem>
+      <Box my="2">
+        <Image
+          src={
+            'https://media.graphassets.com/output=format:jpg/resize=height:800,fit:max/QoB4ol6ET6aeoun7jSkZ'
+          }
+          alt="my cats"
+          layout="responsive"
+          height={3024}
+          width={4032}
+        />
+      </Box>
       <ListItem fontSize="1.2em">
         {' '}
         Favorite quote:
-        <RegularText fontWeight="bold" opacity=".8" mt="2" fontSize={'.9em'} marginLeft="1em">
+        <RegularText
+          fontWeight="bold"
+          opacity=".8"
+          mt="2"
+          fontSize={'.9em'}
+          marginLeft="1em"
+        >
           &#34;Only the disciplined ones in life are free. If you are
           undisciplined, you are a slave to your moods and your passions&#34;
         </RegularText>

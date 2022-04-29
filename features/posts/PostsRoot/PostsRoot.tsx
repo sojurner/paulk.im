@@ -122,7 +122,7 @@ export const PostsRoot: React.VFC<
               my="1"
               mr="2"
             >
-              #{TAG}
+              {TAG.replace(/_/g, ' ')}
             </Tag>
           );
         })}
@@ -198,7 +198,7 @@ export const PostsRoot: React.VFC<
                               : '1px solid #fdb54a',
                         }}
                       >
-                        #{TAG}
+                        {TAG.replace(/_/g, ' ')}
                       </Tag>
                     );
                   })}
