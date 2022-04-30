@@ -1,8 +1,9 @@
 import React from 'react';
-import { Flex } from '@chakra-ui/react';
+import { Flex, useColorModeValue } from '@chakra-ui/react';
 import { ConfusedTravolta } from '@/components/Icon';
 
 export default function FourOFour() {
+  const svgFill = useColorModeValue('black', "white");
   return (
     <Flex
       gridArea="body"
@@ -11,6 +12,7 @@ export default function FourOFour() {
       justifyContent="center"
       position="relative"
       fontSize="20em"
+      color={svgFill}
     >
       <ConfusedTravolta />
     </Flex>
