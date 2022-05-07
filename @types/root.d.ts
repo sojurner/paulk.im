@@ -32,7 +32,7 @@ declare namespace Models {
       url: string;
       width: number;
       height: number;
-    }
+    };
   }
 
   declare interface Document {
