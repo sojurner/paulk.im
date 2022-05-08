@@ -1,29 +1,26 @@
-import { createContextProvider } from '@/lib/core';
 import {
   Box,
   Flex,
-  Button,
   useColorModeValue,
   CloseButton,
   Divider,
 } from '@chakra-ui/react';
 import ReactPlayer from 'react-player/lazy';
-import { LegacyRef, useReducer, useRef, useState } from 'react';
-import { RegularText, SmallText } from '@/components/Typography';
+import { LegacyRef, useRef } from 'react';
+import { RegularText } from '@/components/Typography';
 import {
   MemeIcon,
   Video,
   SoundCloudIcon,
   Youtube,
-  CaretDown,
-  CaretUp,
-  MediaFullscreen,
   Trash,
 } from '@/components/Icon';
 
 import { PlayerControls } from './PlayerControls';
 import { PlayerSeek } from './PlayerSeek';
 import { usePlaylistContext } from './hooks';
+import { QueueToggle } from './buttons';
+import { FullscreenToggle } from './buttons/FullscreenToggle';
 
 export const PlaylistControl = () => {
   const { usePlaylistIndex, usePlaylistMisc, usePlaylistPlayer } =
@@ -47,15 +44,15 @@ export const PlaylistControl = () => {
   return (
     <Box
       position="fixed"
-      height={usePlaylistMisc.state.isFullscreen ? 'max-content' : '150px'}
       width={['100vw', '540px']}
-      right={'50%'}
+      right={['50%', 'calc(50% - 30px)']}
       bottom={'30px'}
       background={usePlaylistMisc.state.isFullscreen ? 'none' : bgColor}
       borderTop={usePlaylistMisc.state.isFullscreen ? '0' : '1px solid'}
       transition={'transform .3s ease-in-out'}
+      height={usePlaylistMisc.state.isFullscreen ? 'max-content' : '150px'}
       transform={`translate(50%, ${
-        usePlaylistMisc.state.showQueue ? '-150px' : '0'
+        usePlaylistMisc.state.showQueue ? '-195px' : '0'
       })`}
       borderColor={borderColor}
     >
@@ -65,12 +62,6 @@ export const PlaylistControl = () => {
         height="100%"
         justifyContent="center"
       >
-        <CloseButton
-          left="0"
-          zIndex="tooltip"
-          onClick={usePlaylistIndex.methods.onClear}
-          position={'absolute'}
-        ></CloseButton>
         <ReactPlayer
           id="iframe-player"
           ref={playerRef as unknown as LegacyRef<ReactPlayer>}
@@ -95,58 +86,45 @@ export const PlaylistControl = () => {
         <Flex
           pos="relative"
           background={usePlaylistMisc.state.isFullscreen ? bgColor : 'none'}
-          flexDir="column"
-          px="6"
+          flexDir="row"
           flex="1 1 auto"
           justifyContent="center"
           {...(usePlaylistMisc.state.isFullscreen && { minHeight: '100px' })}
         >
-          <Flex justifyContent="center">
-            <PlayerControls mx="2" mb="3" />
-          </Flex>
-          <PlayerSeek onChangeEnd={handleSeekEnd} />
-          <Button
-            variant="ghost"
-            fontSize="1.7em"
-            pos="absolute"
-            top="1"
-            right="1.5"
-            onClick={usePlaylistMisc.methods.toggleShowQueue}
-            _focus={{
-              outline: 'none',
-            }}
-            p="1"
-          >
-            {usePlaylistMisc.state.showQueue ? <CaretUp /> : <CaretDown />}
-            {!!usePlaylistIndex.state.playlist.length && (
-              <SmallText fontSize=".6em">
-                {usePlaylistIndex.state.playlist.length}
-              </SmallText>
-            )}
-          </Button>
-          <Button
-            position="absolute"
-            _focus={{
-              outline: 'none',
-            }}
-            top="1"
-            left="1"
-            variant="ghost"
-            fontSize="1.1em"
-            p="1"
-            {...(usePlaylistMisc.state.isFullscreen && {
-              transform: 'rotate(90deg)',
-            })}
+          <FullscreenToggle
+            justifySelf="center"
+            isFullscreen={usePlaylistMisc.state.isFullscreen}
             onClick={usePlaylistMisc.methods.toggleFullscreen}
+          />
+          <Flex
+            flexDir="column"
+            flex="1 1 auto"
+            alignItems="center"
+            justifyContent="center"
+            px={usePlaylistMisc.state.isFullscreen ? '3' : '1'}
           >
-            <MediaFullscreen />
-          </Button>
+            <PlayerControls mx="2" mb="3" />
+            <PlayerSeek onChangeEnd={handleSeekEnd} />
+          </Flex>
+          <Flex
+            justifyContent="space-between"
+            alignItems="flex-end"
+            flexDir="column"
+            p="1"
+          >
+            <CloseButton
+              zIndex="tooltip"
+              onClick={usePlaylistIndex.methods.onClear}
+            />
+            <QueueToggle
+              onClick={usePlaylistMisc.methods.toggleShowQueue}
+              showQueue={usePlaylistMisc.state.showQueue}
+              queueCount={usePlaylistIndex.state.playlist.length}
+            />
+          </Flex>
         </Flex>
         <Box
           position="absolute"
-          transform={`translate(0, ${
-            usePlaylistMisc.state.isFullscreen ? '100%' : '150px'
-          } )`}
           overflow="hidden"
           borderTop="1px solid"
           borderColor={borderColor}
@@ -156,8 +134,11 @@ export const PlaylistControl = () => {
           boxSizing="border-box"
           flex="1 1 auto"
           width={'100%'}
-          maxH="150px"
-          height="150px"
+          transform={`translate(0, ${
+            usePlaylistMisc.state.isFullscreen ? '100%' : '195px'
+          } )`}
+          maxH="195px"
+          height="195px"
         >
           <RegularText ml="1" my="1.5">
             Playlist ({usePlaylistIndex.state.playlist.length})
