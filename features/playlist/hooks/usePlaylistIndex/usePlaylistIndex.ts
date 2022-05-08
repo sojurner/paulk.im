@@ -25,6 +25,7 @@ export const usePlaylistIndex = () => {
 
   const onClear = () => {
     setPlaylist([]);
+    setCurrentIndex(0);
   };
 
   const onSelectItem = (post: Models.Post) => {

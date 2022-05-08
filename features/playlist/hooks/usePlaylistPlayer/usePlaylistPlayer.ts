@@ -2,7 +2,7 @@ import { useReducer, useState } from 'react';
 
 export const usePlaylistPlayer = () => {
   // currently playing
-  const [isPlaying, toggleIsPlaying] = useReducer(state => !state, false);
+  const [isPlaying, toggleIsPlaying] = useReducer(state => !state, true);
   // amount played (0-100)
   const [played, setPlayed] = useState(0);
   // prevent normal progression from updating `played`

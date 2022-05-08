@@ -25,7 +25,7 @@ import { FullscreenToggle } from './buttons/FullscreenToggle';
 export const PlaylistControl = () => {
   const { usePlaylistIndex, usePlaylistMisc, usePlaylistPlayer } =
     usePlaylistContext();
-
+  console.log({ usePlaylistIndex, usePlaylistMisc, usePlaylistPlayer });
   const playerRef = useRef<ReactPlayer>();
 
   const bgColor = useColorModeValue('white', '#1F1B24');
