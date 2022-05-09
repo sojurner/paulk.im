@@ -45,7 +45,7 @@ export const PlaylistControl = () => {
     <Box
       position="fixed"
       width={['100vw', '540px']}
-      right={['50%', 'calc(50% - 30px)']}
+      right={['50%', 'calc(0% + 300px)']}
       bottom={'30px'}
       background={usePlaylistMisc.state.isFullscreen ? 'none' : bgColor}
       borderTop={usePlaylistMisc.state.isFullscreen ? '0' : '1px solid'}
