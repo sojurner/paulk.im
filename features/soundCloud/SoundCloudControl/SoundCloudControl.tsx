@@ -17,9 +17,7 @@ import { SoundCloudWidget, SoundCloudTag } from '@/features/soundCloud';
 
 import { µSoundCloudControl } from '.';
 
-export const SoundCloudControl: React.FC<
-  µSoundCloudControl.Props
-> = props => {
+export const SoundCloudControl: React.FC<µSoundCloudControl.Props> = props => {
   const { state, methods } = useSettingsContext();
   const iconFill = useColorModeValue('orange.500', 'orange.400');
 

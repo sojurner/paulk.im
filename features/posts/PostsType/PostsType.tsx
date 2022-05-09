@@ -25,8 +25,10 @@ import {
   SoundCloudIcon,
   Youtube,
   IconWrapper,
+  AddPlaylist,
 } from '@/components/Icon';
 import { SelectButtonGroup } from '@/components/SelectButtonGroup/SelectButtonGroup';
+import { usePlaylistContext } from '@/features/playlist';
 
 const DynamicVideo = dynamic<any>(() =>
   import('../LatestVideo').then(mod => mod.LatestVideo)
@@ -47,7 +49,10 @@ export const PostsType: React.VFC<
   const toast = useToast();
   const { collapsible, mediaQueries } = useResponsiveContext();
   const { colorMode } = useColorMode();
+  const { usePlaylistIndex } = usePlaylistContext();
   const router = useRouter();
+  
+  const canAddPlaylist = type !== 'image';
 
   const onCopyPostLink = (slug: string) => async () => {
     await navigator.clipboard.writeText(
@@ -101,6 +106,10 @@ export const PostsType: React.VFC<
       </SelectButtonGroup>
       <VStack py="5" width={['95%', 540]} spacing="5">
         {posts?.map(POST => {
+          const inPlaylist = usePlaylistIndex.state.playlist.some(
+            PL => PL.slug === POST.slug
+          );
+
           return (
             <Flex id={POST.slug} width="100%" key={POST.slug} flexDir="column">
               <Flex
@@ -118,18 +127,42 @@ export const PostsType: React.VFC<
                 >
                   {POST.title}
                 </SubTitle>
+                <HStack alignItems="center">
+                  {canAddPlaylist && (
+                    <Button
+                      p="1px"
+                      {...(inPlaylist && {
+                        disabled: true,
+                      })}
+                      onClick={() => {
+                        usePlaylistIndex.methods.onAdd(POST);
+                        toast({
+                          title: 'Added to Playlist!',
+                          position: 'top',
+                          status: 'success',
+                          duration: 4000,
+                          isClosable: true,
+                        });
+                      }}
+                      fontSize="2.5em"
+                      variant="ghost"
+                    >
+                      <AddPlaylist />
+                    </Button>
+                  )}
 
-                <Box
-                  onClick={() => router.push(`/posts/type/${POST.type}`)}
-                  cursor="pointer"
-                  py="1"
-                  fontSize={'1.8em'}
-                >
-                  {POST.type === 'youtube' && <Youtube />}
-                  {POST.type === 'soundcloud' && <SoundCloudIcon />}
-                  {POST.type === 'image' && <MemeIcon />}
-                  {POST.type === 'misc' && <Video />}
-                </Box>
+                  <Box
+                    onClick={() => router.push(`/posts/type/${POST.type}`)}
+                    cursor="pointer"
+                    py="1"
+                    fontSize={'1.8em'}
+                  >
+                    {POST.type === 'youtube' && <Youtube />}
+                    {POST.type === 'soundcloud' && <SoundCloudIcon />}
+                    {POST.type === 'image' && <MemeIcon />}
+                    {POST.type === 'misc' && <Video />}
+                  </Box>
+                </HStack>
               </Flex>
               {POST.type === 'youtube' && (
                 <DynamicYoutube url={POST.resource as string} />

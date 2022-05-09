@@ -23,7 +23,9 @@ import {
   Video,
   SoundCloudIcon,
   Youtube,
+  AddPlaylist,
 } from '@/components/Icon';
+import { usePlaylistContext } from '@/features/playlist';
 
 const DynamicVideo = dynamic<any>(() =>
   import('../LatestVideo').then(mod => mod.LatestVideo)
@@ -45,6 +47,7 @@ export const PostsRoot: React.VFC<
   const { collapsible, mediaQueries } = useResponsiveContext();
   const { colorMode } = useColorMode();
   const router = useRouter();
+  const { usePlaylistIndex } = usePlaylistContext();
 
   const onCopyPostLink = (slug: string) => async () => {
     await navigator.clipboard.writeText(`${window.location.origin}/#${slug}`);
@@ -129,6 +132,10 @@ export const PostsRoot: React.VFC<
       </Flex>
       <VStack py="5" width={['95%', 540]} spacing="5">
         {results.map(POST => {
+          const inPlaylist = usePlaylistIndex.state.playlist.some(
+            PL => PL.slug === POST.slug
+          );
+
           return (
             <Flex id={POST.slug} width="100%" key={POST.slug} flexDir="column">
               <Flex
@@ -140,18 +147,41 @@ export const PostsRoot: React.VFC<
                 <SubTitle maxW="calc(100% - 32px)" fontSize="1.2em">
                   {POST.title}
                 </SubTitle>
-
-                <Box
-                  onClick={onTypeClick(POST.type)}
-                  cursor="pointer"
-                  py="1"
-                  fontSize={'1.8em'}
-                >
-                  {POST.type === 'youtube' && <Youtube />}
-                  {POST.type === 'soundcloud' && <SoundCloudIcon />}
-                  {POST.type === 'image' && <MemeIcon />}
-                  {POST.type === 'misc' && <Video />}
-                </Box>
+                <HStack spacing="2">
+                  {POST.type !== 'image' && (
+                    <Button
+                      p="1px"
+                      {...(inPlaylist && {
+                        disabled: true,
+                      })}
+                      onClick={() => {
+                        usePlaylistIndex.methods.onAdd(POST);
+                        toast({
+                          title: 'Added to Playlist!',
+                          position: 'top',
+                          status: 'success',
+                          duration: 4000,
+                          isClosable: true,
+                        });
+                      }}
+                      fontSize="2.5em"
+                      variant="ghost"
+                    >
+                      <AddPlaylist />
+                    </Button>
+                  )}
+                  <Box
+                    onClick={onTypeClick(POST.type)}
+                    cursor="pointer"
+                    py="1"
+                    fontSize={'1.8em'}
+                  >
+                    {POST.type === 'youtube' && <Youtube />}
+                    {POST.type === 'soundcloud' && <SoundCloudIcon />}
+                    {POST.type === 'image' && <MemeIcon />}
+                    {POST.type === 'misc' && <Video />}
+                  </Box>
+                </HStack>
               </Flex>
 
               {POST.type === 'youtube' && (

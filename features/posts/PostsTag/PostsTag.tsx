@@ -15,10 +15,18 @@ import {
 
 import { useResponsiveContext } from '@/features/responsive';
 
-import { RegularText, SubTitle } from '@/components/Typography';
+import { SubTitle } from '@/components/Typography';
 
 import { useRouter } from 'next/router';
-import { ShareLink } from '@/components/Icon';
+import {
+  ShareLink,
+  AddPlaylist,
+  Youtube,
+  SoundCloudIcon,
+  MemeIcon,
+  Video,
+} from '@/components/Icon';
+import { usePlaylistContext } from '@/features/playlist';
 
 const DynamicVideo = dynamic<any>(() =>
   import('../LatestVideo').then(mod => mod.LatestVideo)
@@ -40,6 +48,7 @@ export const PostsTag: React.VFC<
   const { collapsible, mediaQueries } = useResponsiveContext();
   const { colorMode } = useColorMode();
   const router = useRouter();
+  const { usePlaylistIndex } = usePlaylistContext();
 
   const onCopyPostLink = (slug: string) => async () => {
     await navigator.clipboard.writeText(
@@ -86,6 +95,11 @@ export const PostsTag: React.VFC<
       </Flex>
       <VStack py="5" width={['95%', 540]} spacing="5">
         {posts?.map(POST => {
+          const inPlaylist = usePlaylistIndex.state.playlist.some(
+            PL => PL.slug === POST.slug
+          );
+          const canAddPlaylist = POST.type !== 'image';
+
           return (
             <Flex id={POST.slug} width="100%" key={POST.slug} flexDir="column">
               <Flex
@@ -94,18 +108,53 @@ export const PostsTag: React.VFC<
                 width="100%"
                 justifyContent="space-between"
               >
-                <SubTitle maxW="calc(100% - 32px)" fontSize="1.2em">
-                  {POST.title}
-                </SubTitle>
-                <Button
-                  variant="ghost"
-                  onClick={onCopyPostLink(POST.slug)}
+                <SubTitle
+                  {...(router.asPath ===
+                    `/posts/type/${POST.type}#${POST.slug}` && {
+                    background: 'black',
+                  })}
+                  maxW="calc(100% - 32px)"
                   fontSize="1.2em"
                 >
-                  <ShareLink />
-                </Button>
-              </Flex>
+                  {POST.title}
+                </SubTitle>
+                <HStack alignItems="center">
+                  {canAddPlaylist && (
+                    <Button
+                      p="1px"
+                      {...(inPlaylist && {
+                        disabled: true,
+                      })}
+                      onClick={() => {
+                        usePlaylistIndex.methods.onAdd(POST);
+                        toast({
+                          title: 'Added to Playlist!',
+                          position: 'top',
+                          status: 'success',
+                          duration: 4000,
+                          isClosable: true,
+                        });
+                      }}
+                      fontSize="2.5em"
+                      variant="ghost"
+                    >
+                      <AddPlaylist />
+                    </Button>
+                  )}
 
+                  <Box
+                    onClick={() => router.push(`/posts/type/${POST.type}`)}
+                    cursor="pointer"
+                    py="1"
+                    fontSize={'1.8em'}
+                  >
+                    {POST.type === 'youtube' && <Youtube />}
+                    {POST.type === 'soundcloud' && <SoundCloudIcon />}
+                    {POST.type === 'image' && <MemeIcon />}
+                    {POST.type === 'misc' && <Video />}
+                  </Box>
+                </HStack>
+              </Flex>
               {POST.type === 'youtube' && (
                 <DynamicYoutube url={POST.resource as string} />
               )}
@@ -130,7 +179,7 @@ export const PostsTag: React.VFC<
                 width={'100%'}
                 justifyContent="space-between"
                 alignItems="center"
-                mt="4"
+                mt="2"
               >
                 <HStack>
                   {POST.tag.map(TAG => {
@@ -156,6 +205,13 @@ export const PostsTag: React.VFC<
                     );
                   })}
                 </HStack>
+                <Button
+                  variant="ghost"
+                  onClick={onCopyPostLink(POST.slug)}
+                  fontSize="1.2em"
+                >
+                  <ShareLink />
+                </Button>
               </Flex>
               <Divider mt="5" />
             </Flex>

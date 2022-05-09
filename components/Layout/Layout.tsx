@@ -7,6 +7,7 @@ import { Sidebar } from '@/components/Sidebar';
 import { Footerbar } from '@/components/Footerbar';
 
 import { µLayout } from '.';
+import { PlaylistControl } from '@/features/playlist';
 
 export const DesktopLayout: React.FC<µLayout.Props> = props => {
   const contentBG = useColorModeValue('white', 'gray.800');
@@ -52,6 +53,7 @@ export const DesktopLayout: React.FC<µLayout.Props> = props => {
         <GridItem gridArea="footer" zIndex="docked">
           <Footerbar position={'fixed'} height="30px" bottom={0} />
         </GridItem>
+        <PlaylistControl />
       </Grid>
     </>
   );
