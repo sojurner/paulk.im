@@ -1,8 +1,8 @@
-import { MemeIcon, SoundCloudIcon, Video, Youtube } from '@/components/Icon';
+import { MemeIcon, Video, SoundCloudIcon, Youtube } from '@/components/Icon';
 
-export const typeIconMapping = {
-  youtube: Youtube,
+export const TYPE_2_COMPONENT_MAPPING: Record<string, any> = {
   misc: Video,
-  soundcloud: SoundCloudIcon,
+  youtube: Youtube,
   image: MemeIcon,
+  soundcloud: SoundCloudIcon,
 };

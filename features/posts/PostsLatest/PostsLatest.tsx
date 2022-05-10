@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useReducer, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import {
@@ -12,19 +12,13 @@ import {
   HStack,
   useToast,
   Button,
+  Spinner,
 } from '@chakra-ui/react';
 
 import { useResponsiveContext } from '@/features/responsive';
 
 import { SubTitle } from '@/components/Typography';
-import {
-  ShareLink,
-  MemeIcon,
-  Video,
-  SoundCloudIcon,
-  Youtube,
-  AddPlaylist,
-} from '@/components/Icon';
+import { ShareLink, AddPlaylist } from '@/components/Icon';
 import { usePlaylistContext } from '@/features/playlist';
 
 import { TYPE_2_COMPONENT_MAPPING } from '../consts';
@@ -42,9 +36,14 @@ const DynamicSoundcloud = dynamic<any>(() =>
   import('../LatestSoundcloud').then(mod => mod.LatestSoundcloud)
 );
 
-export const PostsRoot: React.VFC<
-  { posts: Models.Post[]; tags: string[] } & FlexProps
-> = ({ posts, tags, ...props }) => {
+export const PostsLatest: React.VFC<
+  { results: Models.Post[]; tags: string[]; pageCount: number } & FlexProps
+> = ({ results, tags, pageCount, ...props }) => {
+  const [posts, setPosts] = useState<Models.Post[]>(results);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [loading, toggleLoading] = useReducer(state => !state, false);
+
+  const bottomRef = useRef<HTMLDivElement>(null);
   const toast = useToast();
   const { collapsible, mediaQueries } = useResponsiveContext();
   const { colorMode } = useColorMode();
@@ -66,6 +65,36 @@ export const PostsRoot: React.VFC<
     router.push(`/posts/type/${value}`);
   };
 
+  useEffect(() => {
+    let ref = bottomRef.current;
+    if (!ref) return;
+
+    const io = new IntersectionObserver(([values]) => {
+      if (!values.isIntersecting) return;
+      if (currentPage >= pageCount) return;
+
+      toggleLoading();
+
+      fetch(`/api/post/${currentPage + 1}`)
+        .then(res => {
+          if (!res.ok) throw new Error('something went wrong');
+          return res.json();
+        })
+        .then(({ response }: { response: { posts: Models.Post[] } }) => {
+          setPosts(state => [...state, ...response.posts]);
+          setCurrentPage(state => state + 1);
+        })
+        .catch(err => {
+          console.error(err);
+        })
+        .finally(toggleLoading);
+    });
+
+    io.observe(ref);
+
+    return () => io.disconnect();
+  }, [currentPage, pageCount]);
+
   return (
     <Flex
       alignItems="center"
@@ -80,7 +109,7 @@ export const PostsRoot: React.VFC<
       {...props}
     >
       <SubTitle my="2" fontSize={'2em'}>
-        Posts
+        Latest Posts
       </SubTitle>
       <HStack my="4" spacing="5">
         {['misc', 'youtube', 'image', 'soundcloud'].map(TYPE => {
@@ -89,7 +118,7 @@ export const PostsRoot: React.VFC<
           return (
             <Box
               key={`${TYPE}-icon`}
-              onClick={onTypeClick('misc')}
+              onClick={onTypeClick(TYPE)}
               cursor="pointer"
               py="1"
               fontSize={'1.8em'}
@@ -115,11 +144,14 @@ export const PostsRoot: React.VFC<
           );
         })}
       </Flex>
+
       <VStack py="5" width={['95%', 540]} spacing="5">
         {posts.map(POST => {
           const inPlaylist = usePlaylistIndex.state.playlist.some(
             PL => PL.slug === POST.slug
           );
+
+          const Icon = TYPE_2_COMPONENT_MAPPING[POST.type];
 
           return (
             <Flex id={POST.slug} width="100%" key={POST.slug} flexDir="column">
@@ -161,10 +193,7 @@ export const PostsRoot: React.VFC<
                     py="1"
                     fontSize={'1.8em'}
                   >
-                    {POST.type === 'youtube' && <Youtube />}
-                    {POST.type === 'soundcloud' && <SoundCloudIcon />}
-                    {POST.type === 'image' && <MemeIcon />}
-                    {POST.type === 'misc' && <Video />}
+                    <Icon />
                   </Box>
                 </HStack>
               </Flex>
@@ -231,6 +260,8 @@ export const PostsRoot: React.VFC<
           );
         })}
       </VStack>
+      <Box ref={bottomRef} />
+      {loading && <Spinner my="2" />}
     </Flex>
   );
 };

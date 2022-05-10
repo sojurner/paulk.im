@@ -9,8 +9,6 @@ import {
 } from '@chakra-ui/react';
 import { useResponsiveContext } from '@/features/responsive';
 
-import { SettingsControl } from '@/features/settings';
-
 import { SidebarTab } from '@/components/Tab';
 import { Logo, IdeaIcon, Pepe, IconWrapper } from '@/components/Icon';
 

@@ -1,21 +1,5 @@
 import { µGraphCMS } from '.';
 
-export const CONTENT_OF_WEEK_QUERY = `
-  contentOfTheWeeks(orderBy: weekNumber_DESC) {
-    createdAt
-    youtubeUrl
-    soundCloudUrl
-    weekNumber
-    year
-    videoUrl
-    image {
-      url
-      width
-      height
-    }
-  }
-`;
-
 export const TIL_QUERY = `
   tils(orderBy: date_DESC) {
     slug
@@ -63,31 +47,13 @@ export const POSTS_QUERY = ({
   }
 `;
 
-// export const TILS_QUERYABLE: µGraphCMS.Methods['queryable'] = ({ slug }) => `
-//   meme(where: {slug: "${slug}"}) {
-//     slug
-//     title
-//     tags
-//     content
-//     date
-//   }
-// `;
-
-// export const POW_QUERYABLE: µGraphCMS.Methods['queryable'] = ({ slug }) => `
-//   vow(where: {slug: "${slug}"}) {
-//     title
-//     slug
-//     img {
-//       url(
-//         transformation: {
-//           image: { resize: { width: 420, fit: clip } }
-//         }
-//       )
-//     }
-//     year
-//     week
-//   }
-// `;
+export const POSTS_AGGREGATE_QUERY = `
+  postsConnection {
+    aggregate {
+      count
+    }
+  }
+`;
 
 export const ENUM_QUERY = (name: string) => {
   return `__type(name: "${name}") {
@@ -114,21 +80,3 @@ export const CONTENT_TAG_QUERYABLE: µGraphCMS.Methods['queryable'] = ({
 }) => `
   tils(where: {  })
 `;
-
-// export const latest_memes_query = `
-//   memes(orderBy: createdAt_ASC, first: 5) {
-//     title
-//     slug
-//     date
-//     tags
-//     viewCount
-//     upvotes
-//     image {
-//       url(
-//         transformation: {
-//           image: { resize: { width: 420, fit: clip } }
-//         }
-//       )
-//     }
-//   }
-// `;
