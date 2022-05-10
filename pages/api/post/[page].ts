@@ -5,7 +5,6 @@ const getPostPageHandler = async (
   req: NextApiRequest,
   res: NextApiResponse
 ) => {
-  console.log('hitting')
   const { page } = req.query;
 
   const query = `{
