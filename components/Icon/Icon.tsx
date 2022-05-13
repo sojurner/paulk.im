@@ -37,7 +37,6 @@ import X from '@/assets/icons/X.svg';
 import Trash from '@/assets/icons/Trash.svg';
 
 import Menu from '@/assets/icons/Menu.svg';
-import Music from '@/assets/icons/Music.svg';
 import Youtube from '@/assets/icons/Youtube.svg';
 import Video from '@/assets/icons/Video.svg';
 import Imgur from '@/assets/icons/Imgur.svg';
@@ -84,7 +83,6 @@ export {
   UpvoteIcon,
   X,
   Youtube,
-  Music,
   Imgur,
   Video,
   ShareLink,

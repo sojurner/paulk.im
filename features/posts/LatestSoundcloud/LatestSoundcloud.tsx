@@ -1,5 +1,4 @@
 import { Flex, Box, useColorMode } from '@chakra-ui/react';
-import { Music } from '@/components/Icon';
 
 export const LatestSoundcloud: React.FC<{ url: string }> = ({ url }) => {
   const { colorMode } = useColorMode();
