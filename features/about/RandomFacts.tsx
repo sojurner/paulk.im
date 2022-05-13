@@ -6,17 +6,13 @@ export const RandomFacts = () => {
   return (
     <UnorderedList spacing="3">
       <ListItem fontSize="1.2em">
-        Served 4 years in the U.S. Army as a Combat Medic
+        Served 4 years in the U.S. Army as a Combat Medic.
       </ListItem>
       <ListItem fontSize="1.2em">
-        I take better care of my code than I do my house{' '}
-        <strong> (recently bought my 1st home)</strong>
+        My last meal: <strong>Chocolate Ice-cream Cake</strong>.
       </ListItem>
       <ListItem fontSize="1.2em">
-        My last meal: chocolate ice-cream cake
-      </ListItem>
-      <ListItem fontSize="1.2em">
-        Favorite activity: <strong>Hiking</strong>; favorite trail is{' '}
+        <strong>Hiking</strong> nourishes my soul; favorite trail is{' '}
         <Link
           isExternal
           textDecor="underline"

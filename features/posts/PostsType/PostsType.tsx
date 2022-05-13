@@ -12,6 +12,7 @@ import {
   Box,
   useToast,
   Button,
+  Text,
 } from '@chakra-ui/react';
 
 import { useResponsiveContext } from '@/features/responsive';
@@ -25,19 +26,17 @@ import {
   SoundCloudIcon,
   Youtube,
   IconWrapper,
-  AddPlaylist,
+  // AddPlaylist,
 } from '@/components/Icon';
 import { SelectButtonGroup } from '@/components/SelectButtonGroup/SelectButtonGroup';
-import { usePlaylistContext } from '@/features/playlist';
+import { usePlaylistContext, usePlaylistPlayer } from '@/features/playlist';
+import { TYPE_2_COMPONENT_MAPPING } from '../consts';
 
 const DynamicVideo = dynamic<any>(() =>
-  import('../LatestVideo').then(mod => mod.LatestVideo)
+  import('../LatestVideo').then(mod => mod.MemoLatestVideo)
 );
 const DynamicImage = dynamic<any>(() =>
   import('../LatestImage').then(mod => mod.LatestImage)
-);
-const DynamicSoundcloud = dynamic<any>(() =>
-  import('../LatestSoundcloud').then(mod => mod.LatestSoundcloud)
 );
 
 export const PostsType: React.VFC<
@@ -46,10 +45,10 @@ export const PostsType: React.VFC<
   const toast = useToast();
   const { collapsible, mediaQueries } = useResponsiveContext();
   const { colorMode } = useColorMode();
-  const { usePlaylistIndex } = usePlaylistContext();
+  const { usePlaylistIndex, usePlaylistPlayer } = usePlaylistContext();
   const router = useRouter();
 
-  const canAddPlaylist = type !== 'image';
+  // const canAddPlaylist = type !== 'image';
 
   const onCopyPostLink = (slug: string) => async () => {
     await navigator.clipboard.writeText(
@@ -64,6 +63,8 @@ export const PostsType: React.VFC<
     });
   };
 
+  const HeaderIcon = TYPE_2_COMPONENT_MAPPING[type];
+
   return (
     <Flex
       alignItems="center"
@@ -77,29 +78,33 @@ export const PostsType: React.VFC<
         })}
       {...props}
     >
-      <SubTitle fontSize={'2em'}>Posts</SubTitle>
+      <HStack fontSize="2em" spacing="6">
+        <HeaderIcon />
+        <SubTitle fontSize={'1em'}>Posts</SubTitle>
+        <HeaderIcon />
+      </HStack>
       <SelectButtonGroup
         groupProps={{ my: '6', spacing: 7 }}
         value={type}
         onChange={val => router.push(`/posts/type/${val}`)}
       >
-        <IconWrapper value="misc" cursor="pointer" py="1" fontSize={'1.8em'}>
-          <Video />
-        </IconWrapper>
-        <IconWrapper value="youtube" cursor="pointer" py="1" fontSize={'1.8em'}>
-          <Youtube />
-        </IconWrapper>
-        <IconWrapper value="image" cursor="pointer" py="1" fontSize={'1.8em'}>
-          <MemeIcon />
-        </IconWrapper>
-        <IconWrapper
-          value="soundcloud"
-          cursor="pointer"
-          py="1"
-          fontSize={'1.8em'}
-        >
-          <SoundCloudIcon />
-        </IconWrapper>
+        {['misc', 'youtube', 'image', 'soundcloud']
+          .filter(TYP => TYP !== type)
+          .map(TYP => {
+            const Icon = TYPE_2_COMPONENT_MAPPING[TYP];
+
+            return (
+              <IconWrapper
+                key={`nav-${TYP}`}
+                value={TYP}
+                cursor="pointer"
+                py="1"
+                fontSize={'1.8em'}
+              >
+                <Icon />
+              </IconWrapper>
+            );
+          })}
       </SelectButtonGroup>
       {type !== 'image' && (
         <Button
@@ -108,6 +113,13 @@ export const PostsType: React.VFC<
           variant="outline"
           onClick={() => {
             usePlaylistIndex.methods.onAddMultiple(type as any)(posts);
+            toast({
+              title: 'Added to Playlist!',
+              position: 'top',
+              status: 'success',
+              duration: 4000,
+              isClosable: true,
+            });
           }}
         >
           Play All ({posts.length})
@@ -175,15 +187,12 @@ export const PostsType: React.VFC<
               </Flex>
               {POST.type !== 'image' && (
                 <DynamicVideo
+                  currentlyPlaying={
+                    usePlaylistIndex?.state?.currentlyPlaying?.slug ===
+                      POST.slug && usePlaylistPlayer.state.isPlaying
+                  }
                   onPlay={() => {
                     usePlaylistIndex.methods.onAdd('unshift')(POST);
-                    toast({
-                      title: 'Added to Playlist!',
-                      position: 'top',
-                      status: 'success',
-                      duration: 4000,
-                      isClosable: true,
-                    });
                   }}
                   img={{
                     height: POST.asset?.height,
@@ -202,7 +211,7 @@ export const PostsType: React.VFC<
               )}
 
               <Flex
-                width={'100%'}
+                width="100%"
                 justifyContent="space-between"
                 alignItems="center"
                 mt="2"

@@ -45,13 +45,13 @@ export const PlaylistControl = () => {
       position="fixed"
       width={['100vw', '540px']}
       right={['50%', 'calc(0% + 300px)']}
-      bottom={'30px'}
+      bottom={'25px'}
       background={usePlaylistMisc.state.isFullscreen ? 'none' : bgColor}
       borderTop={usePlaylistMisc.state.isFullscreen ? '0' : '1px solid'}
       transition={'transform .3s ease-in-out'}
-      height={usePlaylistMisc.state.isFullscreen ? 'max-content' : '150px'}
+      height={usePlaylistMisc.state.isFullscreen ? 'max-content' : '100px'}
       transform={`translate(50%, ${
-        usePlaylistMisc.state.showQueue ? '-195px' : '0'
+        usePlaylistMisc.state.showQueue ? '-170px' : '30px'
       })`}
       borderColor={borderColor}
     >
@@ -72,7 +72,7 @@ export const PlaylistControl = () => {
               ? usePlaylistIndex.state.currentlyPlaying.type === 'youtube'
                 ? '315px'
                 : '100%'
-              : '150px'
+              : '100px'
           }
           onEnded={() =>
             usePlaylistIndex.methods.setCurrentIndex(state => state + 1)
@@ -90,6 +90,12 @@ export const PlaylistControl = () => {
           justifyContent="center"
           {...(usePlaylistMisc.state.isFullscreen && { minHeight: '100px' })}
         >
+          <Box
+            height="100%"
+            width="100%"
+            pos={'absolute'}
+            onClick={usePlaylistMisc.methods.toggleFullscreen}
+          />
           <FullscreenToggle
             justifySelf="center"
             isFullscreen={usePlaylistMisc.state.isFullscreen}
@@ -110,6 +116,7 @@ export const PlaylistControl = () => {
             alignItems="flex-end"
             flexDir="column"
             p="1"
+            py="1.5"
           >
             <CloseButton
               zIndex="tooltip"

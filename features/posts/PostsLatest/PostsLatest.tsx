@@ -18,19 +18,16 @@ import {
 import { useResponsiveContext } from '@/features/responsive';
 
 import { SubTitle } from '@/components/Typography';
-import { ShareLink, AddPlaylist } from '@/components/Icon';
+import { ShareLink } from '@/components/Icon';
 import { usePlaylistContext } from '@/features/playlist';
 
 import { TYPE_2_COMPONENT_MAPPING } from '../consts';
 
 const DynamicVideo = dynamic<any>(() =>
-  import('../LatestVideo').then(mod => mod.LatestVideo)
+  import('../LatestVideo').then(mod => mod.MemoLatestVideo)
 );
 const DynamicImage = dynamic<any>(() =>
   import('../LatestImage').then(mod => mod.LatestImage)
-);
-const DynamicSoundcloud = dynamic<any>(() =>
-  import('../LatestSoundcloud').then(mod => mod.LatestSoundcloud)
 );
 
 export const PostsLatest: React.VFC<
@@ -45,7 +42,7 @@ export const PostsLatest: React.VFC<
   const { collapsible, mediaQueries } = useResponsiveContext();
   const { colorMode } = useColorMode();
   const router = useRouter();
-  const { usePlaylistIndex } = usePlaylistContext();
+  const { usePlaylistIndex, usePlaylistPlayer } = usePlaylistContext();
 
   const onCopyPostLink = (slug: string) => async () => {
     await navigator.clipboard.writeText(`${window.location.origin}/#${slug}`);
@@ -199,14 +196,11 @@ export const PostsLatest: React.VFC<
                 <DynamicVideo
                   onPlay={() => {
                     usePlaylistIndex.methods.onAdd('unshift')(POST);
-                    toast({
-                      title: 'Added to Playlist!',
-                      position: 'top',
-                      status: 'success',
-                      duration: 4000,
-                      isClosable: true,
-                    });
                   }}
+                  currentlyPlaying={
+                    usePlaylistIndex?.state?.currentlyPlaying?.slug ===
+                      POST.slug && usePlaylistPlayer.state.isPlaying
+                  }
                   img={{
                     height: POST.asset?.height,
                     width: POST.asset?.width,

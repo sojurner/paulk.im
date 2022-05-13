@@ -1,10 +1,8 @@
 import * as React from 'react';
 import { Grid, GridItem, useColorModeValue } from '@chakra-ui/react';
-import { useResponsiveContext } from '@/features/responsive';
 
 import { Appbar } from '@/components/Appbar';
 import { Sidebar } from '@/components/Sidebar';
-import { Footerbar } from '@/components/Footerbar';
 
 import { µLayout } from '.';
 import { PlaylistControl } from '@/features/playlist';
@@ -24,13 +22,11 @@ export const DesktopLayout: React.FC<µLayout.Props> = props => {
         backgroundColor="whiteAlpha.100"
         gridTemplateAreas={[
           `"sidebar sidebar sidebar"
-            "content content content"
-            "footer footer footer"`,
-          `"sidebar content content"
-            "footer footer footer"`,
+            "content content content"`,
+          `"sidebar content content"`,
         ]}
         gridTemplateColumns={['1fr 1fr 1fr', '60px auto auto']}
-        gridTemplateRows={['40px auto 30px', 'auto 30px']}
+        gridTemplateRows={['40px auto', 'auto']}
       >
         <GridItem gridArea="sidebar">
           <Sidebar flexDir={{ sm: 'row', md: 'column' }} />
@@ -43,15 +39,11 @@ export const DesktopLayout: React.FC<µLayout.Props> = props => {
                 "body body"`,
             ]}
             gridTemplateColumns={`auto auto`}
-            gridTemplateRows={['calc(100vh - 75px)', '45px calc(100vh - 75px)']}
+            gridTemplateRows={['calc(100vh - 45px)', '45px calc(100vh - 45px)']}
           >
             <Appbar display={['none', 'flex']} gridArea="appbar" />
             {props.children}
           </Grid>
-        </GridItem>
-
-        <GridItem gridArea="footer" zIndex="docked">
-          <Footerbar position={'fixed'} height="30px" bottom={0} />
         </GridItem>
         <PlaylistControl />
       </Grid>

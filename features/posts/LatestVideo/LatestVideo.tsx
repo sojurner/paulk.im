@@ -1,11 +1,21 @@
+import { memo } from 'react';
 import { MediaPlay } from '@/components/Icon';
-import { Box, Flex } from '@chakra-ui/react';
+import { Box, keyframes, Flex } from '@chakra-ui/react';
 import Image, { ImageProps } from 'next/image';
+
+const animationKeyframes = keyframes`
+  0% { transform: translate(-50%, -50%) scale(.95); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); }
+  70% { transform: translate(-50%, -50%) scale(1); box-shadow: 0 0 0 10px rgba(255, 255, 255, 0); }
+  100% { transform: translate(-50%, -50%) scale(.95); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+`;
+
+const animation = `${animationKeyframes} 2s infinite`;
 
 export const LatestVideo: React.VFC<{
   img: ImageProps;
+  currentlyPlaying: boolean;
   onPlay: () => void;
-}> = ({ img, onPlay }) => {
+}> = ({ img, onPlay, currentlyPlaying }) => {
   return (
     <Flex
       width="100%"
@@ -13,6 +23,12 @@ export const LatestVideo: React.VFC<{
       pos="relative"
       onClick={onPlay}
       cursor="pointer"
+      {...(currentlyPlaying && { pointerEvents: 'none' })}
+      sx={{
+        span: {
+          ...(currentlyPlaying && { filter: 'brightness(.3)' }),
+        },
+      }}
       _hover={{
         span: {
           filter: 'brightness(.5)',
@@ -27,7 +43,8 @@ export const LatestVideo: React.VFC<{
         fontSize="3em"
         top="50%"
         left="50%"
-        background="blackAlpha.500"
+        {...(currentlyPlaying && { animation })}
+        {...(!currentlyPlaying && { background: 'blackAlpha.500' })}
         transform="translate(-50%, -50%)"
       >
         <MediaPlay />
@@ -35,3 +52,7 @@ export const LatestVideo: React.VFC<{
     </Flex>
   );
 };
+
+export const MemoLatestVideo = memo(LatestVideo, (prev, next) => {
+  return prev.currentlyPlaying === next.currentlyPlaying;
+});

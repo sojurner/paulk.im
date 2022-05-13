@@ -4,6 +4,7 @@ import {
   Divider,
   Flex,
   VStack,
+  Code,
   Tag,
   Box,
   useColorMode,
@@ -15,12 +16,11 @@ import {
 
 import { useResponsiveContext } from '@/features/responsive';
 
-import { SubTitle } from '@/components/Typography';
+import { RegularText, SubTitle } from '@/components/Typography';
 
 import { useRouter } from 'next/router';
 import {
   ShareLink,
-  AddPlaylist,
   Youtube,
   SoundCloudIcon,
   MemeIcon,
@@ -34,10 +34,6 @@ const DynamicImage = dynamic<any>(() =>
 const DynamicVideo = dynamic<any>(() =>
   import('../LatestVideo').then(mod => mod.LatestVideo)
 );
-const DynamicSoundcloud = dynamic<any>(() =>
-  import('../LatestSoundcloud').then(mod => mod.LatestSoundcloud)
-);
-
 export const PostsTag: React.VFC<
   FlexProps & { tag: string; posts: Models.Post[]; tags: string[] }
 > = ({ posts, tags, tag, ...props }) => {
@@ -45,7 +41,7 @@ export const PostsTag: React.VFC<
   const { collapsible, mediaQueries } = useResponsiveContext();
   const { colorMode } = useColorMode();
   const router = useRouter();
-  const { usePlaylistIndex } = usePlaylistContext();
+  const { usePlaylistIndex, usePlaylistPlayer } = usePlaylistContext();
 
   const onCopyPostLink = (slug: string) => async () => {
     await navigator.clipboard.writeText(
@@ -73,7 +69,11 @@ export const PostsTag: React.VFC<
         })}
       {...props}
     >
-      <SubTitle fontSize={'2em'}>Posts</SubTitle>
+      <HStack justifyContent="center">
+        <Code fontSize="1.3em">{tag}</Code>
+        <SubTitle fontSize={'2em'}>Posts</SubTitle>
+      </HStack>
+
       <Flex my="4" flexWrap="wrap" width={['95%', 540]}>
         {tags?.map(TAG => {
           return (
@@ -133,14 +133,11 @@ export const PostsTag: React.VFC<
                 <DynamicVideo
                   onPlay={() => {
                     usePlaylistIndex.methods.onAdd('unshift')(POST);
-                    toast({
-                      title: 'Added to Playlist!',
-                      position: 'top',
-                      status: 'success',
-                      duration: 4000,
-                      isClosable: true,
-                    });
                   }}
+                  currentlyPlaying={
+                    usePlaylistIndex?.state?.currentlyPlaying?.slug ===
+                      POST.slug && usePlaylistPlayer.state.isPlaying
+                  }
                   img={{
                     height: POST.asset?.height,
                     width: POST.asset?.width,

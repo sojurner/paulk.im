@@ -2,6 +2,7 @@ import NextLink from 'next/link';
 import { Flex, useColorModeValue } from '@chakra-ui/react';
 
 import { RegularText, SubTitle } from '@/components/Typography';
+import { Footerbar } from '@/components/Footerbar';
 
 import { RandomFacts } from './RandomFacts';
 import { Skillset } from './Skillset';
@@ -15,6 +16,7 @@ export const AboutRoot = () => {
       overflow="auto"
       flexDirection="column"
       p="4"
+      pb="10"
       alignItems="center"
       gridArea="body"
       sx={{
@@ -27,11 +29,11 @@ export const AboutRoot = () => {
       }}
     >
       <Flex flexDirection="column" width={['95%', '560px']}>
-        <SubTitle color={h2Color} my="4">About Mi...</SubTitle>
+        <SubTitle color={h2Color} my="4">About Me...</SubTitle>
         <RegularText fontSize={'1.2em'}>
-          Hello, Im Paul. A developer based in Colorado.
+          Hello, My name is Paul.  Im a full-stack developer based in Colorado.
         </RegularText>
-        <RegularText fontSize={'1.2em'}>
+        <RegularText mt="3" fontSize={'1.2em'}>
           Here is my current list of tech know-hows:
         </RegularText>
 
@@ -43,14 +45,15 @@ export const AboutRoot = () => {
         <RandomFacts />
 
         <SubTitle color={h2Color} mt="10" mb="6">
-          Favorite Resources...
+          Some Resources...
         </SubTitle>
         <Resources />
 
         <SubTitle color={h2Color} mt="10" mb="6">
-          Following...
+          Currently Following...
         </SubTitle>
         <Following />
+        <Footerbar pos="fixed" width="100vw" left="0" height="30px" bottom={0} />
       </Flex>
     </Flex>
   );
