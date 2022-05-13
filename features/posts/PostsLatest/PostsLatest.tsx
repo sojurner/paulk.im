@@ -29,9 +29,6 @@ const DynamicVideo = dynamic<any>(() =>
 const DynamicImage = dynamic<any>(() =>
   import('../LatestImage').then(mod => mod.LatestImage)
 );
-const DynamicYoutube = dynamic<any>(() =>
-  import('../LatestYoutube').then(mod => mod.LatestYoutube)
-);
 const DynamicSoundcloud = dynamic<any>(() =>
   import('../LatestSoundcloud').then(mod => mod.LatestSoundcloud)
 );
@@ -165,7 +162,7 @@ export const PostsLatest: React.VFC<
                   {POST.title}
                 </SubTitle>
                 <HStack spacing="2">
-                  {POST.type !== 'image' && (
+                  {/* {POST.type !== 'image' && (
                     <Button
                       p="1px"
                       {...(inPlaylist && {
@@ -186,7 +183,7 @@ export const PostsLatest: React.VFC<
                     >
                       <AddPlaylist />
                     </Button>
-                  )}
+                  )} */}
                   <Box
                     onClick={onTypeClick(POST.type)}
                     cursor="pointer"
@@ -198,16 +195,24 @@ export const PostsLatest: React.VFC<
                 </HStack>
               </Flex>
 
-              {POST.type === 'youtube' && (
-                <DynamicYoutube url={POST.resource as string} />
-              )}
-
-              {POST.type === 'soundcloud' && (
-                <DynamicSoundcloud url={POST.resource as string} />
-              )}
-
-              {POST.type === 'misc' && (
-                <DynamicVideo src={POST.resource as string} width={'100%'} />
+              {POST.type !== 'image' && (
+                <DynamicVideo
+                  onPlay={() => {
+                    usePlaylistIndex.methods.onAdd('unshift')(POST);
+                    toast({
+                      title: 'Added to Playlist!',
+                      position: 'top',
+                      status: 'success',
+                      duration: 4000,
+                      isClosable: true,
+                    });
+                  }}
+                  img={{
+                    height: POST.asset?.height,
+                    width: POST.asset?.width,
+                    src: POST.asset?.url as string,
+                  }}
+                />
               )}
 
               {POST.type === 'image' && (

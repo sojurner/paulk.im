@@ -36,9 +36,6 @@ const DynamicVideo = dynamic<any>(() =>
 const DynamicImage = dynamic<any>(() =>
   import('../LatestImage').then(mod => mod.LatestImage)
 );
-const DynamicYoutube = dynamic<any>(() =>
-  import('../LatestYoutube').then(mod => mod.LatestYoutube)
-);
 const DynamicSoundcloud = dynamic<any>(() =>
   import('../LatestSoundcloud').then(mod => mod.LatestSoundcloud)
 );
@@ -51,7 +48,7 @@ export const PostsType: React.VFC<
   const { colorMode } = useColorMode();
   const { usePlaylistIndex } = usePlaylistContext();
   const router = useRouter();
-  
+
   const canAddPlaylist = type !== 'image';
 
   const onCopyPostLink = (slug: string) => async () => {
@@ -104,11 +101,23 @@ export const PostsType: React.VFC<
           <SoundCloudIcon />
         </IconWrapper>
       </SelectButtonGroup>
+      {type !== 'image' && (
+        <Button
+          py="2"
+          px="3"
+          variant="outline"
+          onClick={() => {
+            usePlaylistIndex.methods.onAddMultiple(type as any)(posts);
+          }}
+        >
+          Play All ({posts.length})
+        </Button>
+      )}
       <VStack py="5" width={['95%', 540]} spacing="5">
         {posts?.map(POST => {
-          const inPlaylist = usePlaylistIndex.state.playlist.some(
-            PL => PL.slug === POST.slug
-          );
+          // const inPlaylist = usePlaylistIndex.state.playlist.some(
+          //   PL => PL.slug === POST.slug
+          // );
 
           return (
             <Flex id={POST.slug} width="100%" key={POST.slug} flexDir="column">
@@ -128,14 +137,14 @@ export const PostsType: React.VFC<
                   {POST.title}
                 </SubTitle>
                 <HStack alignItems="center">
-                  {canAddPlaylist && (
+                  {/* {canAddPlaylist && (
                     <Button
                       p="1px"
                       {...(inPlaylist && {
                         disabled: true,
                       })}
                       onClick={() => {
-                        usePlaylistIndex.methods.onAdd(POST);
+                        usePlaylistIndex.methods.onAdd()(POST);
                         toast({
                           title: 'Added to Playlist!',
                           position: 'top',
@@ -149,7 +158,7 @@ export const PostsType: React.VFC<
                     >
                       <AddPlaylist />
                     </Button>
-                  )}
+                  )} */}
 
                   <Box
                     onClick={() => router.push(`/posts/type/${POST.type}`)}
@@ -164,16 +173,24 @@ export const PostsType: React.VFC<
                   </Box>
                 </HStack>
               </Flex>
-              {POST.type === 'youtube' && (
-                <DynamicYoutube url={POST.resource as string} />
-              )}
-
-              {POST.type === 'soundcloud' && (
-                <DynamicSoundcloud url={POST.resource as string} />
-              )}
-
-              {POST.type === 'misc' && (
-                <DynamicVideo src={POST.resource as string} width={'100%'} />
+              {POST.type !== 'image' && (
+                <DynamicVideo
+                  onPlay={() => {
+                    usePlaylistIndex.methods.onAdd('unshift')(POST);
+                    toast({
+                      title: 'Added to Playlist!',
+                      position: 'top',
+                      status: 'success',
+                      duration: 4000,
+                      isClosable: true,
+                    });
+                  }}
+                  img={{
+                    height: POST.asset?.height,
+                    width: POST.asset?.width,
+                    src: POST.asset?.url as string,
+                  }}
+                />
               )}
 
               {POST.type === 'image' && (

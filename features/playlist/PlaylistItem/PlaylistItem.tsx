@@ -1,10 +1,17 @@
 import { Flex, Box, FlexProps } from '@chakra-ui/react';
 
-import { Youtube, SoundCloudIcon, MemeIcon, Video, Trash } from '@/components/Icon';
+import {
+  Youtube,
+  SoundCloudIcon,
+  MemeIcon,
+  Video,
+  Trash,
+} from '@/components/Icon';
 import { RegularText } from '@/components/Typography';
 
 export type Props = FlexProps & {
   ITEM: Models.Post;
+  idx: number;
   isActive: boolean;
   onRemove: () => void;
 };
@@ -41,7 +48,11 @@ export const PlaylistItem: React.FC<Props> = ({ ITEM, isActive, onRemove }) => {
       <Box
         opacity={0.5}
         ml="auto"
-        onClick={onRemove}
+        onClick={e => {
+          e.preventDefault();
+          e.stopPropagation();
+          onRemove();
+        }}
         _hover={{
           opacity: 1,
         }}

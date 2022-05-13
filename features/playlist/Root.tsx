@@ -185,7 +185,8 @@ export const PlaylistControl = () => {
                   <Box
                     opacity={0.5}
                     ml="auto"
-                    onClick={() => {
+                    onClick={e => {
+                      e.stopPropagation();
                       usePlaylistIndex.methods.onRemove(index);
                     }}
                     _hover={{

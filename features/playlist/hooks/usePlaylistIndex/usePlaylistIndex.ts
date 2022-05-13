@@ -4,18 +4,39 @@ export const usePlaylistIndex = () => {
   const [playlist, setPlaylist] = useState<Models.Post[]>([]);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
 
-  const onAdd = (item: Models.Post) => {
-    setPlaylist(state => {
-      if (state.some(ITEM => ITEM.slug === item.slug)) {
+  const onAdd =
+    (action: 'push' | 'unshift' = 'push') =>
+    (item: Models.Post) => {
+      setPlaylist(state => {
+        const existingIndex = state.findIndex(ITEM => ITEM.slug === item.slug);
+        if (existingIndex >= 0) {
+          setCurrentIndex(existingIndex);
+          return state;
+        }
+        if (action === 'push') {
+          return [...state, item];
+        }
         setCurrentIndex(0);
-        return state;
-      }
-      return [...state, item];
-    });
-  };
+        return [item, ...state];
+      });
+    };
+
+  const onAddMultiple =
+    (type: Models.Post['type']) => (items: Models.Post[]) => {
+      setPlaylist(state => {
+        const currentPlayMatchesType = state?.[currentIndex]?.type === type;
+        if (!currentPlayMatchesType) return items;
+
+        return [
+          state[currentIndex],
+          ...items.filter(IT => IT.slug !== state?.[currentIndex]?.slug),
+        ];
+      });
+    };
 
   const onRemove = (idx: number) => {
     setPlaylist(state => {
+      console.log({ currentIndex, idx });
       if (currentIndex === idx) setCurrentIndex(0);
       if (idx < currentIndex) setCurrentIndex(state => state - 1);
 
@@ -43,6 +64,7 @@ export const usePlaylistIndex = () => {
 
   const methods = {
     onAdd,
+    onAddMultiple,
     onRemove,
     onClear,
     setCurrentIndex,
