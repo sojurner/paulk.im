@@ -1,9 +1,10 @@
+import NextLink from 'next/link';
 import { IdeaIcon, Logo, Pepe } from '@/components/Icon';
 import { RegularText } from '@/components/Typography';
 import { Box, Flex, VStack, Link, Text } from '@chakra-ui/react';
 import { usePlaylistContext } from '../playlist';
 
-export const PepePost = {
+export const PepePost: Models.Post = {
   title: 'Pepe the Frog',
   slug: 'pepe-the-frog',
   resource: 'https://www.youtube.com/embed/vJMP7RBsoms',
@@ -15,7 +16,7 @@ export const PepePost = {
     height: 360,
     width: 480,
   },
-} as Models.Post;
+};
 
 export const Explained = () => {
   const { usePlaylistIndex } = usePlaylistContext();
@@ -31,9 +32,13 @@ export const Explained = () => {
         best to keep it funny, wholesome, and relatively kosher.
       </RegularText>
       <Flex>
-        <Box mr="6" fontSize="4em">
-          <Logo />
-        </Box>
+        <NextLink href="/">
+          <div>
+            <Box cursor="pointer" mr="6" fontSize="4em">
+              <Logo />
+            </Box>
+          </div>
+        </NextLink>
         <VStack alignItems="flex-start">
           <RegularText fontSize={'1.2em'}>
             I hi-jacked this Logo from this{' '}
@@ -55,12 +60,16 @@ export const Explained = () => {
         </VStack>
       </Flex>
       <Flex>
-        <Box mr="6" fontSize="4em">
-          <IdeaIcon />
-        </Box>
+        <NextLink href="/tils">
+          <div>
+            <Box cursor="pointer" mr="6" fontSize="4em">
+              <IdeaIcon />
+            </Box>
+          </div>
+        </NextLink>
         <VStack alignItems="flex-start">
           <RegularText fontSize={'1.2em'}>
-            I probably wasted a good 2 hours looking for a {' '}
+            I probably wasted a good 2 hours looking for a{' '}
             <strong>Today I Learned (TIL)</strong> icon. Still looking... but
             for now, I&apos;ve settled on this one.
           </RegularText>
@@ -71,9 +80,13 @@ export const Explained = () => {
         </VStack>
       </Flex>
       <Flex>
-        <Box mr="6" fontSize="4em">
-          <Pepe />
-        </Box>
+        <NextLink href="/about">
+          <div>
+            <Box mr="6" fontSize="4em">
+              <Pepe />
+            </Box>
+          </div>
+        </NextLink>
         <VStack alignItems="flex-start">
           <RegularText fontSize={'1.2em'}>
             Recently, a close friend of mine asked why I chose this
@@ -84,7 +97,7 @@ export const Explained = () => {
             than I did.
           </RegularText>
           <RegularText fontSize={'1.2em'}>
-            Pepe is many things. But most importantly: {' '}
+            Pepe is many things. But most importantly:{' '}
             <Text
               as="ins"
               color="green.400"
@@ -92,7 +105,8 @@ export const Explained = () => {
               onClick={() => usePlaylistIndex.methods.onAdd('push')(PepePost)}
             >
               He is within all of us
-            </Text>.
+            </Text>
+            .
           </RegularText>
         </VStack>
       </Flex>
