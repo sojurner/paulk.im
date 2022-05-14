@@ -5,6 +5,7 @@ import { request, ENUM_QUERY, TIL_TAG_QUERYABLE } from '@/lib/graphcms';
 
 import { TilTag } from '@/features/tils/TilTag';
 import { markdown2HTML } from '@/lib/markdown';
+import { SEO } from '@/components/SEO';
 
 dayjs.extend(relativeTime);
 
@@ -13,7 +14,12 @@ export default function TilTagPage({
 }: {
   tils: Models.TIL[];
 }): InferGetStaticPropsType<typeof getStaticProps> {
-  return <TilTag gridArea="body" tils={tils} />;
+  return (
+    <>
+      <SEO />
+      <TilTag gridArea="body" tils={tils} />
+    </>
+  );
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {

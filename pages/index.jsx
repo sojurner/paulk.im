@@ -11,10 +11,16 @@ import {
 } from '@/lib/graphcms';
 
 import { PostsLatest } from '@/features/posts';
+import { SEO } from '@/components/SEO';
 
 dayjs.extend(objectSupport);
 
-const HomePage = props => <PostsLatest gridArea="body" {...props} />;
+const HomePage = props => (
+  <>
+    <SEO />
+    <PostsLatest gridArea="body" {...props} />;
+  </>
+);
 
 export async function getStaticProps() {
   const response = await request({

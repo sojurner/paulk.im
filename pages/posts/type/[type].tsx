@@ -4,6 +4,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import { request, ENUM_QUERY, POSTS_QUERY } from '@/lib/graphcms';
 
 import { PostsType } from '@/features/posts';
+import { SEO } from '@/components/SEO';
 
 dayjs.extend(relativeTime);
 
@@ -11,7 +12,12 @@ export default function ContentTypePage(props: {
   type: string;
   posts: Models.Post[];
 }) {
-  return <PostsType gridArea="body" {...props} />;
+  return (
+    <>
+      <SEO />
+      <PostsType gridArea="body" {...props} />;
+    </>
+  );
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {

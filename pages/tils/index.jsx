@@ -5,11 +5,17 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { TilRoot } from '@/features/tils';
 import { markdown2HTML } from '@/lib/markdown';
+import { SEO } from '@/components/SEO';
 
 dayjs.extend(relativeTime);
 
 export default function Posts(props) {
-  return <TilRoot gridArea="body" {...props} />;
+  return (
+    <>
+      <SEO />
+      <TilRoot gridArea="body" {...props} />;
+    </>
+  );
 }
 
 export async function getStaticProps() {

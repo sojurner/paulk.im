@@ -1,4 +1,5 @@
 import NextLink from 'next/link';
+
 import { IdeaIcon, Logo, Pepe } from '@/components/Icon';
 import { RegularText } from '@/components/Typography';
 import { Box, Flex, VStack, Link, Text } from '@chakra-ui/react';
@@ -18,8 +19,27 @@ export const PepePost: Models.Post = {
   },
 };
 
-export const Explained = () => {
+export const PepeDesc = () => {
   const { usePlaylistIndex } = usePlaylistContext();
+
+  return (
+    <RegularText fontSize={'1.2em'}>
+      Pepe is many things. But most importantly:{' '}
+      <Text
+        as="ins"
+        color="green.400"
+        cursor="pointer"
+        onClick={() => usePlaylistIndex.methods.onAdd('push')(PepePost)}
+      >
+        He is within all of us
+      </Text>
+      .
+    </RegularText>
+  );
+};
+
+export const Explained = () => {
+  console.log('rerendered')
   return (
     <VStack spacing="5" alignItems="flex-start">
       <RegularText fontSize="1.2em">
@@ -96,18 +116,7 @@ export const Explained = () => {
             that I could be friends with someone who lived under a bigger rock
             than I did.
           </RegularText>
-          <RegularText fontSize={'1.2em'}>
-            Pepe is many things. But most importantly:{' '}
-            <Text
-              as="ins"
-              color="green.400"
-              cursor="pointer"
-              onClick={() => usePlaylistIndex.methods.onAdd('push')(PepePost)}
-            >
-              He is within all of us
-            </Text>
-            .
-          </RegularText>
+          <PepeDesc />
         </VStack>
       </Flex>
     </VStack>

@@ -1,9 +1,10 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import { request, ENUM_QUERY, POSTS_QUERY } from '@/lib/graphcms';
 
 import { PostsTag } from '@/features/posts';
+import { request, ENUM_QUERY, POSTS_QUERY } from '@/lib/graphcms';
+import { SEO } from '@/components/SEO';
 
 dayjs.extend(relativeTime);
 
@@ -12,7 +13,12 @@ export default function ContentTagPage(props: {
   tags: string[];
   posts: Models.Post[];
 }) {
-  return <PostsTag gridArea="body" {...props} />;
+  return (
+    <>
+      <SEO />
+      <PostsTag gridArea="body" {...props} />
+    </>
+  );
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
