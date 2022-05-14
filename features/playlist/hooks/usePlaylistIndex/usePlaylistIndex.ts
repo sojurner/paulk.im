@@ -7,6 +7,7 @@ export const usePlaylistIndex = () => {
   const onAdd =
     (action: 'push' | 'unshift' = 'push') =>
     (item: Models.Post) => {
+      console.log(item);
       setPlaylist(state => {
         const existingIndex = state.findIndex(ITEM => ITEM.slug === item.slug);
         if (existingIndex >= 0) {

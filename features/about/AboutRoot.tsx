@@ -1,9 +1,10 @@
 import { Flex, useColorModeValue } from '@chakra-ui/react';
 
-import { RegularText, SubTitle } from '@/components/Typography';
+import { SubTitle } from '@/components/Typography';
 
+import { Intro } from './Intro';
+import { Explained } from './Explained';
 import { RandomFacts } from './RandomFacts';
-import { Skillset } from './Skillset';
 import { Resources } from './Resources';
 import { Following } from './Following';
 
@@ -30,14 +31,11 @@ export const AboutRoot = () => {
         <SubTitle color={h2Color} my="4">
           About Me...
         </SubTitle>
-        <RegularText fontSize={'1.2em'}>
-          Hello, My name is Paul. Im a full-stack developer based in Colorado.
-        </RegularText>
-        <RegularText mt="3" fontSize={'1.2em'}>
-          Here is my current list of tech know-hows:
-        </RegularText>
-
-        <Skillset />
+        <Intro />
+        <SubTitle color={h2Color} mt="10" mb="6">
+          Website, Explained...
+        </SubTitle>
+        <Explained />
 
         <SubTitle color={h2Color} mt="10" mb="6">
           Some Random Facts...
