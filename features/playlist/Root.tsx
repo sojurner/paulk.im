@@ -74,6 +74,14 @@ export const PlaylistControl = () => {
                 : '100%'
               : '100px'
           }
+          onPlay={() => {
+            if (usePlaylistPlayer.state.isPlaying) return;
+            usePlaylistPlayer.methods.toggleIsPlaying();
+          }}
+          onPause={() => {
+            if (!usePlaylistPlayer.state.isPlaying) return;
+            usePlaylistPlayer.methods.toggleIsPlaying();
+          }}
           onEnded={() =>
             usePlaylistIndex.methods.setCurrentIndex(state => state + 1)
           }
