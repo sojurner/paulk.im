@@ -109,7 +109,7 @@ export const Explained = () => {
         <VStack alignItems="flex-start">
           <RegularText fontSize={'1.2em'}>
             Recently, a close friend of mine asked why I chose this
-            &quot;frog&quot; image for the bbout page. Then, it dawned on me
+            &quot;frog&quot; image. Then, it dawned on me
             that he was unaware of the
             <Text as="strong"> Pepe the Frog</Text> meme. I never thought
             I&apos;d find a friend who lived under a bigger rock than I did.
