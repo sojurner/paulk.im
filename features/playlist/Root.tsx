@@ -72,14 +72,8 @@ export const PlaylistControl = () => {
           onPlay={usePlaylistPlayer.methods.setIsPlaying.on}
           onPause={usePlaylistPlayer.methods.setIsPlaying.off}
           onEnded={() => {
-            usePlaylistIndex.methods.setCurrentIndex(state => {
-              if (state === usePlaylistIndex.state.playlist.length - 1) {
-                usePlaylistPlayer.methods.setIsPlaying.off();
-                return 0;
-              }
-
-              return state + 1;
-            });
+            usePlaylistIndex.methods.setCurrentIndex(state => state + 1);
+            usePlaylistPlayer.methods.setIsPlaying.on();
           }}
           onProgress={state => {
             if (usePlaylistPlayer.state.isSeeking) return;
