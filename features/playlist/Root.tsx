@@ -8,13 +8,8 @@ import {
 import ReactPlayer from 'react-player/lazy';
 import { LegacyRef, useRef } from 'react';
 import { RegularText } from '@/components/Typography';
-import {
-  MemeIcon,
-  Video,
-  SoundCloudIcon,
-  Youtube,
-  Trash,
-} from '@/components/Icon';
+import { Trash } from '@/components/Icon';
+import { TYPE_2_COMPONENT_MAPPING } from '../posts/consts';
 
 import { PlayerControls } from './PlayerControls';
 import { PlayerSeek } from './PlayerSeek';
@@ -74,17 +69,18 @@ export const PlaylistControl = () => {
                 : '100%'
               : '100px'
           }
-          onPlay={() => {
-            if (usePlaylistPlayer.state.isPlaying) return;
-            usePlaylistPlayer.methods.toggleIsPlaying();
+          onPlay={usePlaylistPlayer.methods.setIsPlaying.on}
+          onPause={usePlaylistPlayer.methods.setIsPlaying.off}
+          onEnded={() => {
+            usePlaylistIndex.methods.setCurrentIndex(state => {
+              if (state === usePlaylistIndex.state.playlist.length - 1) {
+                usePlaylistPlayer.methods.setIsPlaying.off();
+                return 0;
+              }
+
+              return state + 1;
+            });
           }}
-          onPause={() => {
-            if (!usePlaylistPlayer.state.isPlaying) return;
-            usePlaylistPlayer.methods.toggleIsPlaying();
-          }}
-          onEnded={() =>
-            usePlaylistIndex.methods.setCurrentIndex(state => state + 1)
-          }
           onProgress={state => {
             if (usePlaylistPlayer.state.isSeeking) return;
             usePlaylistPlayer.methods.setPlayed(state.played * 100);
@@ -166,6 +162,7 @@ export const PlaylistControl = () => {
             height="calc(100% - 35px)"
           >
             {usePlaylistIndex.state.playlist?.map((ITEM, index) => {
+              const Icon = TYPE_2_COMPONENT_MAPPING[ITEM.type];
               return (
                 <Flex
                   p="2"
@@ -184,10 +181,7 @@ export const PlaylistControl = () => {
                     })}
                     fontSize="1.4em"
                   >
-                    {ITEM.type === 'youtube' && <Youtube />}
-                    {ITEM.type === 'soundcloud' && <SoundCloudIcon />}
-                    {ITEM.type === 'image' && <MemeIcon />}
-                    {ITEM.type === 'misc' && <Video />}
+                    <Icon />
                     <RegularText
                       ml="2"
                       textOverflow="ellipsis"

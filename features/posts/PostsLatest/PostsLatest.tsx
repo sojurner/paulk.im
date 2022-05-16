@@ -18,7 +18,7 @@ import {
 import { useResponsiveContext } from '@/features/responsive';
 
 import { SubTitle } from '@/components/Typography';
-import { ShareLink } from '@/components/Icon';
+import { ShareLink, AddPlaylist } from '@/components/Icon';
 import { usePlaylistContext } from '@/features/playlist';
 
 import { TYPE_2_COMPONENT_MAPPING } from '../consts';
@@ -159,14 +159,14 @@ export const PostsLatest: React.VFC<
                   {POST.title}
                 </SubTitle>
                 <HStack spacing="2">
-                  {/* {POST.type !== 'image' && (
+                  {POST.type !== 'image' && (
                     <Button
                       p="1px"
                       {...(inPlaylist && {
                         disabled: true,
                       })}
                       onClick={() => {
-                        usePlaylistIndex.methods.onAdd(POST);
+                        usePlaylistIndex.methods.onAdd('push')(POST);
                         toast({
                           title: 'Added to Playlist!',
                           position: 'top',
@@ -180,7 +180,7 @@ export const PostsLatest: React.VFC<
                     >
                       <AddPlaylist />
                     </Button>
-                  )} */}
+                  )}
                   <Box
                     onClick={onTypeClick(POST.type)}
                     cursor="pointer"
@@ -196,6 +196,7 @@ export const PostsLatest: React.VFC<
                 <DynamicVideo
                   onPlay={() => {
                     usePlaylistIndex.methods.onAdd('unshift')(POST);
+                    usePlaylistPlayer.methods.setIsPlaying.on();
                   }}
                   currentlyPlaying={
                     usePlaylistIndex?.state?.currentlyPlaying?.slug ===

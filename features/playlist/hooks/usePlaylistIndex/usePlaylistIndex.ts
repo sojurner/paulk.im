@@ -7,7 +7,6 @@ export const usePlaylistIndex = () => {
   const onAdd =
     (action: 'push' | 'unshift' = 'push') =>
     (item: Models.Post) => {
-      console.log(item);
       setPlaylist(state => {
         const existingIndex = state.findIndex(ITEM => ITEM.slug === item.slug);
         if (existingIndex >= 0) {
@@ -37,7 +36,6 @@ export const usePlaylistIndex = () => {
 
   const onRemove = (idx: number) => {
     setPlaylist(state => {
-      console.log({ currentIndex, idx });
       if (currentIndex === idx) setCurrentIndex(0);
       if (idx < currentIndex) setCurrentIndex(state => state - 1);
 

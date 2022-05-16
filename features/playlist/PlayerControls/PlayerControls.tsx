@@ -18,9 +18,7 @@ export const PlayerControls: React.VFC<StackProps> = props => {
         }}
         onClick={() => {
           usePlaylistIndex.methods.setCurrentIndex(state => {
-            if (!usePlaylistPlayer.state.isPlaying) {
-              usePlaylistPlayer.methods.toggleIsPlaying();
-            }
+            usePlaylistPlayer.methods.setIsPlaying.on();
             return state - 1;
           });
         }}
@@ -30,7 +28,7 @@ export const PlayerControls: React.VFC<StackProps> = props => {
       <Button
         fontSize="2.5em"
         variant="unstyled"
-        onClick={usePlaylistPlayer.methods.toggleIsPlaying}
+        onClick={usePlaylistPlayer.methods.setIsPlaying.toggle}
         _focus={{
           outline: 'none',
         }}
@@ -49,9 +47,7 @@ export const PlayerControls: React.VFC<StackProps> = props => {
         }}
         onClick={() =>
           usePlaylistIndex.methods.setCurrentIndex(state => {
-            if (!usePlaylistPlayer.state.isPlaying) {
-              usePlaylistPlayer.methods.toggleIsPlaying();
-            }
+            usePlaylistPlayer.methods.setIsPlaying.on();
             return state + 1;
           })
         }

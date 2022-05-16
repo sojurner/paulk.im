@@ -18,7 +18,7 @@ dayjs.extend(objectSupport);
 const HomePage = props => (
   <>
     <SEO />
-    <PostsLatest gridArea="body" {...props} />;
+    <PostsLatest gridArea="body" {...props} />
   </>
 );
 

@@ -13,7 +13,7 @@ export default function Posts(props) {
   return (
     <>
       <SEO />
-      <TilRoot gridArea="body" {...props} />;
+      <TilRoot gridArea="body" {...props} />
     </>
   );
 }

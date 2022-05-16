@@ -21,15 +21,16 @@ import { SubTitle } from '@/components/Typography';
 
 import {
   ShareLink,
-  MemeIcon,
-  Video,
-  SoundCloudIcon,
-  Youtube,
+  // MemeIcon,
+  // Video,
+  // SoundCloudIcon,
+  // Youtube,
   IconWrapper,
-  // AddPlaylist,
+  AddPlaylist,
 } from '@/components/Icon';
+
 import { SelectButtonGroup } from '@/components/SelectButtonGroup/SelectButtonGroup';
-import { usePlaylistContext, usePlaylistPlayer } from '@/features/playlist';
+import { usePlaylistContext } from '@/features/playlist';
 import { TYPE_2_COMPONENT_MAPPING } from '../consts';
 
 const DynamicVideo = dynamic<any>(() =>
@@ -48,7 +49,7 @@ export const PostsType: React.VFC<
   const { usePlaylistIndex, usePlaylistPlayer } = usePlaylistContext();
   const router = useRouter();
 
-  // const canAddPlaylist = type !== 'image';
+  const canAddPlaylist = type !== 'image';
 
   const onCopyPostLink = (slug: string) => async () => {
     await navigator.clipboard.writeText(
@@ -127,9 +128,10 @@ export const PostsType: React.VFC<
       )}
       <VStack py="5" width={['95%', 540]} spacing="5">
         {posts?.map(POST => {
-          // const inPlaylist = usePlaylistIndex.state.playlist.some(
-          //   PL => PL.slug === POST.slug
-          // );
+          const inPlaylist = usePlaylistIndex.state.playlist.some(
+            PL => PL.slug === POST.slug
+          );
+          const Icon = TYPE_2_COMPONENT_MAPPING[POST.type];
 
           return (
             <Flex id={POST.slug} width="100%" key={POST.slug} flexDir="column">
@@ -149,14 +151,14 @@ export const PostsType: React.VFC<
                   {POST.title}
                 </SubTitle>
                 <HStack alignItems="center">
-                  {/* {canAddPlaylist && (
+                  {canAddPlaylist && (
                     <Button
                       p="1px"
                       {...(inPlaylist && {
                         disabled: true,
                       })}
                       onClick={() => {
-                        usePlaylistIndex.methods.onAdd()(POST);
+                        usePlaylistIndex.methods.onAdd('push')(POST);
                         toast({
                           title: 'Added to Playlist!',
                           position: 'top',
@@ -165,12 +167,12 @@ export const PostsType: React.VFC<
                           isClosable: true,
                         });
                       }}
-                      fontSize="2.5em"
+                      fontSize="2em"
                       variant="ghost"
                     >
                       <AddPlaylist />
                     </Button>
-                  )} */}
+                  )}
 
                   <Box
                     onClick={() => router.push(`/posts/type/${POST.type}`)}
@@ -178,10 +180,7 @@ export const PostsType: React.VFC<
                     py="1"
                     fontSize={'1.8em'}
                   >
-                    {POST.type === 'youtube' && <Youtube />}
-                    {POST.type === 'soundcloud' && <SoundCloudIcon />}
-                    {POST.type === 'image' && <MemeIcon />}
-                    {POST.type === 'misc' && <Video />}
+                    <Icon />
                   </Box>
                 </HStack>
               </Flex>

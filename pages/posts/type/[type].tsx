@@ -15,7 +15,7 @@ export default function ContentTypePage(props: {
   return (
     <>
       <SEO />
-      <PostsType gridArea="body" {...props} />;
+      <PostsType gridArea="body" {...props} />
     </>
   );
 }

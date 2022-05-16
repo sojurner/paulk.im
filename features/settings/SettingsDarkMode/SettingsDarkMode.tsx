@@ -14,7 +14,7 @@ export const SunRay: React.FC<{ index: number; enabled: boolean }> = ({
       display="block"
       height="125%"
       position="absolute"
-      zIndex="-1"
+      zIndex="0"
       transition="0.4s all, height 0.3s ease-in-out"
       transform={`rotate(calc(${index} * calc(360deg / ${12})))`}
       {...(enabled && {
@@ -63,6 +63,7 @@ export const SettingsDarkMode: React.FC<µSettingsDarkMode.Props> =
           borderRadius="50%"
           border="4px solid"
           borderColor="orange.50"
+          zIndex={1}
           {...(props.enabled && {
             backgroundColor: 'pink.400',
             borderColor: 'gray.900',
