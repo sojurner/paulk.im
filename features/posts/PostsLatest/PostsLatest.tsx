@@ -17,7 +17,7 @@ import {
 
 import { useResponsiveContext } from '@/features/responsive';
 
-import { SubTitle } from '@/components/Typography';
+import { SubTitle, RegularText } from '@/components/Typography';
 import { ShareLink, AddPlaylist } from '@/components/Icon';
 import { usePlaylistContext } from '@/features/playlist';
 
@@ -69,6 +69,19 @@ export const PostsLatest: React.VFC<
         if (currentPage >= pageCount) return;
 
         toggleLoading();
+        toast({
+          title: (
+            <HStack spacing="5" alignItems={'center'}>
+              <Spinner my="2" />
+              <RegularText>Getting moar...</RegularText>
+            </HStack>
+          ),
+          containerStyle: { width: 'max-content' },
+          position: 'bottom',
+          status: 'info',
+          duration: 1500,
+          isClosable: true,
+        });
 
         fetch(`/api/post/${currentPage + 1}`)
           .then(res => {
@@ -264,7 +277,6 @@ export const PostsLatest: React.VFC<
         })}
       </VStack>
       <Box height="150px" ref={bottomRef} />
-      {!loading && <Spinner my="2" />}
     </Flex>
   );
 };
