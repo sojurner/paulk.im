@@ -63,26 +63,29 @@ export const PostsLatest: React.VFC<
     let ref = bottomRef.current;
     if (!ref) return;
 
-    const io = new IntersectionObserver(([values]) => {
-      if (!values.isIntersecting) return;
-      if (currentPage >= pageCount) return;
+    const io = new IntersectionObserver(
+      ([values]) => {
+        if (!values.isIntersecting) return;
+        if (currentPage >= pageCount) return;
 
-      toggleLoading();
+        toggleLoading();
 
-      fetch(`/api/post/${currentPage + 1}`)
-        .then(res => {
-          if (!res.ok) throw new Error('something went wrong');
-          return res.json();
-        })
-        .then(({ response }: { response: { posts: Models.Post[] } }) => {
-          setPosts(state => [...state, ...response.posts]);
-          setCurrentPage(state => state + 1);
-        })
-        .catch(err => {
-          console.error(err);
-        })
-        .finally(toggleLoading);
-    });
+        fetch(`/api/post/${currentPage + 1}`)
+          .then(res => {
+            if (!res.ok) throw new Error('something went wrong');
+            return res.json();
+          })
+          .then(({ response }: { response: { posts: Models.Post[] } }) => {
+            setPosts(state => [...state, ...response.posts]);
+            setCurrentPage(state => state + 1);
+          })
+          .catch(err => {
+            console.error(err);
+          })
+          .finally(toggleLoading);
+      },
+      { threshold: 0.1 }
+    );
 
     io.observe(ref);
 
@@ -260,8 +263,8 @@ export const PostsLatest: React.VFC<
           );
         })}
       </VStack>
-      <Box ref={bottomRef} />
-      {loading && <Spinner my="2" />}
+      <Box height="150px" ref={bottomRef} />
+      {!loading && <Spinner my="2" />}
     </Flex>
   );
 };
