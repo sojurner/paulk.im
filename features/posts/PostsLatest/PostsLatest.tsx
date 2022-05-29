@@ -79,7 +79,7 @@ export const PostsLatest: React.VFC<
           containerStyle: { width: 'max-content' },
           position: 'bottom',
           status: 'info',
-          duration: 1500,
+          duration: 2000,
           isClosable: true,
         });
 
@@ -191,7 +191,7 @@ export const PostsLatest: React.VFC<
                           isClosable: true,
                         });
                       }}
-                      fontSize="2.5em"
+                      fontSize="2em"
                       variant="ghost"
                     >
                       <AddPlaylist />
