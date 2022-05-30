@@ -11,7 +11,7 @@ import {
 } from '@/lib/graphcms';
 
 import { SEO } from '@/components/SEO';
-import { HomeRoot } from '@/features/Home';
+import { HomeRoot } from '@/features/home';
 
 dayjs.extend(objectSupport);
 
