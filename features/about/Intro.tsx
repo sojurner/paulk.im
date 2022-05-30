@@ -11,7 +11,7 @@ export const Intro = () => {
       <RegularText mt="3" fontSize={'1.2em'}>
         Here is my current list of tech know-hows:
       </RegularText>
-      <Skillset />
+      <Skillset width={['95%', 540]} />
     </>
   );
 };

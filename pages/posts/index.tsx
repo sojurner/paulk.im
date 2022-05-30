@@ -10,20 +10,20 @@ import {
   POSTS_AGGREGATE_QUERY,
 } from '@/lib/graphcms';
 
+import { PostsLatest } from '@/features/posts';
 import { SEO } from '@/components/SEO';
-import { HomeRoot } from '@/features/Home';
 
 dayjs.extend(objectSupport);
 
-const HomePage = props => (
+const HomePage = (props: any) => (
   <>
     <SEO />
-    <HomeRoot gridArea="body" />
+    <PostsLatest gridArea="body" {...props} />
   </>
 );
 
 export async function getStaticProps() {
-  const response = await request({
+  const response: any = await request({
     query: `{
       ${POSTS_QUERY({ first: 25, skip: 0 })}
       ${POSTS_AGGREGATE_QUERY}
@@ -31,17 +31,12 @@ export async function getStaticProps() {
     }`,
   });
 
-  const results = response.posts.map(POST => {
-    return {
-      ...POST,
-      uploadDate: dayjs(POST?.uploadDate).format('MMM D, YYYY'),
-    };
-  });
-
-  const tags = response.tags.enumValues.map(TAG => TAG.name);
+  const tags = response.tags.enumValues.map(
+    (TAG: { name: string }) => TAG.name
+  );
   const pageCount = Math.ceil(response.postsConnection.aggregate.count / 25);
 
-  return { props: { results, pageCount, tags } };
+  return { props: { results: response.posts, pageCount, tags } };
 }
 
 export default HomePage;

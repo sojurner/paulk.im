@@ -26,7 +26,7 @@ export const DesktopLayout: React.FC<µLayout.Props> = props => {
       gridTemplateColumns={['1fr 1fr 1fr', '60px auto auto']}
       gridTemplateRows={['40px auto', 'auto']}
     >
-      <GridItem gridArea="sidebar">
+      <GridItem zIndex="100000" gridArea="sidebar">
         <Sidebar flexDir={{ sm: 'row', md: 'column' }} />
       </GridItem>
       <GridItem gridArea="content" background={contentBG}>
