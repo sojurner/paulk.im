@@ -10,7 +10,7 @@ import {
 import { useResponsiveContext } from '@/features/responsive';
 
 import { SidebarTab } from '@/components/Tab';
-import { Logo, IdeaIcon, Pepe, IconWrapper } from '@/components/Icon';
+import { Logo, IdeaIcon, Pepe, MemeIcon, IconWrapper } from '@/components/Icon';
 
 import { µSidebar } from '.';
 import { SettingsDarkMode } from '@/features/settings/SettingsDarkMode';
@@ -50,6 +50,27 @@ export const Sidebar: React.FC<µSidebar.Props> = props => {
               >
                 <IconWrapper isActive={router.asPath === '/'}>
                   <Logo />
+                </IconWrapper>
+              </SidebarTab>
+            </Tooltip>
+          </div>
+        </NextLink>
+        <NextLink href="/posts">
+          <div>
+            <Tooltip
+              label="Media Posts"
+              placement="right"
+              color="white"
+              hasArrow
+              bg={colorMode === 'light' ? 'blue.900' : 'gray.600'}
+            >
+              <SidebarTab
+                fontSize={['1.4em', '2em']}
+                isActive={router.asPath === '/posts'}
+                width={['50px', '100%']}
+              >
+                <IconWrapper isActive={router.asPath === '/posts'}>
+                  <MemeIcon />
                 </IconWrapper>
               </SidebarTab>
             </Tooltip>

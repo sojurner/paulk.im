@@ -1,8 +1,8 @@
-import { Flex, Tag } from '@chakra-ui/react';
+import { Flex, FlexProps, Tag } from '@chakra-ui/react';
 
-export const Skillset = () => {
+export const Skillset: React.FC<FlexProps> = props => {
   return (
-    <Flex mt="4" flexWrap="wrap" width={['95%', 540]}>
+    <Flex mt="4" flexWrap="wrap" {...props}>
       {[
         'React',
         'NextJS',
@@ -15,12 +15,7 @@ export const Skillset = () => {
         'PostgreSQL',
       ]?.map(TAG => {
         return (
-          <Tag
-            key={`header-${TAG}`}
-            variant="outline"
-            my="1"
-            mr="2"
-          >
+          <Tag key={`header-${TAG}`} variant="outline" my="1" mr="2">
             {TAG}
           </Tag>
         );
