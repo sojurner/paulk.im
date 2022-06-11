@@ -1,19 +1,13 @@
 import { Box, Code, Flex, HStack, useColorModeValue } from '@chakra-ui/react';
-import NextLink from 'next/link';
 
-import { BoldText, Title } from '@/components/Typography';
+import { Title } from '@/components/Typography';
 import Particles from 'react-tsparticles';
 import { loadFull } from 'tsparticles';
-import {
-  IconWrapper,
-  PkAvatar,
-  MemeIcon,
-  IdeaIcon,
-  Pepe,
-} from '@/components/Icon';
+import { IconWrapper, PkAvatar } from '@/components/Icon';
 
 import { Skillset } from '@/features/about/Skillset';
-import { particleOptions } from '../consts';
+import { particleOptions } from './consts';
+import { IconPageLink } from './components';
 
 export const HomeRoot = () => {
   const background = useColorModeValue('#FFF', '#19202C');
@@ -85,60 +79,9 @@ export const HomeRoot = () => {
             justifyContent="center"
             alignItems="flex-start"
           >
-            <NextLink href="/posts">
-              <div>
-                <IconWrapper
-                  cursor="pointer"
-                  display="flex"
-                  flexDir="column"
-                  alignItems="center"
-                  justifyContent="center"
-                  textAlign="center"
-                  width="100px"
-                  fontSize="2.1em"
-                  _hover={{ textDecor: 'underline' }}
-                >
-                  <MemeIcon />
-                  <BoldText fontSize="md">Posts</BoldText>
-                </IconWrapper>
-              </div>
-            </NextLink>
-            <NextLink href="/tils">
-              <div>
-                <IconWrapper
-                  display="flex"
-                  cursor="pointer"
-                  flexDir="column"
-                  alignItems="center"
-                  justifyContent="center"
-                  textAlign="center"
-                  width="100px"
-                  fontSize="2.1em"
-                  _hover={{ textDecor: 'underline' }}
-                >
-                  <IdeaIcon />
-                  <BoldText fontSize="md">Today I Learned</BoldText>
-                </IconWrapper>
-              </div>
-            </NextLink>
-            <NextLink href="/about">
-              <div>
-                <IconWrapper
-                  display="flex"
-                  cursor="pointer"
-                  flexDir="column"
-                  alignItems="center"
-                  justifyContent="center"
-                  textAlign="center"
-                  width="100px"
-                  fontSize="2.1em"
-                  _hover={{ textDecor: 'underline' }}
-                >
-                  <Pepe />
-                  <BoldText fontSize="md">About</BoldText>
-                </IconWrapper>
-              </div>
-            </NextLink>
+            <IconPageLink href="/posts" variant={'Media Feed'} />
+            <IconPageLink href="/tils" variant={'Today I Learned'} />
+            <IconPageLink href="/about" variant={'About'} />
           </HStack>
         </Box>
         <Particles

@@ -12,10 +12,10 @@ import { useResponsiveContext } from '@/features/responsive';
 import { SidebarTab } from '@/components/Tab';
 import { Logo, IdeaIcon, Pepe, MemeIcon, IconWrapper } from '@/components/Icon';
 
-import { µSidebar } from '.';
+import { Types } from '.';
 import { SettingsDarkMode } from '@/features/settings/SettingsDarkMode';
 
-export const Sidebar: React.FC<µSidebar.Props> = props => {
+export const Sidebar: React.FC<Types.Props> = props => {
   const router = useRouter();
   const [_] = router.asPath.split('/');
   const { mediaQueries } = useResponsiveContext();

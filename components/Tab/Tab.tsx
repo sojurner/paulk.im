@@ -3,9 +3,9 @@ import React from 'react';
 import { Center, useColorModeValue } from '@chakra-ui/react';
 import { RegularText } from '@/components/Typography';
 
-import { µTab } from '.';
+import { Types } from '.';
 
-export const AppbarTab: React.FC<µTab.Props> = ({
+export const AppbarTab: React.FC<Types.Props> = ({
   isActive,
   children,
   ...props
@@ -41,7 +41,7 @@ export const AppbarTab: React.FC<µTab.Props> = ({
 // eslint-disable-next-line react/display-name
 export const SidebarTab =
   // eslint-disable-next-line react/display-name
-  React.forwardRef<HTMLDivElement, µTab.Props>(
+  React.forwardRef<HTMLDivElement, Types.Props>(
     ({ isActive, ...props }, ref) => {
       const bg = useColorModeValue('blue.50', 'blue.900');
 
