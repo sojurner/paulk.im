@@ -26,15 +26,15 @@ export const HomeRoot = () => {
         width={['95%', '560px']}
       >
         <Box zIndex="tooltip" pos="relative">
-          <Flex>
+          <Flex justifyContent="center">
             <IconWrapper
-              height={['150px', '210px']}
-              width={['149px', '209px']}
+              height={['135px', '165px']}
+              width={['135px', '165px']}
               borderRadius="full"
               border="3px solid"
               borderColor="blackAlpha.500"
               overflow="hidden"
-              fontSize={['9em', '13em']}
+              fontSize={['8em', '10em']}
             >
               <PkAvatar />
             </IconWrapper>
@@ -70,8 +70,8 @@ export const HomeRoot = () => {
               </Code>
             </Flex>
           </Flex>
-          <Box m="auto" width={['70%', '60%']} pos="relative">
-            <Skillset />
+          <Box m="30px auto 10px auto" width={['70%', '60%']} pos="relative">
+            <Skillset justifyContent="center" />
           </Box>
           <HStack
             mt="10"
