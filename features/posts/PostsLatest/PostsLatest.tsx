@@ -13,6 +13,8 @@ import {
   useToast,
   Button,
   Spinner,
+  Alert,
+  AlertTitle,
 } from '@chakra-ui/react';
 
 import { useResponsiveContext } from '@/features/responsive';
@@ -69,19 +71,6 @@ export const PostsLatest: React.VFC<
         if (currentPage >= pageCount) return;
 
         toggleLoading();
-        toast({
-          title: (
-            <HStack spacing="5" alignItems={'center'}>
-              <Spinner my="2" />
-              <RegularText>Getting moar...</RegularText>
-            </HStack>
-          ),
-          containerStyle: { width: 'max-content' },
-          position: 'bottom',
-          status: 'info',
-          duration: 2000,
-          isClosable: true,
-        });
 
         fetch(`/api/post/${currentPage + 1}`)
           .then(res => {
@@ -92,8 +81,14 @@ export const PostsLatest: React.VFC<
             setPosts(state => [...state, ...response.posts]);
             setCurrentPage(state => state + 1);
           })
-          .catch(err => {
-            console.error(err);
+          .catch(() => {
+            toast({
+              title: 'Failed to get moar',
+              position: 'top',
+              status: 'error',
+              duration: 4000,
+              isClosable: true,
+            });
           })
           .finally(toggleLoading);
       },
@@ -277,6 +272,21 @@ export const PostsLatest: React.VFC<
         })}
       </VStack>
       <Box height="150px" ref={bottomRef} />
+      {loading && (
+        <Alert
+          variant="solid"
+          status="info"
+          width="max-content"
+          pos="fixed"
+          bottom="5px"
+          borderRadius="10px"
+        >
+          <HStack spacing="5" alignItems={'center'}>
+            <Spinner my="2" />
+            <AlertTitle>Getting Moar</AlertTitle>
+          </HStack>
+        </Alert>
+      )}
     </Flex>
   );
 };
