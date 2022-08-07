@@ -17,7 +17,7 @@ import IdeaIcon from '@/assets/icons/Idea.svg';
 
 import LinkedinIcon from '@/assets/icons/Linkedin.svg';
 import Logo from '@/assets/icons/Logo.svg';
-import PkAvatar from '@/assets/icons/PkAvatar.svg';
+import LiveSimplyBear from '@/assets/icons/LiveSimplyBear.svg';
 
 import MemeIcon from '@/assets/icons/Meme.svg';
 import Pepe from '@/assets/icons/Pepe.svg';
@@ -95,5 +95,5 @@ export {
   MediaPause,
   MediaFullscreen,
   Trash,
-  PkAvatar,
+  LiveSimplyBear,
 };

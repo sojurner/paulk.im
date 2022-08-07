@@ -3,7 +3,7 @@ import { Box, Code, Flex, HStack, useColorModeValue } from '@chakra-ui/react';
 import { Title } from '@/components/Typography';
 import Particles from 'react-tsparticles';
 import { loadFull } from 'tsparticles';
-import { IconWrapper, PkAvatar } from '@/components/Icon';
+import { IconWrapper, LiveSimplyBear } from '@/components/Icon';
 
 import { Skillset } from '@/features/about/Skillset';
 import { particleOptions } from './consts';
@@ -36,7 +36,7 @@ export const HomeRoot = () => {
               overflow="hidden"
               fontSize={['8em', '10em']}
             >
-              <PkAvatar />
+              <LiveSimplyBear />
             </IconWrapper>
             <Flex bg={'#FF00860'} ml="4" flexDir="column" mt="4">
               <HStack>
