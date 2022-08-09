@@ -279,6 +279,7 @@ export const PostsLatest: React.VFC<
           width="max-content"
           pos="fixed"
           bottom="5px"
+          zIndex="tooltip"
           borderRadius="10px"
         >
           <HStack spacing="5" alignItems={'center'}>
