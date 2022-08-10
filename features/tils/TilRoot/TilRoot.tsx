@@ -1,14 +1,20 @@
-import React from 'react';
+import React, { useReducer } from 'react';
 import {
   VStack,
   Box,
-  Flex,
   HStack,
   Input,
   InputGroup,
   InputLeftElement,
   useColorModeValue,
   useColorMode,
+  Portal,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalOverlay,
+  ModalHeader,
+  ModalCloseButton,
 } from '@chakra-ui/react';
 
 import { useResponsiveContext } from '@/features/responsive';
@@ -19,7 +25,7 @@ import { LatestTIL } from '../LatestTIL';
 import { SubTitle } from '@/components/Typography';
 import { IconWrapper, IdeaIcon } from '@/components/Icon';
 import { useFavoritesContext } from '@/features/favorites';
-import { SearchIcon } from '@/components/Icon';
+import { SearchIcon, ConfusedTravolta } from '@/components/Icon';
 import { useSearchQuery, useFlexSearch } from '@/features/search';
 
 export const TilRoot: React.FC<µTilRoot.Props> = ({ tils, ...props }) => {
@@ -30,6 +36,7 @@ export const TilRoot: React.FC<µTilRoot.Props> = ({ tils, ...props }) => {
   });
   const { collapsible, mediaQueries } = useResponsiveContext();
   const favoritesCxt = useFavoritesContext();
+  const [showModal, toggleModal] = useReducer(state => !state, false);
 
   const onFavoriteClick = React.useCallback((slug: string) => {
     favoritesCxt.methods.onFavoriteToggle(slug);
@@ -38,6 +45,10 @@ export const TilRoot: React.FC<µTilRoot.Props> = ({ tils, ...props }) => {
   React.useEffect(() => {
     Prism.highlightAll();
   }, []);
+
+  const inputBg = useColorModeValue('gray.50', 'gray.900');
+  const outlineColor = useColorModeValue('gray.500', 'orange.300');
+  const svgFill = useColorModeValue('black', 'white');
 
   return (
     <VStack
@@ -67,11 +78,13 @@ export const TilRoot: React.FC<µTilRoot.Props> = ({ tils, ...props }) => {
           <SearchIcon />
         </InputLeftElement>
         <Input
+          onClick={toggleModal}
+          readOnly
           variant="filled"
-          background={useColorModeValue('gray.50', 'gray.900')}
+          background={inputBg}
           outline={'1px solid'}
           focusBorderColor={'none'}
-          outlineColor={useColorModeValue('gray.500', 'orange.300')}
+          outlineColor={outlineColor}
           value={searchQuery.state.inputValue}
           placeholder="search by title"
           onChange={e =>
@@ -79,39 +92,83 @@ export const TilRoot: React.FC<µTilRoot.Props> = ({ tils, ...props }) => {
           }
         />
       </InputGroup>
-      {!!searchQuery.state.inputValue &&
-        !!searchQuery.state?.suggestions &&
-        searchQuery.state.suggestions.map(SUGG => {
-          return (
-            <Box key={SUGG.doc.slug} width={['95%', 700]}>
-              <LatestTIL
-                query={searchQuery.state.inputValue}
-                isFavorited={favoritesCxt.state.favorites[SUGG.doc.slug]}
-                onFavoriteClick={onFavoriteClick}
-                isLight={colorMode === 'light'}
-                til={SUGG.doc}
-              />
-            </Box>
-          );
-        })}
-      {!!searchQuery.state.inputValue &&
-        !searchQuery.state?.suggestions?.length && (
-          <SubTitle>No results</SubTitle>
-        )}
-      {!!!searchQuery.state.inputValue &&
-        tils.map(TIL => {
-          return (
-            <Box key={TIL.slug} width={['95%', 700]}>
-              <LatestTIL
-                query={searchQuery.state.inputValue}
-                isFavorited={favoritesCxt.state.favorites[TIL.slug]}
-                isLight={colorMode === 'light'}
-                onFavoriteClick={onFavoriteClick}
-                til={TIL}
-              />
-            </Box>
-          );
-        })}
+      {tils.map(TIL => {
+        return (
+          <Box key={TIL.slug} width={['95%', 700]}>
+            <LatestTIL
+              query={searchQuery.state.inputValue}
+              isFavorited={favoritesCxt.state.favorites[TIL.slug]}
+              isLight={colorMode === 'light'}
+              onFavoriteClick={onFavoriteClick}
+              til={TIL}
+            />
+          </Box>
+        );
+      })}
+      {showModal && (
+        <Modal
+          isOpen={showModal}
+          onClose={() => {
+            searchQuery.methods.onQueryChange('');
+            toggleModal();
+          }}
+        >
+          <ModalOverlay />
+          <ModalContent minWidth={['95%', 700]}>
+            <ModalCloseButton />
+            <ModalHeader>
+              <InputGroup width="95%">
+                <InputLeftElement pointerEvents="none">
+                  <SearchIcon />
+                </InputLeftElement>
+                <Input
+                  autoFocus
+                  variant="filled"
+                  focusBorderColor={'none'}
+                  value={searchQuery.state.inputValue}
+                  placeholder="search by title"
+                  onChange={e =>
+                    searchQuery.methods.onQueryChange(e?.currentTarget?.value)
+                  }
+                />
+              </InputGroup>
+            </ModalHeader>
+            <ModalBody>
+              {!!searchQuery.state.inputValue &&
+                !!searchQuery.state?.suggestions &&
+                searchQuery.state.suggestions.map(SUGG => {
+                  return (
+                    <Box key={SUGG.doc.slug} width={['95%', '100%']}>
+                      <LatestTIL
+                        query={searchQuery.state.inputValue}
+                        isFavorited={
+                          favoritesCxt.state.favorites[SUGG.doc.slug]
+                        }
+                        onFavoriteClick={onFavoriteClick}
+                        isLight={colorMode === 'light'}
+                        til={SUGG.doc}
+                      />
+                    </Box>
+                  );
+                })}
+              {!!searchQuery.state.inputValue &&
+                !searchQuery.state?.suggestions?.length && (
+                  <Box
+                    display="flex"
+                    alignItems="center"
+                    flexDirection="column"
+                    justifyContent="center"
+                    position="relative"
+                    color={svgFill}
+                    fontSize="20em"
+                  >
+                    <ConfusedTravolta />
+                  </Box>
+                )}
+            </ModalBody>
+          </ModalContent>
+        </Modal>
+      )}
     </VStack>
   );
 };
