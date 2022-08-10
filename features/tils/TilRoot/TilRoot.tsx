@@ -134,37 +134,39 @@ export const TilRoot: React.FC<µTilRoot.Props> = ({ tils, ...props }) => {
               </InputGroup>
             </ModalHeader>
             <ModalBody>
-              {!!searchQuery.state.inputValue &&
-                !!searchQuery.state?.suggestions &&
-                searchQuery.state.suggestions.map(SUGG => {
-                  return (
-                    <Box key={SUGG.doc.slug} width={['95%', '100%']}>
-                      <LatestTIL
-                        query={searchQuery.state.inputValue}
-                        isFavorited={
-                          favoritesCxt.state.favorites[SUGG.doc.slug]
-                        }
-                        onFavoriteClick={onFavoriteClick}
-                        isLight={colorMode === 'light'}
-                        til={SUGG.doc}
-                      />
+              <VStack spacing={4}>
+                {!!searchQuery.state.inputValue &&
+                  !!searchQuery.state?.suggestions &&
+                  searchQuery.state.suggestions.map(SUGG => {
+                    return (
+                      <Box key={SUGG.doc.slug} width={['95%', '100%']}>
+                        <LatestTIL
+                          query={searchQuery.state.inputValue}
+                          isFavorited={
+                            favoritesCxt.state.favorites[SUGG.doc.slug]
+                          }
+                          onFavoriteClick={onFavoriteClick}
+                          isLight={colorMode === 'light'}
+                          til={SUGG.doc}
+                        />
+                      </Box>
+                    );
+                  })}
+                {!!searchQuery.state.inputValue &&
+                  !searchQuery.state?.suggestions?.length && (
+                    <Box
+                      display="flex"
+                      alignItems="center"
+                      flexDirection="column"
+                      justifyContent="center"
+                      position="relative"
+                      color={svgFill}
+                      fontSize="20em"
+                    >
+                      <ConfusedTravolta />
                     </Box>
-                  );
-                })}
-              {!!searchQuery.state.inputValue &&
-                !searchQuery.state?.suggestions?.length && (
-                  <Box
-                    display="flex"
-                    alignItems="center"
-                    flexDirection="column"
-                    justifyContent="center"
-                    position="relative"
-                    color={svgFill}
-                    fontSize="20em"
-                  >
-                    <ConfusedTravolta />
-                  </Box>
-                )}
+                  )}
+              </VStack>
             </ModalBody>
           </ModalContent>
         </Modal>
